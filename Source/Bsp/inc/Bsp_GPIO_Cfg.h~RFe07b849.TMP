@@ -1,0 +1,459 @@
+/*=============================================================================
+*  Copyright (C) ".2016 " All rights reserved.
+*
+*  文件名："Bsp_GPIO_Cfg.h"
+*  作者：zz  (zhangzhen123good@163.com)
+*  创建时间：2016年07月25日 
+*  修改时间：
+*  说明：
+*
+==============================================================================*/
+
+
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __BSP_GPIO_CFG_H
+#define __BSP_GPIO_CFG_H
+
+#ifdef __cplusplus
+ extern "C" {
+#endif 
+
+	 
+/* Includes ------------------------------------------------------------------*/
+#include "stm32f4xx.h"
+	 
+/* 直接操作寄存器的方法控制IO */
+#define	digitalHi(p,i)			 {p->BSRRL=i;}		//设置为高电平
+#define digitalLo(p,i)			 {p->BSRRH=i;}		//输出低电平
+#define digitalToggle(p,i)	 {p->ODR ^=i;}		//输出反转状态	 
+	 
+
+//LED GPIO宏定义
+#define  LEDG_PORT_CLK          RCC_AHB1Periph_GPIOD
+#define  LEDG_PORT              GPIOD
+#define  LED_GREEN_PIN	       GPIO_Pin_3
+
+#define  LEDR_PORT_CLK          RCC_AHB1Periph_GPIOE
+#define  LEDR_PORT              GPIOE
+#define  LED_RED_PIN	         GPIO_Pin_6
+
+#define  LED_TEST_PORT_CLK          RCC_AHB1Periph_GPIOD
+#define  LED_TEST_PORT              GPIOD
+#define  LED_TEST_PIN	              GPIO_Pin_0
+				
+#define LED_RED_TOGGLE			digitalToggle(LEDR_PORT, LED_RED_PIN)
+#define LED_RED_ON			    digitalHi(LEDR_PORT, LED_RED_PIN)
+#define LED_RED_OFF			    digitalLo(LEDR_PORT, LED_RED_PIN)
+
+#define LED_GREEN_TOGGLE		digitalToggle(LEDG_PORT, LED_GREEN_PIN)
+#define LED_GREEN_ON			  digitalHi(LEDG_PORT, LED_GREEN_PIN)
+#define LED_GREEN_OFF			  digitalLo(LEDG_PORT, LED_GREEN_PIN)
+
+#define LED_TEST_TOGGLE      digitalToggle(LED_TEST_PORT, LED_TEST_PIN)
+#define LED_TEST_ON			    GPIO_SetBits(LED_TEST_PORT, LED_TEST_PIN)
+#define LED_TEST_OFF			  GPIO_ResetBits(LED_TEST_PORT, LED_TEST_PIN)
+
+
+// BEEP
+#define  BEEP_PORT_CLK                RCC_AHB1Periph_GPIOB
+#define  BEEP_PORT                    GPIOB
+#define  BEEP_PIN                     GPIO_Pin_13
+       
+#define  BEEP_ENABLE                  GPIO_SetBits(BEEP_PORT, BEEP_PIN);
+#define  BEEP_DISABLE                 GPIO_ResetBits(BEEP_PORT, BEEP_PIN);
+
+
+#define   BEEP_TOGGLE		   digitalToggle(BEEP_PORT,BEEP_PIN)
+#define   BEEP_ON		       digitalHi(BEEP_PORT, BEEP_PIN)
+#define   BEEP_OFF				 digitalLo(BEEP_PORT, BEEP_PIN)	 
+
+#define  ON  0
+#define  OFF 1
+
+// PWM
+#define  CHABC_PORT_CLK                RCC_AHB1Periph_GPIOA
+#define  CHABC_PORT                    GPIOA
+#define  CHA_PIN                     GPIO_Pin_4
+#define  CHB_PIN                     GPIO_Pin_5
+#define  CHC_PIN                     GPIO_Pin_6
+
+#define  CHA_SET                  GPIO_SetBits(CHABC_PORT, CHA_PIN);
+#define  CHA_RESET                 GPIO_ResetBits(CHABC_PORT, CHA_PIN);
+
+#define  CHB_SET                  GPIO_SetBits(CHABC_PORT, CHB_PIN);
+#define  CHB_RESET                 GPIO_ResetBits(CHABC_PORT, CHB_PIN);
+
+#define  CHC_SET                  GPIO_SetBits(CHABC_PORT, CHC_PIN);
+#define  CHC_RESET                 GPIO_ResetBits(CHABC_PORT, CHC_PIN);
+
+
+//charging control
+#define  EN_CHG_PORT_CLK                RCC_AHB1Periph_GPIOE
+#define  EN_CHG_PORT                    GPIOE
+#define  EN_CHG_PIN                     GPIO_Pin_9
+       
+#define  EN_CHG_ENABLE                  GPIO_ResetBits(EN_CHG_PORT, EN_CHG_PIN);
+#define  EN_CHG_DISABLE                 GPIO_SetBits(EN_CHG_PORT, EN_CHG_PIN);
+
+
+// OUT CONTROL
+#define  EN_OUT_PORT_CLK                RCC_AHB1Periph_GPIOA
+#define  EN_OUT_PORT                    GPIOA
+#define  EN_OUT_PIN                     GPIO_Pin_0
+       
+#define  EN_OUT_ENABLE                  GPIO_SetBits(EN_OUT_PORT, EN_OUT_PIN);
+#define  EN_OUT_DISABLE                 GPIO_ResetBits(EN_OUT_PORT, EN_OUT_PIN);
+
+// POWER SWITCH CHECK
+#define  POWERKEY_PORT_CLK                RCC_AHB1Periph_GPIOA
+#define  POWERKEY_PORT                    GPIOA
+#define  POWERKEY_PIN                     GPIO_Pin_1
+       
+
+#define POWERKEY_IN       GPIO_ReadInputDataBit(POWERKEY_PORT,POWERKEY_PIN)
+// POWER SWITCH CHECK    RCC_AHB1Periph_GPIOD
+
+#define  VOICE_EN_CLK	   RCC_AHB1Periph_GPIOB
+#define  VOICE_EN_PORT       GPIOB
+#define  VOICE_EN_PIN        GPIO_Pin_0
+
+#define VOICE_EN_READ       GPIO_ReadInputDataBit(VOICE_EN_PORT,VOICE_EN_PIN)
+
+// OUT CONTROL
+#define  EN_DC12V_PORT_CLK                RCC_AHB1Periph_GPIOE
+#define  EN_DC12V_PORT                    GPIOE
+#define  EN_DC12V_PIN                     GPIO_Pin_2
+       
+#define  EN_DC12V_ENABLE                  GPIO_SetBits(EN_DC12V_PORT, EN_DC12V_PIN);
+#define  EN_DC12V_DISABLE                 GPIO_ResetBits(EN_DC12V_PORT, EN_DC12V_PIN);
+
+//PC机开关GPIO宏定义
+//#define  PC_STARTUP_CLK          RCC_AHB1Periph_GPIOD
+//#define  PC_STARTUP_PORT              GPIOD
+//#define  PC_STARTUP_PIN	         GPIO_Pin_6
+
+#define  PC_STARTUP_CLK          RCC_AHB1Periph_GPIOA
+#define  PC_STARTUP_PORT              GPIOA
+#define  PC_STARTUP_PIN	         GPIO_Pin_4
+
+#define PC_STARTUP_ON    0
+#define PC_STARTUP_OFF   1
+
+#define PC_STARTUP_HIGH			  GPIO_SetBits(PC_STARTUP_PORT,PC_STARTUP_PIN);
+#define PC_STARTUP_LOW			    GPIO_ResetBits(PC_STARTUP_PORT,PC_STARTUP_PIN);
+
+
+//PC机复位GPIO宏定义
+//#define  PC_RESET_CLK          RCC_AHB1Periph_GPIOD
+//#define  PC_RESET_PORT              GPIOD
+//#define  PC_RESET_PIN	         GPIO_Pin_7
+
+#define  PC_RESET_CLK          RCC_AHB1Periph_GPIOF
+#define  PC_RESET_PORT              GPIOF
+#define  PC_RESET_PIN	         GPIO_Pin_8
+
+#define RESET_ON       0
+#define RESET_OFF      1
+
+#define PC_RESET_HIGH			   GPIO_SetBits(PC_RESET_PORT,PC_RESET_PIN);
+#define PC_RESET_LOW			    GPIO_ResetBits(PC_RESET_PORT,PC_RESET_PIN);
+
+
+// 电机控制GPIO宏定义
+#define  MOTO_LEFT_DIR_CLK       RCC_AHB1Periph_GPIOD
+#define  MOTO_LEFT_DIR_PORT           GPIOD
+#define  MOTO_LEFT_DIR_PIN       GPIO_Pin_8
+
+// 电机控制GPIO宏定义
+#define  MOTO_LEFT_PORT_CLK       RCC_AHB1Periph_GPIOD
+#define  MOTO_LEFT_PORT           GPIOD
+#define  MOTO_LEFT_EN_PIN       GPIO_Pin_9
+//#define  MOTO_LEFT_DIR_PIN        GPIO_Pin_5     // Dir
+
+
+
+
+#define  MOTO_RIGHT_PORT_CLK       RCC_AHB1Periph_GPIOD
+#define  MOTO_RIGHT_PORT           GPIOD
+#define  MOTO_RIGHT_DIR_PIN       GPIO_Pin_10      // Dir
+#define  MOTO_RIGHT_EN_PIN       GPIO_Pin_11
+
+
+#define  MOTO_LEFT_EN_ENABLE    		  GPIO_ResetBits(MOTO_LEFT_PORT,MOTO_LEFT_EN_PIN);
+#define  MOTO_LEFT_EN_DISABLE         GPIO_SetBits(MOTO_LEFT_PORT,MOTO_LEFT_EN_PIN);
+
+#define  MOTO_RIGHT_EN_ENABLE         GPIO_ResetBits(MOTO_RIGHT_PORT,MOTO_RIGHT_EN_PIN);
+#define  MOTO_RIGHT_EN_DISABLE        GPIO_SetBits(MOTO_RIGHT_PORT,MOTO_RIGHT_EN_PIN);
+
+#define  MOTO_LEFT_DIR_FRONT    		    GPIO_SetBits(MOTO_LEFT_DIR_PORT,MOTO_LEFT_DIR_PIN);
+#define  MOTO_LEFT_DIR_BACK            GPIO_ResetBits(MOTO_LEFT_DIR_PORT,MOTO_LEFT_DIR_PIN);
+
+#define  MOTO_RIGHT_DIR_FRONT          GPIO_ResetBits(MOTO_RIGHT_PORT,MOTO_RIGHT_DIR_PIN);
+#define  MOTO_RIGHT_DIR_BACK           GPIO_SetBits(MOTO_RIGHT_PORT,MOTO_RIGHT_DIR_PIN);
+
+
+//MOTO_UPDOWN
+#define LIFTMOTO_PORT_CLK     			RCC_AHB1Periph_GPIOB
+#define LIFTMOTO_PORT							GPIOB
+
+#define LIFTMOTO_EN_PIN						GPIO_Pin_6
+#define LIFTMOTO_DIR_PIN						GPIO_Pin_5
+#define LIFTMOTO_PWM_PIN						GPIO_Pin_7
+
+#define LIFTMOTO_ENABLE						GPIO_ResetBits(LIFTMOTO_PORT,LIFTMOTO_EN_PIN);
+#define LIFTMOTO_DISABLE						GPIO_SetBits(LIFTMOTO_PORT,LIFTMOTO_EN_PIN);
+
+#define LIFTMOTO_UP         				GPIO_SetBits(LIFTMOTO_PORT,LIFTMOTO_DIR_PIN);
+#define LIFTMOTO_DOWN								GPIO_ResetBits(LIFTMOTO_PORT,LIFTMOTO_DIR_PIN);
+#define LIFTMOTO_PWM_EN	            GPIO_ResetBits (LIFTMOTO_PORT,LIFTMOTO_PWM_PIN);
+
+/********************************************************
+* 红外解码GPIO,定义为外部中断
+* PC10 -> IRCODE_BM_PIN 中间红外管解码IO
+* PC11 -> IRCODE_BR_PIN 右边红外管解码IO
+* PA15 -> IRCODE_BL_PIN 左边红外管解码IO
+********************************************************/	
+#define IRCODE_PORT_CLK     RCC_AHB1Periph_GPIOE
+#define IRCODE_PORT         GPIOE
+
+#define IRCODE_BL_PIN       GPIO_Pin_7
+#define IRCODE_BR_PIN       GPIO_Pin_8
+
+#define EXIT_SOURCE_IRPORT  EXTI_PortSourceGPIOE
+
+#define EXTI_SOURCE_IRBL    EXTI_PinSource7
+#define EXTI_SOURCE_IRBR    EXTI_PinSource8
+
+#define EXTI_LINE_IRBL    EXTI_Line7
+#define EXTI_LINE_IRBR    EXTI_Line8	
+
+
+/********************************************************
+* 红外避障IO初始化
+* PC10 -> IRCODE_BM_PIN 中间红外管解码IO
+* PC11 -> IRCODE_BR_PIN 右边红外管解码IO
+* PA15 -> IRCODE_BL_PIN 左边红外管解码IO
+********************************************************/	
+
+#define OBSTACLE_FRONT_CLK	 RCC_AHB1Periph_GPIOD
+#define OBSTACLE_FRONT_PORT     GPIOD
+#define  OBS_FRONT_L        GPIO_Pin_13
+#define OBS_FRONT_M          GPIO_Pin_14
+#define OBS_FRONT_R         GPIO_Pin_15
+
+
+#define OBSTACLE_BOTTOM_CLK	    RCC_AHB1Periph_GPIOB
+#define OBSTACLE_BOTTOM_PORT     GPIOB
+#define OBS_BOTTOM_L          GPIO_Pin_0
+#define OBS_BOTTOM_R				  GPIO_Pin_1
+
+#define OBSTACLE_SIDE_CLK	    RCC_AHB1Periph_GPIOB
+#define OBSTACLE_SIDE_PORT     GPIOB
+#define  OBS_SIDE_L        GPIO_Pin_5
+#define  OBS_SIDE_R        GPIO_Pin_4
+
+#define OBSTACLE_BACK_CLK	  RCC_AHB1Periph_GPIOE
+#define OBSTACLE_BACK_PORT     GPIOE
+#define OBS_BACK_MID       GPIO_Pin_3
+
+#define OBS_READ_FRONT_L       	GPIO_ReadInputDataBit(OBSTACLE_FRONT_PORT,OBS_FRONT_L)
+#define OBS_READ_FRONT_M       	GPIO_ReadInputDataBit(OBSTACLE_FRONT_PORT,OBS_FRONT_M)
+#define OBS_READ_FRONT_R       	GPIO_ReadInputDataBit(OBSTACLE_FRONT_PORT,OBS_FRONT_R)
+
+#define OBS_READ_BOTTOM_L       GPIO_ReadInputDataBit(OBSTACLE_BOTTOM_PORT,OBS_BOTTOM_L)
+#define OBS_READ_BOTTOM_R       GPIO_ReadInputDataBit(OBSTACLE_BOTTOM_PORT,OBS_BOTTOM_R)
+
+#define OBS_READ_SIDE_L       	GPIO_ReadInputDataBit(OBSTACLE_SIDE_PORT,OBS_SIDE_L)
+#define OBS_READ_SIDE_R       	GPIO_ReadInputDataBit(OBSTACLE_SIDE_PORT,OBS_SIDE_R)
+
+#define OBS_READ_BACK_B       	GPIO_ReadInputDataBit(OBSTACLE_BACK_PORT,OBS_BACK_MID)
+
+//ULTRASONIC
+#define ULTRA1_PORT_CLK			  RCC_AHB1Periph_GPIOE
+#define ULTRA1_PORT						GPIOE
+#define ECHO1_PIN			    		    GPIO_Pin_0
+#define TRIG1_PIN			    				GPIO_Pin_1
+
+#define ULTRA2_PORT_CLK			  RCC_AHB1Periph_GPIOE
+#define ULTRA2_PORT						GPIOE
+#define ECHO2_PIN				          GPIO_Pin_2		
+#define TRIG2_PIN				          GPIO_Pin_3
+
+#define ULTRA3_PORT_CLK			  RCC_AHB1Periph_GPIOE
+#define ULTRA3_PORT						GPIOE
+#define ECHO3_PIN				       GPIO_Pin_4
+#define TRIG3_PIN				          GPIO_Pin_5
+
+
+#define ULTRA4_PORT_CLK			  RCC_AHB1Periph_GPIOE
+#define ULTRA4_PORT						GPIOE
+#define ECHO4_PIN				          GPIO_Pin_10
+#define TRIG4_PIN			            GPIO_Pin_11
+
+#define ULTRA5_PORT_CLK			  RCC_AHB1Periph_GPIOE
+#define ULTRA5_PORT						GPIOE
+#define ECHO5_PIN				      GPIO_Pin_12
+#define TRIG5_PIN				          GPIO_Pin_13
+
+#define ULTRA6_PORT_CLK			  RCC_AHB1Periph_GPIOE
+#define ULTRA6_PORT						GPIOE
+#define ECHO6_PIN				      GPIO_Pin_14
+#define TRIG6_PIN				      GPIO_Pin_15
+
+#define EXTI_LINE_ECHO1		EXTI_Line0
+#define EXTI_LINE_ECHO2		EXTI_Line2		
+#define EXTI_LINE_ECHO3		EXTI_Line4
+#define EXTI_LINE_ECHO4		EXTI_Line10
+#define EXTI_LINE_ECHO5		EXTI_Line12
+#define EXTI_LINE_ECHO6		EXTI_Line14
+
+#define TRIG1_ON			  digitalHi(ULTRA1_PORT, TRIG1_PIN)
+#define TRIG1_OFF			  digitalLo(ULTRA1_PORT, TRIG1_PIN)
+
+#define TRIG2_ON			  digitalHi(ULTRA2_PORT, TRIG2_PIN)
+#define TRIG2_OFF			digitalLo(ULTRA2_PORT, TRIG2_PIN)
+
+#define TRIG3_ON			  digitalHi(ULTRA3_PORT, TRIG3_PIN)
+#define TRIG3_OFF			digitalLo(ULTRA3_PORT, TRIG3_PIN)
+
+#define TRIG4_ON			  digitalHi(ULTRA4_PORT, TRIG4_PIN)
+#define TRIG4_OFF			digitalLo(ULTRA4_PORT, TRIG4_PIN)
+
+#define TRIG5_ON			  digitalHi(ULTRA5_PORT, TRIG5_PIN)
+#define TRIG5_OFF			  digitalLo(ULTRA5_PORT, TRIG5_PIN)
+
+#define TRIG6_ON			  digitalHi(ULTRA6_PORT, TRIG6_PIN)
+#define TRIG6_OFF			  digitalLo(ULTRA6_PORT, TRIG6_PIN)
+
+#define ECHO_READ_1       GPIO_ReadInputDataBit(ULTRA1_PORT,ECHO1_PIN)
+#define ECHO_READ_2       GPIO_ReadInputDataBit(ULTRA2_PORT,ECHO2_PIN)
+#define ECHO_READ_3       GPIO_ReadInputDataBit(ULTRA3_PORT,ECHO3_PIN)
+#define ECHO_READ_4       GPIO_ReadInputDataBit(ULTRA4_PORT,ECHO4_PIN)
+#define ECHO_READ_5       GPIO_ReadInputDataBit(ULTRA5_PORT,ECHO5_PIN)	
+#define ECHO_READ_6       GPIO_ReadInputDataBit(ULTRA6_PORT,ECHO6_PIN)	
+/********************************************************
+* 碰撞IO初始化
+********************************************************/	
+/*
+#define  CRASH_FRONT_PORT_CLK	       RCC_AHB1Periph_GPIOD
+#define  CRASH_FRONT_PORT       GPIOD
+#define  CRASH_FRONT_PIN        GPIO_Pin_1
+
+#define  CRASH_BACK_PORT_CLK	   RCC_AHB1Periph_GPIOF
+#define  CRASH_BACK_PORT       GPIOF
+#define  CRASH_BACK_PIN        GPIO_Pin_6
+*/
+
+#define  CRASH_FRONT_PORT_CLK	   RCC_AHB1Periph_GPIOC
+#define  CRASH_FRONT_PORT       GPIOC
+#define  CRASH_FRONT_PIN        GPIO_Pin_4
+
+#define  CRASH_BACK_PORT_CLK	   RCC_AHB1Periph_GPIOC
+#define  CRASH_BACK_PORT       GPIOC
+#define  CRASH_BACK_PIN        GPIO_Pin_5
+
+#define CRASH_FRONT_READ       GPIO_ReadInputDataBit(CRASH_FRONT_PORT,CRASH_FRONT_PIN)
+#define CRASH_BACK_READ        GPIO_ReadInputDataBit(CRASH_BACK_PORT,CRASH_BACK_PIN)
+
+
+
+/********************************************************
+* 碰撞IO初始化
+********************************************************/	
+
+#define  LIMIT_UP_PORT_CLK	       RCC_AHB1Periph_GPIOE
+#define  LIMIT_UP_PORT       GPIOE
+#define  LIMIT_UP_PIN        GPIO_Pin_1
+
+#define  LIMIT_DOWN_PORT_CLK	       RCC_AHB1Periph_GPIOE
+#define  LIMIT_DOWN_PORT       GPIOE
+#define  LIMIT_DOWN_PIN        GPIO_Pin_0
+
+#define LIMIT_UP_READ       GPIO_ReadInputDataBit(LIMIT_UP_PORT,LIMIT_UP_PIN)
+#define LIMIT_DOWN_READ     GPIO_ReadInputDataBit(LIMIT_DOWN_PORT,LIMIT_DOWN_PIN)
+
+/********************************************************
+*　AGV FARWARD INPUT IO
+* 
+********************************************************/	
+#define AGVF1_PORT_CLK   RCC_AHB1Periph_GPIOC
+#define AGVF1_PORT         GPIOC
+#define AGV_DF1_PIN       GPIO_Pin_9
+#define AGV_DF2_PIN       GPIO_Pin_8
+
+#define AGVF2_PORT_CLK   RCC_AHB1Periph_GPIOG
+#define AGVF2_PORT         GPIOG
+#define AGV_DF3_PIN       GPIO_Pin_7
+#define AGV_DF4_PIN       GPIO_Pin_6
+#define AGV_DF5_PIN       GPIO_Pin_5
+#define AGV_DF6_PIN       GPIO_Pin_4
+#define AGV_DF7_PIN       GPIO_Pin_3
+#define AGV_DF8_PIN       GPIO_Pin_2
+
+
+#define AGVF3_PORT_CLK       RCC_AHB1Periph_GPIOD
+#define AGVF3_PORT         GPIOD
+#define AGV_DF9_PIN       GPIO_Pin_15
+#define AGV_DF10_PIN       GPIO_Pin_14
+#define AGV_DF11_PIN       GPIO_Pin_13
+#define AGV_DF12_PIN       GPIO_Pin_12
+#define AGV_DF13_PIN       GPIO_Pin_11
+#define AGV_DF14_PIN      GPIO_Pin_10
+#define AGV_DF15_PIN       GPIO_Pin_9
+#define AGV_DF16_PIN       GPIO_Pin_8
+
+/********************************************************
+*　AGV BACK INPUT IO
+* 
+********************************************************/	
+#define AGVB1_PORT_CLK   RCC_AHB1Periph_GPIOE
+#define AGVB1_PORT         GPIOE
+#define AGV_DB1_PIN       GPIO_Pin_15
+#define AGV_DB2_PIN       GPIO_Pin_14
+#define AGV_DB3_PIN       GPIO_Pin_13
+#define AGV_DB4_PIN       GPIO_Pin_12
+#define AGV_DB5_PIN       GPIO_Pin_11
+#define AGV_DB6_PIN       GPIO_Pin_10
+#define AGV_DB7_PIN       GPIO_Pin_9
+#define AGV_DB8_PIN       GPIO_Pin_8
+#define AGV_DB9_PIN       GPIO_Pin_7
+
+#define AGVB2_PORT_CLK   RCC_AHB1Periph_GPIOG
+#define AGVB2_PORT         GPIOG
+#define AGV_DB10_PIN       GPIO_Pin_1
+#define AGV_DB11_PIN       GPIO_Pin_0
+
+
+#define AGVB3_PORT_CLK      RCC_AHB1Periph_GPIOF
+#define AGVB3_PORT         GPIOF
+#define AGV_DB12_PIN       GPIO_Pin_15
+#define AGV_DB13_PIN       GPIO_Pin_14
+#define AGV_DB14_PIN      GPIO_Pin_13
+#define AGV_DB15_PIN       GPIO_Pin_12
+#define AGV_DB16_PIN       GPIO_Pin_11
+
+#define AGV_Read_Bit(port,pin)   GPIO_ReadInputDataBit(port,pin)
+
+void  LED_GPIO_Cfg_Init(void);
+void  BEEP_GPIO_Cfg_Init(void);
+void  PowerSys_Gpio_Cfg_Init(void);
+void PC_Power_Cfg_Init(uint8_t on_off);
+void  PC_Reset_Cfg_Init(uint8_t on_off);
+void  MOTO_Ctrl_GPIO_Init(void);
+//void  LiftMoto_Gpio_Cfg_Init(void);
+void  Obstacle_GPIO_Init(void);
+void  Ultra_GPIO_Cfg_Init(void);
+void  Ultrasonic_Exti_Init(void);
+void  IR_Decoding_GPIO_Cfg_Init(void);
+void Crash_Gpio_Cfg_Init(void);
+void  CHABC_GPIO_Cfg_Init(uint8_t in_out);
+#ifdef __cplusplus
+}
+#endif
+
+#endif /*__BSP_SYSTICK_CFG_H */
+
+
+/************************ (C) COPYRIGHT YzRobot  *****END OF FILE****/
+
+

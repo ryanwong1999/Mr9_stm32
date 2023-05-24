@@ -1,0 +1,11 @@
+.\output\cpu_c.o: ..\UCOSIII\uC_CPU\cpu_c.c
+.\output\cpu_c.o: ..\UCOSIII\uC_CPU\cpu.h
+.\output\cpu_c.o: ..\UCOSIII\uC_CPU\cpu_def.h
+.\output\cpu_c.o: ..\UCOSIII\uCOS_CONFIG\cpu_cfg.h
+.\output\cpu_c.o: ..\UCOSIII\uC_CPU\cpu_core.h
+.\output\cpu_c.o: ..\UCOSIII\uC_LIB\lib_def.h
+.\output\cpu_c.o: ..\UCOSIII\uC_LIB\lib_mem.h
+.\output\cpu_c.o: ..\UCOSIII\uC_CPU\cpu_core.h
+.\output\cpu_c.o: ..\UCOSIII\uCOS_CONFIG\lib_cfg.h
+.\output\cpu_c.o: ..\UCOSIII\uC_LIB\lib_str.h
+.\output\cpu_c.o: ..\UCOSIII\uC_LIB\lib_ascii.h
