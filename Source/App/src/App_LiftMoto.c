@@ -231,38 +231,69 @@ uint16_t Get_LiftMoto_Height(void)
 */
 void LiftMoto_GoTO_SetHeiht(uint16_t *_set_height)
 {
-
-	if(*_set_height == MAX_HEIGHT){
-		if(Lift_Moto.Limit_Switch_Flag == 0x01){		//上限位
-		//if((Lift_Moto.Limit_Switch_Flag & 0x01) != 0 || (Lift_Moto.OverCurrent_Flag & 0x01) != 0){
-			Lift_Moto.Lift_OK_flag = true;
+	#ifdef LiftMoto_1
+		if(*_set_height == MAX_HEIGHT){
+			if(Lift_Moto.Limit_Switch_Flag == 0x01){		//上限位
+			//if((Lift_Moto.Limit_Switch_Flag & 0x01) != 0 || (Lift_Moto.OverCurrent_Flag & 0x01) != 0){
+				Lift_Moto.Lift_OK_flag = true;
+			}else{
+				Lift_Moto.Cmd = LIFT_UP;
+			}
+		}else if(*_set_height == 0){
+			if(Lift_Moto.Limit_Switch_Flag == 0x02){		//下限位
+			//if((Lift_Moto.Limit_Switch_Flag & 0x02) != 0 || (Lift_Moto.OverCurrent_Flag & 0x02) != 0 ){
+				Lift_Moto.Lift_OK_flag = true;
+			}else{
+				Lift_Moto.Cmd = LIFT_DOWN;
+			}
+		}else if(Lift_Moto.Height < *_set_height ){	
+			if(Lift_Moto.Height >= *_set_height){
+				Lift_Moto.Cmd = LIFT_STOP;
+				Lift_Moto.Lift_OK_flag = true;
+			}else{
+				Lift_Moto.Cmd = LIFT_UP;
+				Lift_Moto.Lift_OK_flag = false;
+			}
 		}else{
-			Lift_Moto.Cmd = LIFT_UP;
-		}
-	}else if(*_set_height == 0){
-		if(Lift_Moto.Limit_Switch_Flag == 0x02){		//下限位
-		//if((Lift_Moto.Limit_Switch_Flag & 0x02) != 0 || (Lift_Moto.OverCurrent_Flag & 0x02) != 0 ){
-			Lift_Moto.Lift_OK_flag = true;
+			if(Lift_Moto.Height <= *_set_height){
+				Lift_Moto.Cmd = LIFT_STOP;
+				Lift_Moto.Lift_OK_flag = true;
+			}else{
+				Lift_Moto.Cmd = LIFT_DOWN;
+				Lift_Moto.Lift_OK_flag = false;
+			}
+		}	
+	#elif LiftMoto_2
+		if(*_set_height == MAX_HEIGHT){
+			if(Lift_Moto.Limit_Switch_Flag >= 79){	//上限位
+				Lift_Moto.Lift_OK_flag = true;
+			}else{
+				Lift_Moto.Cmd = LIFT_UP;
+			}
+		}else if(*_set_height == 0){
+			if(Lift_Moto.Limit_Switch_Flag <= 0){		//下限位
+				Lift_Moto.Lift_OK_flag = true;
+			}else{
+				Lift_Moto.Cmd = LIFT_DOWN;
+			}
+		}else if(Lift_Moto.Height < *_set_height ){	
+			if(Lift_Moto.Height >= *_set_height){
+				Lift_Moto.Cmd = LIFT_STOP;
+				Lift_Moto.Lift_OK_flag = true;
+			}else{
+				Lift_Moto.Cmd = LIFT_UP;
+				Lift_Moto.Lift_OK_flag = false;
+			}
 		}else{
-			Lift_Moto.Cmd = LIFT_DOWN;
-		}
-	}else if(Lift_Moto.Height < *_set_height ){	
-		if(Lift_Moto.Height >= *_set_height){
-			Lift_Moto.Cmd = LIFT_STOP;
-			Lift_Moto.Lift_OK_flag = true;
-		}else{
-			Lift_Moto.Cmd = LIFT_UP;
-			Lift_Moto.Lift_OK_flag = false;
-		}
-	}else{
-		if(Lift_Moto.Height <= *_set_height){
-			Lift_Moto.Cmd = LIFT_STOP;
-			Lift_Moto.Lift_OK_flag = true;
-		}else{
-			Lift_Moto.Cmd = LIFT_DOWN;
-			Lift_Moto.Lift_OK_flag = false;
-		}
-	}	
+			if(Lift_Moto.Height <= *_set_height){
+				Lift_Moto.Cmd = LIFT_STOP;
+				Lift_Moto.Lift_OK_flag = true;
+			}else{
+				Lift_Moto.Cmd = LIFT_DOWN;
+				Lift_Moto.Lift_OK_flag = false;
+			}
+		}	
+	#endif
 }
 
 /*=============================================================================
@@ -277,15 +308,25 @@ void LiftMoto_GoTO_SetHeiht(uint16_t *_set_height)
 */
 void LiftMoto_Process(void)
 {
-	Lift_Moto.Limit_Switch_Flag = Get_LimitSwitch();
-	Lift_Moto.OverCurrent_Flag = Get_OverCurFlag(Lift_Moto.Cmd, ADC_Filter_Value[4]);
-	Lift_Moto.Height = Get_LiftMoto_Height();
-	if(Lift_Moto.Set_Height != 0xffff){
-		LiftMoto_GoTO_SetHeiht(&Lift_Moto.Set_Height);
-	}else{
-		Lift_Moto.Lift_OK_flag = false;
-	}
-	LiftMoto_Set(Lift_Moto.Cmd);
+	#ifdef LiftMoto_1
+		Lift_Moto.Limit_Switch_Flag = Get_LimitSwitch();
+		Lift_Moto.OverCurrent_Flag = Get_OverCurFlag(Lift_Moto.Cmd, ADC_Filter_Value[4]);
+		Lift_Moto.Height = Get_LiftMoto_Height();
+		if(Lift_Moto.Set_Height != 0xffff){
+			LiftMoto_GoTO_SetHeiht(&Lift_Moto.Set_Height);
+		}else{
+			Lift_Moto.Lift_OK_flag = false;
+		}
+		LiftMoto_Set(Lift_Moto.Cmd);
+	#elif LiftMoto_2
+		Lift_Moto.Height = GetLiftHeight();
+		if(Lift_Moto.Set_Height != 0xffff){
+			LiftMoto_GoTO_SetHeiht(&Lift_Moto.Set_Height);
+		}else{
+			Lift_Moto.Lift_OK_flag = false;
+		}
+		LiftMoto_Set(Lift_Moto.Cmd);
+	#endif
 	
 }
 

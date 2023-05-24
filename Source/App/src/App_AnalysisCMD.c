@@ -17,9 +17,8 @@ Sys_Type   			Robot_Sys;
 Odom_Data_type  Moto_Odom;    // 里程数据
 Moto_Typedef  	Robot_Moto;
 
-void  Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool stop_key);
-void  Send_PowerDataUpdata(uint8_t index, uint8_t addr, Power_Type mPower);
-
+void Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool stop_key);
+void Send_PowerDataUpdata(uint8_t index, uint8_t addr, Power_Type mPower);
 void Send_LiftMoto_Mess(uint8_t index, uint8_t addr,LiftMoto_Type *_liftmoto);
 
 uint8_t gUpdateCnt = 0;
@@ -34,10 +33,10 @@ uint8_t gPscCnt = 0;
 *  输   出：
 *  说   明：工控机命令解析
 */ 
-void  AnalysisCMD(void)
+void AnalysisCMD(void)
 {
-	int     level;
-	int     pitch;
+	int level;
+	int pitch;
 	uint8_t i=0;
 	int16_t lear_tmp;
 	int16_t angular_tmp;
@@ -71,14 +70,14 @@ void  AnalysisCMD(void)
 		UsartToPC.Usart_Rx_OK = false ;           // 清空等待下一次接收完成
 		UsartToPC.Comm_TimeOut = 0;
 		UsartToPC.Disconnect_flag = 0;	
-		Sdev_tmp = UsartToPC.Rx_Buf[ S_ID_REG ];  // 取源地址
-		Pdev_tmp = UsartToPC.Rx_Buf[ P_ID_REG ];  // 取目的地址,与本地地址匹配
+		Sdev_tmp = UsartToPC.Rx_Buf[S_ID_REG];  // 取源地址
+		Pdev_tmp = UsartToPC.Rx_Buf[P_ID_REG];  // 取目的地址,与本地地址匹配
 			
 		if(Pdev_tmp == DEV_ID){
-			cmd_tmp =  UsartToPC.Rx_Buf[ CMD_REG ];
+			cmd_tmp = UsartToPC.Rx_Buf[CMD_REG];
 			switch(cmd_tmp)
 			{
-				case CMD_QUERY_ODOM:   // 查询ODOM
+				case CMD_QUERY_ODOM:   //查询ODOM
 					Robot_Sys.Odom_Timeout_cnt = 0;
 					if(Robot_Sys.Mergency_Stop_flag == true){
 						Moto_Odom.Left_Value = 0;
@@ -89,10 +88,10 @@ void  AnalysisCMD(void)
 					}
 					break;
 
-        case CMD_SET_SPEED:   // 设置速度	
+        case CMD_SET_SPEED:   //设置速度	
 					Robot_Sys.Speed_Timeout_cnt = 0;
-				  memcpy(&lear_tmp, &UsartToPC.Rx_Buf[ SPEED1_REG1 ], sizeof(int16_t));
-					memcpy(&angular_tmp, &UsartToPC.Rx_Buf[ SPEED2_REG1 ], sizeof(int16_t));
+				  memcpy(&lear_tmp, &UsartToPC.Rx_Buf[SPEED1_REG1], sizeof(int16_t));
+					memcpy(&angular_tmp, &UsartToPC.Rx_Buf[SPEED2_REG1], sizeof(int16_t));
 					rx_lear = (short int)t_ntohs(lear_tmp);
 					rx_angle = (short int)t_ntohs(angular_tmp);
 				 
@@ -137,35 +136,35 @@ void  AnalysisCMD(void)
 							Moto.set_angle = AutoCharge.set_angle;
 						}
 						
-					#ifdef MOTO_LOCK	 	
-					  //电机不动时可以用手推动，适用于室外
-						if(Moto.en_sta == 0){
-							 Send_mdrv_en_set(1, 1);
-						}else{
-							 Send_speed_set(Moto.set_lear, Moto.set_angle);
-						}
-					#else
-						//电机不动时可以用手推动，适用于室内
-						if(Moto.set_lear == 0 && Moto.set_angle == 0 && (Pms.Bat_Sta & 0x01) == 0){
-							if(Moto.stop_sta == 1 && Moto.en_sta == 1){
-								Send_mdrv_en_set(0, 0);
-							}else{
-								Send_speed_set(Moto.set_lear, Moto.set_angle);
-							}
-						}else{
+						#ifdef MOTO_LOCK	 	
+							//电机不动时可以用手推动，适用于室外
 							if(Moto.en_sta == 0){
-								Send_mdrv_en_set(1, 1);
+								 Send_mdrv_en_set(1, 1);
 							}else{
-								Send_speed_set(Moto.set_lear, Moto.set_angle);
+								 Send_speed_set(Moto.set_lear, Moto.set_angle);
 							}
-						}
+						#else
+							//电机不动时可以用手推动，适用于室内
+							if(Moto.set_lear == 0 && Moto.set_angle == 0 && (Pms.Bat_Sta & 0x01) == 0){
+								if(Moto.stop_sta == 1 && Moto.en_sta == 1){
+									Send_mdrv_en_set(0, 0);
+								}else{
+									Send_speed_set(Moto.set_lear, Moto.set_angle);
+								}
+							}else{
+								if(Moto.en_sta == 0){
+									Send_mdrv_en_set(1, 1);
+								}else{
+									Send_speed_set(Moto.set_lear, Moto.set_angle);
+								}
+							}
 						#endif
 					}
 					break;
 
-				case  CMD_QUERY_POWER:        // 查询电量及充电状态
-					Robot_Sys.mSysPower.charger = Pms.Bat_Sta | AutoCharge.chg_fail ;
-				  Robot_Sys.mSysPower.power = Pms.Capacity ;
+				case CMD_QUERY_POWER:		//查询电量及充电状态
+					Robot_Sys.mSysPower.charger = Pms.Bat_Sta | AutoCharge.chg_fail;
+				  Robot_Sys.mSysPower.power = Pms.Capacity;
 					Send_PowerDataUpdata(gPscCnt++, Sdev_tmp, Robot_Sys.mSysPower);
 					break;
 				
@@ -174,7 +173,7 @@ void  AnalysisCMD(void)
 					Robot_Sys.StopDisable_flag = UsartToPC.Rx_Buf[9];		//解除过流停止
 					break;
 				
-				case CMD_AUTOCHARGE:  // 自动充电
+				case CMD_AUTOCHARGE:		//自动充电
 					if((Pms.Bat_Sta & 0x01) == 0){				
 						charge_tmp = UsartToPC.Rx_Buf[8];
 						if(	Robot_Sys.Last_Task != CHG_TASK){
@@ -190,14 +189,14 @@ void  AnalysisCMD(void)
 					#endif
 					break;
 								
-				case CMD_HEAD_POSE:     // 查询头部角度
-				//	delay_ms(2);
+				case CMD_HEAD_POSE:     //查询头部角度
+					//delay_ms(2);
 					Robot_Sys.mHeadPose.Level = Head_Status.PSC_Level_Pos * 10;
 					Robot_Sys.mHeadPose.Pitch = Head_Status.PSC_UD_Pos * 10;
 				  Send_Head_Pose(gPscCnt ++, Sdev_tmp, Robot_Sys.mHeadPose, 0);
 					break;
 				
-				case CMD_HEAD_ANGLE:    // 设置头部角度
+				case CMD_HEAD_ANGLE:    //设置头部角度
 					level = ((UsartToPC.Rx_Buf[8] & 0xFF) << 8) + (UsartToPC.Rx_Buf[9] & 0xFF);
 					pitch = ((UsartToPC.Rx_Buf[10] & 0xFF) << 8) + (UsartToPC.Rx_Buf[11] & 0xFF);
 				  Head_Angle_Control(level, pitch);
@@ -207,27 +206,27 @@ void  AnalysisCMD(void)
 					#endif
 					break;
 				
-				case CMD_HEAD:  // 控制头部电机
-				//55 AA 11 13 FF 01 06 00 05 00 00 00 00 00 00 00 3A 0D 0A   //左
-				//55 AA 11 13 FF 01 06 00 07 00 00 00 00 00 00 00 3A 0D 0A   //右
-				//55 AA 11 13 FF 01 06 00 06 00 00 00 00 00 00 00 3A 0D 0A   //仰
-				//55 AA 11 13 FF 01 06 00 08 00 00 00 00 00 00 00 3A 0D 0A   //右
-				//55 AA 11 13 FF 01 06 00 00 00 00 00 00 00 00 00 3A 0D 0A   //俯
+				case CMD_HEAD:  				//控制头部电机
+					//55 AA 11 13 FF 01 06 00 05 00 00 00 00 00 00 00 3A 0D 0A   //左
+					//55 AA 11 13 FF 01 06 00 07 00 00 00 00 00 00 00 3A 0D 0A   //右
+					//55 AA 11 13 FF 01 06 00 06 00 00 00 00 00 00 00 3A 0D 0A   //仰
+					//55 AA 11 13 FF 01 06 00 08 00 00 00 00 00 00 00 3A 0D 0A   //右
+					//55 AA 11 13 FF 01 06 00 00 00 00 00 00 00 00 00 3A 0D 0A   //俯
 					switch(UsartToPC.Rx_Buf[8])
 					{
-						case 0x05:    // 05 左
+						case 0x05:    //05 左
 							Head_Status.PSC_Dir |= 1<<(5-1);
 						  Head_Status.PSC_Dir &= ~(1<<(7-1));
 							break; 
-						case 0x06:    // 06 仰
+						case 0x06:    //06 仰
 							Head_Status.PSC_Dir |= 1<<(6-1);
 					    Head_Status.PSC_Dir &= ~(1<<(8-1));
 							break;
-						case 0x07:    // 07 右
+						case 0x07:    //07 右
 							Head_Status.PSC_Dir |= 1<<(7-1);
 						  Head_Status.PSC_Dir &= ~(1<<(5-1));
 						  break;
-						case 0x08:    // 08 俯
+						case 0x08:    //08 俯
 							Head_Status.PSC_Dir |= 1<<(8-1);
 						  Head_Status.PSC_Dir &= ~(1<<(6-1));
 						  break;
@@ -237,10 +236,9 @@ void  AnalysisCMD(void)
 						default :
 							Head_Status.PSC_Dir = 0;
 						  break;
-
 					}	
 					#ifndef ROBOT_YZ01	
-				  Send_HeadCtrl_reply(gUpdateCnt++, Sdev_tmp, UsartToPC.Rx_Buf[8]);		
+						Send_HeadCtrl_reply(gUpdateCnt++, Sdev_tmp, UsartToPC.Rx_Buf[8]);		
           #endif					
 					break;
 					
@@ -265,14 +263,14 @@ void  AnalysisCMD(void)
 				case CMD_SET_LIFT:				//设置升降高度	
 					Lift_Moto.Set_Height = (uint16_t)UsartToPC.Rx_Buf[8]<<8 | UsartToPC.Rx_Buf[9];
 					Lift_Moto.Lift_OK_flag = false;
-			  #ifndef ROBOT_YZ01	
-					Send_SetLift_reply(gUpdateCnt++, Sdev_tmp, Lift_Moto.Set_Height);
-				#endif
+					#ifndef ROBOT_YZ01	
+						Send_SetLift_reply(gUpdateCnt++, Sdev_tmp, Lift_Moto.Set_Height);
+					#endif
 					break;
 	
 				case CMD_SET_HEAD_OFFSET:	//设置头部偏差角度
-					Head_Status.Pitch_Offset = Head_Status.Pitch_Offset +  Head_Status.PSC_UD_Pos - 90 ;
-					Head_Status.Level_Offset = Head_Status.Level_Offset + 90 - Head_Status.PSC_Level_Pos ;
+					Head_Status.Pitch_Offset = Head_Status.Pitch_Offset +  Head_Status.PSC_UD_Pos - 90;
+					Head_Status.Level_Offset = Head_Status.Level_Offset + 90 - Head_Status.PSC_Level_Pos;
 				  Head_Status.PSC_UD_Pos = PSC_UD_DEFAULT;
 				  Head_Status.PSC_Level_Pos = PSC_LEVEL_DEFAULT;
 					SetHeadLevelPosition(PSC_LEVEL_DEFAULT, Head_Status.Level_Offset);
@@ -314,7 +312,7 @@ void  AnalysisCMD(void)
 					}
 					
 					#ifndef ROBOT_YZ01	
-           Send_LiftCtrl_reply(gUpdateCnt++, Sdev_tmp, Lift_Moto.Cmd);
+						Send_LiftCtrl_reply(gUpdateCnt++, Sdev_tmp, Lift_Moto.Cmd);
 					#endif
 					break;
 					
@@ -345,21 +343,21 @@ void  Send_OdomUpdata(uint8_t index, uint8_t addr, Odom_Data_type odom_dat)
 	
 	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请20字节
+  buf = mymalloc(sramx,20);	//申请20字节
 	
 	ultra[0] = Ultra1.Distance/10;
 	ultra[1] = Ultra2.Distance/10;
 	ultra[2] = Ultra3.Distance/10;
 	ultra[3] = Ultra4.Distance/10;
 	
-	buf[0] = 0x55 ;
-	buf[1] = 0xAA ;
-	buf[2] = index ;
-	buf[3] = 0x13 ;
-	buf[4] = 0x01 ;   // 本机ID
-	buf[5] = addr ;   // 目的ID
-	buf[6] = 0x01 ;   // 功能码
-	buf[7] = 0x08 ;   // 数据包个数
+	buf[0] = 0x55;
+	buf[1] = 0xAA;
+	buf[2] = index;
+	buf[3] = 0x13;
+	buf[4] = 0x01;   //本机ID
+	buf[5] = addr;   //目的ID
+	buf[6] = 0x01;   //功能码
+	buf[7] = 0x08;   //数据包个数
 	buf[8] = (odom_dat.Left_Value >> 8) & 0x00ff;
 	buf[9] = odom_dat.Left_Value & 0x00ff; 
 	buf[10] = (odom_dat.Right_Value>>8) & 0x00ff; 
@@ -392,8 +390,8 @@ void  Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool
 	int16_t   level;
 	int16_t   pitch;
 	uint8_t 	*buf;
-	uint8_t 	sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请20字节
+	uint8_t 	sramx=0;				//默认为内部sram
+  buf = mymalloc(sramx,20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -433,7 +431,7 @@ void Send_LiftMoto_Mess(uint8_t index, uint8_t addr,LiftMoto_Type *_liftmoto)
 {
 		uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请20字节
+  buf = mymalloc(sramx,20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -470,28 +468,28 @@ void Send_LiftMoto_Mess(uint8_t index, uint8_t addr,LiftMoto_Type *_liftmoto)
 */ 
 void Send_PowerDataUpdata(uint8_t index, uint8_t addr, Power_Type mPower)
 {
-	uint32_t tmpCharger ;
-	uint32_t tmpPower ;
+	uint32_t tmpCharger;
+	uint32_t tmpPower;
 	
 	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请2K字节
+  buf = mymalloc(sramx,20);	//申请2K字节
 	
-  buf[0] =0x55 ;
-	buf[1] =0xAA ;
-	buf[2] =index ;
-	buf[3] =0x13 ;
-	buf[4] =0x01 ;   // 本机ID
-	buf[5] =addr ;   // 目的ID
-	buf[6] =0x09 ;   // 功能码
-	buf[7] =0x08 ;   // 数据包个数
+  buf[0] =0x55;
+	buf[1] =0xAA;
+	buf[2] =index;
+	buf[3] =0x13;
+	buf[4] =0x01;   //本机ID
+	buf[5] =addr;   //目的ID
+	buf[6] =0x09;   //功能码
+	buf[7] =0x08;		//数据包个数
 
-	tmpCharger = (uint32_t) mPower.charger;  // 以整形发送
-	tmpPower = (uint32_t) mPower.power ;      // 以整形发送	
+	tmpCharger = (uint32_t) mPower.charger;	//以整形发送
+	tmpPower = (uint32_t) mPower.power;			//以整形发送	
 	
-	buf[8] = Robot_Sys.Mergency_Stop_flag;    //急停开关标志
-	buf[9] = Robot_Sys.PowerOff_flag;	        //关机命令
-	buf[10]	= Robot_Sys.Voice_flag;	         	//语音使能标志
+	buf[8] = Robot_Sys.Mergency_Stop_flag;	//急停开关标志
+	buf[9] = Robot_Sys.PowerOff_flag;				//关机命令
+	buf[10]	= Robot_Sys.Voice_flag;					//语音使能标志
 	buf[11]	= (uint8_t)tmpCharger;	
 
 	buf[12]	= (Environ.voice >> 8) & 0x00ff;
@@ -505,7 +503,7 @@ void Send_PowerDataUpdata(uint8_t index, uint8_t addr, Power_Type mPower)
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN); 
 	//USARTx_SendMultibyte(USART1, buf, SEND_PC_LEN); 
-	myfree(sramx,buf);//释放内存
+	myfree(sramx,buf);	//释放内存
 }
 
 /*=============================================================================
@@ -519,23 +517,23 @@ void Send_PowerDataUpdata(uint8_t index, uint8_t addr, Power_Type mPower)
 */ 
 void Send_HeadCtrlCmd(uint8_t index, uint8_t addr, uint8_t cmd_dat)
 {
-	int16_t tmpTemp ;
-	int16_t tmpHum ;
+	int16_t tmpTemp;
+	int16_t tmpHum;
 	
 	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请20字节
+  buf = mymalloc(sramx,20);	//申请20字节
 	
-	buf[0] =0x55 ;
-	buf[1] =0xAA ;
-	buf[2] =index ;
-	buf[3] =0x13 ;
-	buf[4] =0x01 ;   // 本机ID
-	buf[5] =addr ;   // 目的ID
-	buf[6] =0x32 ;   // 功能码
-	buf[7] =0x08 ;   // 数据包个数
+	buf[0] =0x55;
+	buf[1] =0xAA;
+	buf[2] =index;
+	buf[3] =0x13;
+	buf[4] =0x01;   // 本机ID
+	buf[5] =addr;   // 目的ID
+	buf[6] =0x32;   // 功能码
+	buf[7] =0x08;   // 数据包个数
 
-	buf[8] = cmd_dat ;
+	buf[8] = cmd_dat;
 	
 	memset(buf+9,0,7);	
 		
@@ -560,8 +558,8 @@ void Send_HeadCtrlCmd(uint8_t index, uint8_t addr, uint8_t cmd_dat)
 void Send_Obs_EN_Mess(uint8_t index, uint8_t addr)
 {
 	uint8_t *buf;
-	uint8_t sramx = 0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请20字节
+	uint8_t sramx = 0;				//默认为内部sram
+  buf = mymalloc(sramx,20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -596,14 +594,14 @@ void Send_Obs_EN_Mess(uint8_t index, uint8_t addr)
 *  输   出：
 *  说   明：发送障碍传感器状态信息
 */ 
-void Send_Obstacle_Sta(uint8_t index, uint8_t paddr, uint8_t obs_sta, uint8_t crach_sta){
-
+void Send_Obstacle_Sta(uint8_t index, uint8_t paddr, uint8_t obs_sta, uint8_t crach_sta)
+{
 	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
 	int zf_flag = 0;					//判断正负
 	
 	int32_t Moto_Current_Send = Pms.Moto_Cur;
-  buf = mymalloc(sramx,20);//申请20字节
+  buf = mymalloc(sramx,20);	//申请20字节
 	
 	if(Pms.Moto_Cur<0){
 		Moto_Current_Send = Moto_Current_Send * -1;
@@ -612,21 +610,21 @@ void Send_Obstacle_Sta(uint8_t index, uint8_t paddr, uint8_t obs_sta, uint8_t cr
 		zf_flag = 0;
 	}
 	
-	buf[0] = 0x55 ;
-	buf[1] = 0xAA ;
-	buf[2] = index ;
-	buf[3] = 0x13 ;
-	buf[4] = 0x01 ;   	// 本机ID
-	buf[5] = paddr ;   	// 目的ID
-	buf[6] = 0x07 ;   	// 功能码
-	buf[7] = 0x08 ;   	// 数据包个数8
+	buf[0] = 0x55;
+	buf[1] = 0xAA;
+	buf[2] = index;
+	buf[3] = 0x13;
+	buf[4] = 0x01;			//本机ID
+	buf[5] = paddr;			//目的ID
+	buf[6] = 0x07;			//功能码
+	buf[7] = 0x08;			//数据包个数8
 
-	buf[8] = obs_sta;   	//下左
-	buf[9] = crach_sta ; 	//下右
-	buf[10] = zf_flag ;				
+	buf[8] = obs_sta;		//下左
+	buf[9] = crach_sta;	//下右
+	buf[10] = zf_flag;				
 	buf[11] = (Moto_Current_Send >> 8) & 0x00ff;		//把驱动器电流发上去
 	buf[12] = Moto_Current_Send  & 0x00ff;	
-	buf[13] = Robot_Sys.Stop_flag ;
+	buf[13] = Robot_Sys.Stop_flag;
 	buf[14] = (Pms.Bat_Voltage >> 8) & 0x00ff;  		//把电池电压发上去
 	buf[15] = Pms.Bat_Voltage  & 0x00ff;	
 		
@@ -654,23 +652,23 @@ void Send_Speed_reply(uint8_t index, uint8_t paddr, uint16_t linear, uint16_t an
 	uint8_t sramx=0;					//默认为内部sram
   buf = mymalloc(sramx,20);//申请20字节
 	
-	buf[0] = 0x55 ;
-	buf[1] = 0xAA ;
-	buf[2] = index ;
-	buf[3] = 0x13 ;
-	buf[4] = 0x01 ;   // 本机ID
-	buf[5] = paddr ;   // 目的ID6
-	buf[6] = 0x15 ;   //
-	buf[7] = 0x08 ;   // 数据包个数
+	buf[0] = 0x55;
+	buf[1] = 0xAA;
+	buf[2] = index;
+	buf[3] = 0x13;
+	buf[4] = 0x01;	//本机ID
+	buf[5] = paddr;	//目的ID6
+	buf[6] = 0x15;
+	buf[7] = 0x08;	//数据包个数
 
-	buf[8] = linear>>8;   	//
-	buf[9] = linear ;  	//
-	buf[10] = angular>>8 ;   	//
-	buf[11] = angular ; 		//
-	buf[12] = AutoCharge.NotFind_Flag ;		//
-	buf[13] = 0 ;  	//
-	buf[14] = 0 ;   	//
-	buf[15] = 0 ;   	//
+	buf[8] = linear>>8;
+	buf[9] = linear;
+	buf[10] = angular>>8;
+	buf[11] = angular;
+	buf[12] = AutoCharge.NotFind_Flag;
+	buf[13] = 0;
+	buf[14] = 0;
+	buf[15] = 0;
 		
 	buf[16] = CRC8_Table(buf, 16);
 	buf[17] = 0x0D;
@@ -692,25 +690,25 @@ void Send_Autocharge_reply(uint8_t index, uint8_t paddr, uint8_t dat){
 
 	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请20字节
+  buf = mymalloc(sramx,20);	//申请20字节
 	
-	buf[0] = 0x55 ;
-	buf[1] = 0xAA ;
-	buf[2] = index ;
-	buf[3] = 0x13 ;
-	buf[4] = 0x01 ;   // 本机ID
-	buf[5] = paddr ;   // 目的ID
-	buf[6] = 0x08 ;   // 自动充电
-	buf[7] = 0x08 ;   // 数据包个数
+	buf[0] = 0x55;
+	buf[1] = 0xAA;
+	buf[2] = index;
+	buf[3] = 0x13;
+	buf[4] = 0x01;	//本机ID
+	buf[5] = paddr;	//目的ID
+	buf[6] = 0x08;	//自动充电
+	buf[7] = 0x08;	//数据包个数
 
-	buf[8] = 0;   	//
-	buf[9] = 0 ;  	//
-	buf[10] = 0 ;   	//
-	buf[11] = 0 ; 		//
-	buf[12] = 0 ;		//
-	buf[13] = 0 ;  	//
-	buf[14] = 0 ;   	//
-	buf[15] = 0 ;   	//
+	buf[8] = 0;
+	buf[9] = 0;
+	buf[10] = 0;
+	buf[11] = 0;
+	buf[12] = 0;
+	buf[13] = 0;
+	buf[14] = 0;
+	buf[15] = 0;
 
 	buf[16] = CRC8_Table(buf, 16);
 	buf[17] = 0x0D;
@@ -733,25 +731,25 @@ void Send_HeadAngle_reply(uint8_t index, uint8_t paddr, uint16_t set_level, uint
 
 	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请20字节
+  buf = mymalloc(sramx,20);	//申请20字节
 	
-	buf[0] = 0x55 ;
-	buf[1] = 0xAA ;
-	buf[2] = index ;
-	buf[3] = 0x13 ;
-	buf[4] = 0x01 ;   // 本机ID
-	buf[5] = paddr ;   // 目的ID
-	buf[6] = 0x11 ;   //头部角度设置
-	buf[7] = 0x08 ;   // 数据包个数
+	buf[0] = 0x55;
+	buf[1] = 0xAA;
+	buf[2] = index;
+	buf[3] = 0x13;
+	buf[4] = 0x01;	//本机ID
+	buf[5] = paddr;	//目的ID
+	buf[6] = 0x11;	//头部角度设置
+	buf[7] = 0x08;	//数据包个数
 
-	buf[8] = set_level>>8;   	//
-	buf[9] = set_level ;  	//
-	buf[10] = set_pitch>>8 ;   	//
-	buf[11] = set_pitch ; 		//
-	buf[12] = 0 ;		//
-	buf[13] = 0 ;  	//
-	buf[14] = 0 ;   	//
-	buf[15] = 0 ;   	//
+	buf[8] = set_level>>8;
+	buf[9] = set_level;
+	buf[10] = set_pitch>>8;
+	buf[11] = set_pitch;
+	buf[12] = 0;
+	buf[13] = 0;
+	buf[14] = 0;
+	buf[15] = 0;
 		
 	buf[16] = CRC8_Table(buf, 16);
 	buf[17] = 0x0D;
@@ -774,25 +772,25 @@ void Send_HeadCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
 
 	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请20字节
+  buf = mymalloc(sramx,20);	//申请20字节
 	
-	buf[0] = 0x55 ;
-	buf[1] = 0xAA ;
-	buf[2] = index ;
-	buf[3] = 0x13 ;
-	buf[4] = 0x01 ;   // 本机ID
-	buf[5] = paddr ;   // 目的ID
-	buf[6] = 0x06 ;   //头部角度设置
-	buf[7] = 0x08 ;   // 数据包个数
+	buf[0] = 0x55;
+	buf[1] = 0xAA;
+	buf[2] = index;
+	buf[3] = 0x13;
+	buf[4] = 0x01;	//本机ID
+	buf[5] = paddr;	//目的ID
+	buf[6] = 0x06;	//头部角度设置
+	buf[7] = 0x08;	//数据包个数
 
-	buf[8] = cmd;   	//
-	buf[9] = 0 ;  	//
-	buf[10] = 0 ;   	//
-	buf[11] = 0 ; 		//
-	buf[12] = 0 ;		//
-	buf[13] = 0 ;  	//
-	buf[14] = 0 ;   	//
-	buf[15] = 0 ;   	//
+	buf[8] = cmd;
+	buf[9] = 0;
+	buf[10] = 0;
+	buf[11] = 0;
+	buf[12] = 0;
+	buf[13] = 0;
+	buf[14] = 0;
+	buf[15] = 0;
 	
 	buf[16] = CRC8_Table(buf, 16);
 	buf[17] = 0x0D;
@@ -815,25 +813,25 @@ void Send_SetLift_reply(uint8_t index, uint8_t paddr, uint16_t heitht){
 
 	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请20字节
+  buf = mymalloc(sramx,20);	//申请20字节
 	
-	buf[0] = 0x55 ;
-	buf[1] = 0xAA ;
-	buf[2] = index ;
-	buf[3] = 0x13 ;
-	buf[4] = 0x01 ;   // 本机ID
-	buf[5] = paddr ;   // 目的ID
-	buf[6] = 0x71 ;   //头部角度设置
-	buf[7] = 0x08 ;   // 数据包个数
+	buf[0] = 0x55;
+	buf[1] = 0xAA;
+	buf[2] = index;
+	buf[3] = 0x13;
+	buf[4] = 0x01;	//本机ID
+	buf[5] = paddr;	//目的ID
+	buf[6] = 0x71;	//头部角度设置
+	buf[7] = 0x08;	//数据包个数
 
-	buf[8] = heitht>>8;   	//
-	buf[9] = heitht ;  	//
-	buf[10] = 0 ;   	//
-	buf[11] = 0 ; 		//
-	buf[12] = 0 ;		//
-	buf[13] = 0 ;  	//
-	buf[14] = 0 ;   	//
-	buf[15] = 0 ;   	//
+	buf[8] = heitht>>8;
+	buf[9] = heitht;
+	buf[10] = 0;
+	buf[11] = 0;
+	buf[12] = 0;
+	buf[13] = 0;
+	buf[14] = 0;
+	buf[15] = 0;
 
 	buf[16]= CRC8_Table(buf, 16);
 	buf[17]= 0x0D;
@@ -856,25 +854,25 @@ void Send_LiftCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
 
 	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请20字节
+  buf = mymalloc(sramx,20);	//申请20字节
 	
-	buf[0] = 0x55 ;
-	buf[1] = 0xAA ;
-	buf[2] = index ;
-	buf[3] = 0x13 ;
-	buf[4] = 0x01 ;   // 本机ID
-	buf[5] = paddr ;   // 目的ID
-	buf[6] = 0x81 ;   //头部角度设置
-	buf[7] = 0x08 ;   // 数据包个数
+	buf[0] = 0x55;
+	buf[1] = 0xAA;
+	buf[2] = index;
+	buf[3] = 0x13;
+	buf[4] = 0x01;	//本机ID
+	buf[5] = paddr;	//目的ID
+	buf[6] = 0x81;	//头部角度设置
+	buf[7] = 0x08;	//数据包个数
 
-	buf[8] = cmd;   	//
-	buf[9] = 0 ;  	//
-	buf[10] = 0 ;   	//
-	buf[11] = 0 ; 		//
-	buf[12] = 0 ;		//
-	buf[13] = 0 ;  	//
-	buf[14] = 0 ;   	//
-	buf[15] = 0 ;   	//
+	buf[8] = cmd;
+	buf[9] = 0;
+	buf[10] = 0;
+	buf[11] = 0;
+	buf[12] = 0;
+	buf[13] = 0;
+	buf[14] = 0;
+	buf[15] = 0;
 	
 	buf[16] = CRC8_Table(buf, 16);
 	buf[17] = 0x0D;
@@ -896,25 +894,25 @@ void Send_ultra_en_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
 
 	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请20字节
+  buf = mymalloc(sramx,20);	//申请20字节
 	
-	buf[0] = 0x55 ;
-	buf[1] = 0xAA ;
-	buf[2] = index ;
-	buf[3] = 0x13 ;
-	buf[4] = 0x01 ;   // 本机ID
-	buf[5] = paddr ;   // 目的ID
-	buf[6] = 0x77 ;   //头部角度设置
-	buf[7] = 0x08 ;   // 数据包个数
+	buf[0] = 0x55;
+	buf[1] = 0xAA;
+	buf[2] = index;
+	buf[3] = 0x13;
+	buf[4] = 0x01;	//本机ID
+	buf[5] = paddr;	//目的ID
+	buf[6] = 0x77;	//头部角度设置
+	buf[7] = 0x08;	//数据包个数
 
-	buf[8] = cmd;   	//
-	buf[9] = 0 ;  	//
-	buf[10] = 0 ;   	//
-	buf[11] = 0 ; 		//
-	buf[12] = 0 ;		//
-	buf[13] = 0 ;  	//
-	buf[14] = 0 ;   	//
-	buf[15] = 0 ;   	//
+	buf[8] = cmd;
+	buf[9] = 0;
+	buf[10] = 0;
+	buf[11] = 0;
+	buf[12] = 0;
+	buf[13] = 0;
+	buf[14] = 0;
+	buf[15] = 0;
 	
 	buf[16] = CRC8_Table(buf, 16);
 	buf[17] = 0x0D;
@@ -929,25 +927,25 @@ void Send_angle_offset_reply(uint8_t index, uint8_t paddr, int8_t level_offset, 
 
 	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请20字节
+  buf = mymalloc(sramx,20);	//申请20字节
 	
-	buf[0] = 0x55 ;
-	buf[1] = 0xAA ;
-	buf[2] = index ;
-	buf[3] = 0x13 ;
-	buf[4] = 0x01 ;   // 本机ID
-	buf[5] = paddr ;   // 目的ID
-	buf[6] = 0x75 ;   //头部角度设置
-	buf[7] = 0x08 ;   // 数据包个数
+	buf[0] = 0x55;
+	buf[1] = 0xAA;
+	buf[2] = index;
+	buf[3] = 0x13;
+	buf[4] = 0x01;	//本机ID
+	buf[5] = paddr;	//目的ID
+	buf[6] = 0x75;	//头部角度设置
+	buf[7] = 0x08;	//数据包个数
 
-	buf[8] = level_offset;   	//
-	buf[9] = pitch_offset;  	//
-	buf[10] = 0 ;   	//
-	buf[11] = 0 ; 		//
-	buf[12] = 0 ;		//
-	buf[13] = 0 ;  	//
-	buf[14] = 0 ;   	//
-	buf[15] = 0 ;   	//
+	buf[8] = level_offset;
+	buf[9] = pitch_offset;
+	buf[10] = 0;
+	buf[11] = 0;
+	buf[12] = 0;
+	buf[13] = 0;
+	buf[14] = 0;
+	buf[15] = 0;
 	
 	buf[16] = CRC8_Table(buf, 16);
 	buf[17] = 0x0D;

@@ -826,9 +826,9 @@ void Cammand_task(void *p_arg)
 	p_arg = p_arg;
 	while(1)
 	{	
-   #ifdef ROBOT_YZ01		
-		 OSSemPend(&UsartRxFromPC_SEM,0,OS_OPT_PEND_BLOCKING,0,&err); //请求信号量
-	#endif
+		#ifdef ROBOT_YZ01		
+			OSSemPend(&UsartRxFromPC_SEM,0,OS_OPT_PEND_BLOCKING,0,&err); //请求信号量
+		#endif
 		AnalysisCMD();
 
 		if(Head_Status.PSC_Dir != 0 && Robot_Sys.Psc_Task_flag == false){
@@ -849,7 +849,7 @@ void Cammand_task(void *p_arg)
 			AutoCharge.NotFind_Flag = false;
 			OSTaskResume((OS_TCB*)&AUTOCHARGE_TASKTCB,&err);	//后恢复任务
 		}	
-     #ifndef ROBOT_YZ01		
+		#ifndef ROBOT_YZ01		
 			OSTimeDlyHMSM(0,0,0,3,OS_OPT_TIME_HMSM_STRICT,&err); //延时1s
 		#endif
 	}
@@ -910,7 +910,6 @@ void Mdrv_task(void *p_arg)
 		Moto_mdrv_analysis();
 		OSTimeDlyHMSM(0,0,0,5,OS_OPT_TIME_HMSM_STRICT,&err); //延时1s
 	}
-	
 }
 
 /*=============================================================================
@@ -1152,14 +1151,12 @@ void LiftMoto_task(void *p_arg)
 	while(1)
 	{
 		LiftMoto_Process();
-		GetLiftHeight();
 		if(Lift_Moto.Cmd == LIFT_STOP && Lift_Moto.Set_Height == 0xffff){
 			Robot_Sys.Lift_Task_flag = false;
 			Lift_Moto.Cmd = LIFT_STOP;
 			LiftMoto_Set(Lift_Moto.Cmd);
-			OSTaskSuspend((OS_TCB*)&LIFTMOTO_TASKTCB,&err);//挂起控制任务
+			OSTaskSuspend((OS_TCB*)&LIFTMOTO_TASKTCB,&err);			//挂起控制任务
 		}
-		
 		OSTimeDlyHMSM(0,0,0,10,OS_OPT_TIME_HMSM_STRICT,&err); //延时20ms
 	}
 }
@@ -1207,7 +1204,6 @@ void Environ_task(void *p_arg)
 	while(1)
 	{
 		//OSSemPend(&UsartEnviron_SEM,0,OS_OPT_PEND_BLOCKING,0,&err); //请求信号量
-
 		Environmental_Process();
 		Voice_Process();
 		OSTimeDlyHMSM(0,0,0,10,OS_OPT_TIME_HMSM_STRICT,&err); //延时20ms
@@ -1230,7 +1226,6 @@ void Test_task(void *p_arg)
 	p_arg = p_arg;
 	while(1)
 	{
-		
 		OSSemPend(&UsartToTest_SEM,0,OS_OPT_PEND_BLOCKING,0,&err); //请求信号量
 		Test_Cmd_Analysis();
 	}
@@ -1255,8 +1250,8 @@ void LED_task(void *p_arg)
 	p_arg = p_arg;
 	while(1)
 	{
+		//PCB上的绿灯闪烁
 		LED_TEST_TOGGLE;
-		
 		if((Pms.Bat_Sta & 0x01) != 0){					//充电中
 			if(Pms.Capacity >= 95){
 				LED_RED_OFF;
@@ -1294,32 +1289,30 @@ void LED_task(void *p_arg)
 			pc_power_cnt = 0;
 		}
 
-		//警示灯控制
-		if( UsartToPC.Disconnect_flag == 1 || UsartToDrv.Disconnect_flag == 1){
-			LAMP_YELLOW_OFF;
-			LAMP_RED_ON;
-			LAMP_GREEN_OFF;
-		}else if((Pms.Bat_Sta & 0x10) != 0){
-			LAMP_YELLOW_ON;
-			LAMP_RED_OFF;
-			LAMP_GREEN_OFF;
-		}else{
-			LAMP_YELLOW_OFF;
-			LAMP_RED_OFF;
-			LAMP_GREEN_ON;
-		}
+		#ifdef ROBOT_M100
+			//警示灯控制
+			if(UsartToPC.Disconnect_flag == 1 || UsartToDrv.Disconnect_flag == 1){
+				LAMP_YELLOW_OFF;
+				LAMP_RED_ON;
+				LAMP_GREEN_OFF;
+			}else if((Pms.Bat_Sta & 0x10) != 0){
+				LAMP_YELLOW_ON;
+				LAMP_RED_OFF;
+				LAMP_GREEN_OFF;
+			}else{
+				LAMP_YELLOW_OFF;
+				LAMP_RED_OFF;
+				LAMP_GREEN_ON;
+			}
+		
+			if(Robot_Sys.Out_en_flag == 1) EN24_ENABLE;
+			else EN24_DISABLE;
+					 
+			if(Robot_Sys.Beep_en_flag == 1) LAMP_BEEP_ON;
+			else LAMP_BEEP_OFF;
+		#endif
 
-//	 if(Robot_Sys.Out_en_flag == 1){
-//		EN24_ENABLE;
-//	 }else{
-//		EN24_DISABLE;
-//	 }
-		 
-	 if(Robot_Sys.Beep_en_flag == 1){
-		 LAMP_BEEP_ON;
-	 }else{
-		 LAMP_BEEP_OFF;
-	 }
+
 
 //			printf("CH1_DAT1=%02X CH1_DAT2=%02X CH1_DAT3=%02X  CH1_DAT4=%02X \r\n",AutoCharge.CH1_IrDa_Dat[0],  
 //			AutoCharge.CH1_IrDa_Dat[1],AutoCharge.CH1_IrDa_Dat[2],AutoCharge.CH1_IrDa_Dat[3] );
