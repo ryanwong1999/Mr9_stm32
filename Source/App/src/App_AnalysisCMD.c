@@ -24,6 +24,7 @@ void Send_LiftMoto_Mess(uint8_t index, uint8_t addr,LiftMoto_Type *_liftmoto);
 uint8_t gUpdateCnt = 0;
 uint8_t gPscCnt = 0;
 
+
 /*=============================================================================
 *  函数名 ：AnalysisCMD
 *  作   者：hrx
@@ -63,15 +64,15 @@ void AnalysisCMD(void)
 	int16_t rx_angle;
 	int16_t rx_lear;
 	int16_t chg_dis;
-  int16_t chg_angle;
+	int16_t chg_angle;
 		
 	if(UsartToPC.Usart_Rx_OK == true)
 	{
-		UsartToPC.Usart_Rx_OK = false ;           // 清空等待下一次接收完成
+		UsartToPC.Usart_Rx_OK = false ;					//清空等待下一次接收完成
 		UsartToPC.Comm_TimeOut = 0;
 		UsartToPC.Disconnect_flag = 0;	
-		Sdev_tmp = UsartToPC.Rx_Buf[S_ID_REG];  // 取源地址
-		Pdev_tmp = UsartToPC.Rx_Buf[P_ID_REG];  // 取目的地址,与本地地址匹配
+		Sdev_tmp = UsartToPC.Rx_Buf[S_ID_REG];	//取源地址
+		Pdev_tmp = UsartToPC.Rx_Buf[P_ID_REG];  //取目的地址,与本地地址匹配
 			
 		if(Pdev_tmp == DEV_ID){
 			cmd_tmp = UsartToPC.Rx_Buf[CMD_REG];
@@ -107,7 +108,7 @@ void AnalysisCMD(void)
 						Robot_Sys.Remote_flag = true;
 						Robot_Sys.Set_PWM_Task_Flag = false;
 						Robot_Sys.Last_Task = REMOTE_TASK;
-						AutoCharge.chg_flag = 0 ;
+						AutoCharge.chg_flag = 0;
 						AutoCharge.chg_fail = 0;
 					}
 					
@@ -207,11 +208,11 @@ void AnalysisCMD(void)
 					break;
 				
 				case CMD_HEAD:  				//控制头部电机
-					//55 AA 11 13 FF 01 06 00 05 00 00 00 00 00 00 00 3A 0D 0A   //左
-					//55 AA 11 13 FF 01 06 00 07 00 00 00 00 00 00 00 3A 0D 0A   //右
-					//55 AA 11 13 FF 01 06 00 06 00 00 00 00 00 00 00 3A 0D 0A   //仰
-					//55 AA 11 13 FF 01 06 00 08 00 00 00 00 00 00 00 3A 0D 0A   //右
-					//55 AA 11 13 FF 01 06 00 00 00 00 00 00 00 00 00 3A 0D 0A   //俯
+					//55 AA 11 13 FF 01 06 00 05 00 00 00 00 00 00 00 3A 0D 0A		左
+					//55 AA 11 13 FF 01 06 00 07 00 00 00 00 00 00 00 3A 0D 0A		右
+					//55 AA 11 13 FF 01 06 00 06 00 00 00 00 00 00 00 3A 0D 0A		仰
+					//55 AA 11 13 FF 01 06 00 08 00 00 00 00 00 00 00 3A 0D 0A		右
+					//55 AA 11 13 FF 01 06 00 00 00 00 00 00 00 00 00 3A 0D 0A		俯
 					switch(UsartToPC.Rx_Buf[8])
 					{
 						case 0x05:    //05 左
@@ -275,8 +276,8 @@ void AnalysisCMD(void)
 				  Head_Status.PSC_Level_Pos = PSC_LEVEL_DEFAULT;
 					SetHeadLevelPosition(PSC_LEVEL_DEFAULT, Head_Status.Level_Offset);
 					SetHeadPitchPosition(PSC_UD_DEFAULT, Head_Status.Pitch_Offset);
-		      //AT24CXX_WriteOneByte(6,Head_Status.Level_Offset);   //当前容量
-		      //AT24CXX_WriteOneByte(7,Head_Status.Pitch_Offset);
+		      //AT24CXX_WriteOneByte(6, Head_Status.Level_Offset);   //当前容量
+		      //AT24CXX_WriteOneByte(7, Head_Status.Pitch_Offset);
 					Send_angle_offset_reply(gUpdateCnt++, Sdev_tmp, Head_Status.Level_Offset, Head_Status.Pitch_Offset);
 					break;
 				
@@ -297,6 +298,7 @@ void AnalysisCMD(void)
 					Robot_Sys.IR_Front_Disable_Flag = UsartToPC.Rx_Buf[9];
 					Robot_Sys.IR_Bottom_Disable_Flag = UsartToPC.Rx_Buf[10];
 				  Send_ultra_en_reply(gUpdateCnt++, Sdev_tmp, Robot_Sys.Ultra_Disable_Flag);
+					Robot_Sys.CarLight_flag = UsartToPC.Rx_Buf[11];
 					break;
 				
 				case CMD_LIFT_CON:				//升降控制命令
@@ -310,7 +312,6 @@ void AnalysisCMD(void)
 						Robot_Sys.Last_Task = AGV_TASK;
 					}else{
 					}
-					
 					#ifndef ROBOT_YZ01	
 						Send_LiftCtrl_reply(gUpdateCnt++, Sdev_tmp, Lift_Moto.Cmd);
 					#endif
@@ -325,6 +326,7 @@ void AnalysisCMD(void)
 		}	
 	}
 }
+
 
 /*=============================================================================
 *  函数名 ：Send_OdomUpdata
@@ -373,8 +375,8 @@ void  Send_OdomUpdata(uint8_t index, uint8_t addr, Odom_Data_type odom_dat)
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
 	//USARTx_SendMultibyte(USART1, buf, SEND_PC_LEN);
 	myfree(sramx,buf);
-	
 }
+
 
 /*=============================================================================
 *  函数名 ：Send_Head_Pose
@@ -415,8 +417,9 @@ void  Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool
 	buf[18]	= 0x0A;
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
+
 
 /*=============================================================================
 *  函数名 ：Send_LiftMoto_Mess
@@ -429,7 +432,7 @@ void  Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool
 */ 
 void Send_LiftMoto_Mess(uint8_t index, uint8_t addr,LiftMoto_Type *_liftmoto)
 {
-		uint8_t *buf;
+	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
   buf = mymalloc(sramx,20);	//申请20字节
 	
@@ -453,7 +456,7 @@ void Send_LiftMoto_Mess(uint8_t index, uint8_t addr,LiftMoto_Type *_liftmoto)
 	buf[17]	= 0x0D;
 	buf[18]	= 0x0A;
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
 
 
@@ -503,8 +506,9 @@ void Send_PowerDataUpdata(uint8_t index, uint8_t addr, Power_Type mPower)
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN); 
 	//USARTx_SendMultibyte(USART1, buf, SEND_PC_LEN); 
-	myfree(sramx,buf);	//释放内存
+	myfree(sramx, buf);	//释放内存
 }
+
 
 /*=============================================================================
 *  函数名 ：Send_PowerDataUpdata
@@ -528,10 +532,10 @@ void Send_HeadCtrlCmd(uint8_t index, uint8_t addr, uint8_t cmd_dat)
 	buf[1] =0xAA;
 	buf[2] =index;
 	buf[3] =0x13;
-	buf[4] =0x01;   // 本机ID
-	buf[5] =addr;   // 目的ID
-	buf[6] =0x32;   // 功能码
-	buf[7] =0x08;   // 数据包个数
+	buf[4] =0x01;   //本机ID
+	buf[5] =addr;   //目的ID
+	buf[6] =0x32;   //功能码
+	buf[7] =0x08;   //数据包个数
 
 	buf[8] = cmd_dat;
 	
@@ -542,7 +546,7 @@ void Send_HeadCtrlCmd(uint8_t index, uint8_t addr, uint8_t cmd_dat)
 	buf[18]	= 0x0A;
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN); 
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
 
 
@@ -582,7 +586,7 @@ void Send_Obs_EN_Mess(uint8_t index, uint8_t addr)
 	buf[18]	= 0x0A;
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
 
 /*=============================================================================
@@ -633,7 +637,7 @@ void Send_Obstacle_Sta(uint8_t index, uint8_t paddr, uint8_t obs_sta, uint8_t cr
 	buf[18]	= 0x0A;
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 } 
 
 
@@ -674,8 +678,9 @@ void Send_Speed_reply(uint8_t index, uint8_t paddr, uint16_t linear, uint16_t an
 	buf[17] = 0x0D;
 	buf[18] = 0x0A;
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
+
 
 /*=============================================================================
 *  函数名 ：Send_Autocharge_reply
@@ -715,8 +720,9 @@ void Send_Autocharge_reply(uint8_t index, uint8_t paddr, uint8_t dat){
 	buf[18] = 0x0A;
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 } 
+
 
 /*=============================================================================
 *  函数名 ：Send_HeadAngle_reply
@@ -756,8 +762,9 @@ void Send_HeadAngle_reply(uint8_t index, uint8_t paddr, uint16_t set_level, uint
 	buf[18] = 0x0A;
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
+
 
 /*=============================================================================
 *  函数名 ：Send_HeadAngle_reply
@@ -797,8 +804,9 @@ void Send_HeadCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
 	buf[18] = 0x0A;
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
+
 
 /*=============================================================================
 *  函数名 ：Send_SetLift_reply
@@ -838,8 +846,9 @@ void Send_SetLift_reply(uint8_t index, uint8_t paddr, uint16_t heitht){
 	buf[18]= 0x0A;
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
+
 
 /*=============================================================================
 *  函数名 ：Send_LiftCtrl_reply
@@ -879,8 +888,10 @@ void Send_LiftCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
 	buf[18] = 0x0A;
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
+
+
 /*=============================================================================
 *  函数名 ：Send_LiftCtrl_reply
 *  作   者：hrx
@@ -919,9 +930,18 @@ void Send_ultra_en_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
 	buf[18] = 0x0A;
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
 
+/*=============================================================================
+*  函数名 ：Send_angle_offset_reply
+*  作   者：hrx
+*  创建时间：2022年4月11日 
+*  修改时间：
+*  输   入：
+*  输   出：
+*  说   明：设置头部云台偏移量
+*/ 
 void Send_angle_offset_reply(uint8_t index, uint8_t paddr, int8_t level_offset, int8_t pitch_offset)
 {
 
@@ -952,8 +972,10 @@ void Send_angle_offset_reply(uint8_t index, uint8_t paddr, int8_t level_offset, 
 	buf[18] = 0x0A;
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
+
+
 /*=============================================================================
 *  函数名 ：CRC8Table
 *  作   者：hrx

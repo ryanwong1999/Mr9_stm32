@@ -69,34 +69,33 @@ typedef struct
 	uint8_t PowerOff_flag;
 	uint8_t StopDisable_flag;				//解除停止
 	uint8_t Stop_flag;							//停止
+	uint8_t CarLight_flag;					//车灯开关标志位
 	
 	bool Set_PWM_Task_Flag;
   bool Move_Speed_Task_flag;	
 	bool Psc_Task_flag;
 	bool Lift_Task_flag;
-	bool AutoCharge_task_flag ;  		//自动充电任务标记
+	bool AutoCharge_task_flag;  		//自动充电任务标记
 	bool GetGuideSta_task_flag;
 	bool AGV_Guide_task_flag;
 	bool Remote_flag;
 	bool Mergency_Stop_flag;
 	bool Comm_break_flag;
-	bool CarLight_flag;							//车灯开关标志位
 
 //  uint16_t Comm_TimeOut_cnt;
 	uint16_t Speed_Timeout_cnt;
 	uint16_t Odom_Timeout_cnt;
 	uint8_t Last_Task;
-
   uint8_t Out_en_flag;
 	uint8_t Beep_en_flag;
 	
 	Power_Type mSysPower;
-	HeadPose_Type mHeadPose;			         // 头部姿态
+	HeadPose_Type mHeadPose;				// 头部姿态
 	Beep_Type mBeepStatus;
 }Sys_Type;
 
 
-extern Sys_Type Robot_Sys ;
+extern Sys_Type Robot_Sys;
 
 void RCC_Configuration(void);
 void NVIC_Configuration(void);

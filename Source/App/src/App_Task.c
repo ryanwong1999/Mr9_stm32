@@ -1311,17 +1311,23 @@ void LED_task(void *p_arg)
 			if(Robot_Sys.Beep_en_flag == 1) LAMP_BEEP_ON;
 			else LAMP_BEEP_OFF;
 		#endif
+		
+		#ifdef ROBOT_MR9
+		//≥µµ∆øÿ÷∆
+		if(Robot_Sys.CarLight_flag == 1) 
+			LAMP_WHITE_ON;
+		else if(Robot_Sys.CarLight_flag == 0) 
+			LAMP_WHITE_OFF;
+		#endif
 
 
 
-//			printf("CH1_DAT1=%02X CH1_DAT2=%02X CH1_DAT3=%02X  CH1_DAT4=%02X \r\n",AutoCharge.CH1_IrDa_Dat[0],  
-//			AutoCharge.CH1_IrDa_Dat[1],AutoCharge.CH1_IrDa_Dat[2],AutoCharge.CH1_IrDa_Dat[3] );
-
-//			printf("CH3_DAT1=%02X CH3_DAT2=%02X CH3_DAT3=%02X CH3_DAT4=%02X \r\n",AutoCharge.CH3_IrDa_Dat[0],   
-//			AutoCharge.CH3_IrDa_Dat[1],AutoCharge.CH3_IrDa_Dat[2],AutoCharge.CH3_IrDa_Dat[3] );
-//			printf("Move_Sta = %d,%d\r\n",AutoCharge.Position,AutoCharge.Move_Sta);
+//			printf("CH1_DAT1=%02X CH1_DAT2=%02X CH1_DAT3=%02X  CH1_DAT4=%02X \r\n", AutoCharge.CH1_IrDa_Dat[0],  
+//			AutoCharge.CH1_IrDa_Dat[1],AutoCharge.CH1_IrDa_Dat[2], AutoCharge.CH1_IrDa_Dat[3] );
+//			printf("CH3_DAT1=%02X CH3_DAT2=%02X CH3_DAT3=%02X CH3_DAT4=%02X \r\n", AutoCharge.CH3_IrDa_Dat[0],   
+//			AutoCharge.CH3_IrDa_Dat[1], AutoCharge.CH3_IrDa_Dat[2], AutoCharge.CH3_IrDa_Dat[3] );
+//			printf("Move_Sta = %d,%d\r\n", AutoCharge.Position, AutoCharge.Move_Sta);
 //			printf("\r\n");
-//			
 //			memset(AutoCharge.CH1_IrDa_Dat, 0x00, 4);  
 //			memset(AutoCharge.CH3_IrDa_Dat, 0x00, 4);
 		OSTimeDlyHMSM(0,0,0,500,OS_OPT_TIME_HMSM_STRICT,&err); //—” ±500ms
