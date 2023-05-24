@@ -444,11 +444,11 @@ ARM Macro Assembler    Page 7
   310 00000220         
   311 00000220                 END
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
-interwork --depend=.\output\lib_mem_a.d -o.\output\lib_mem_a.o -ID:\Arm\Packs\K
-eil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -ID:\Arm\Pac
-ks\Keil\STM32F4xx_DFP\2.16.0\Device\Include --predefine="__UVISION_VERSION SETA
- 538" --predefine="STM32F407xx SETA 1" --list=.\listings\lib_mem_a.lst ..\UCOSI
-II\uC_LIB\lib_mem_a.asm
+interwork --depend=.\output\lib_mem_a.d -o.\output\lib_mem_a.o -IC:\Users\wangs
+\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM3
+2F4xx\Include -IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.
+0\Device\Include --predefine="__UVISION_VERSION SETA 538" --predefine="STM32F40
+7xx SETA 1" --list=.\listings\lib_mem_a.lst ..\UCOSIII\uC_LIB\lib_mem_a.asm
 
 
 

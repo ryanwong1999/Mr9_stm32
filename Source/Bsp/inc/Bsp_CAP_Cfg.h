@@ -54,8 +54,9 @@
 
 void TIM_ICP_Cfg_Init(uint16_t iArr, uint16_t iPsc);
 void TIM8_Configuration(void);
-int32_t GetLiftHeight(void);
-//void TIM8_CC_IRQHandler(void);
+static int read_encoder(void);
+void GetLiftHeight(void);
+
 #ifdef __cplusplus
 }
 #endif

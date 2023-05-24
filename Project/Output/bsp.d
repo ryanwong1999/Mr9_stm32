@@ -1,7 +1,7 @@
 .\output\bsp.o: ..\UCOSIII\UCOS_BSP\bsp.c
 .\output\bsp.o: ..\UCOSIII\UCOS_BSP\bsp.h
-.\output\bsp.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\output\bsp.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\output\bsp.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\bsp.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdarg.h
 .\output\bsp.o: ..\UCOSIII\uC_CPU\cpu.h
 .\output\bsp.o: ..\UCOSIII\uC_CPU\cpu_def.h
 .\output\bsp.o: ..\UCOSIII\uCOS_CONFIG\cpu_cfg.h
@@ -16,7 +16,7 @@
 .\output\bsp.o: ..\FWLIB\inc\stm32f4xx_adc.h
 .\output\bsp.o: ..\Source\User\stm32f4xx.h
 .\output\bsp.o: ..\CORE\core_cm4.h
-.\output\bsp.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\bsp.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
 .\output\bsp.o: ..\CORE\core_cmInstr.h
 .\output\bsp.o: ..\CORE\core_cmFunc.h
 .\output\bsp.o: ..\CORE\core_cm4_simd.h

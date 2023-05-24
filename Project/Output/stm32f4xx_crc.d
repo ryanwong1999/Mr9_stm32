@@ -2,7 +2,7 @@
 .\output\stm32f4xx_crc.o: ..\FWLIB\inc\stm32f4xx_crc.h
 .\output\stm32f4xx_crc.o: ..\Source\User\stm32f4xx.h
 .\output\stm32f4xx_crc.o: ..\CORE\core_cm4.h
-.\output\stm32f4xx_crc.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\stm32f4xx_crc.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
 .\output\stm32f4xx_crc.o: ..\CORE\core_cmInstr.h
 .\output\stm32f4xx_crc.o: ..\CORE\core_cmFunc.h
 .\output\stm32f4xx_crc.o: ..\CORE\core_cm4_simd.h

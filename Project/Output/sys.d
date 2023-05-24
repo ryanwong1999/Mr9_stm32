@@ -2,7 +2,7 @@
 .\output\sys.o: ..\Source\SYSTEM\sys.h
 .\output\sys.o: ..\Source\User\stm32f4xx.h
 .\output\sys.o: ..\CORE\core_cm4.h
-.\output\sys.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\sys.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
 .\output\sys.o: ..\CORE\core_cmInstr.h
 .\output\sys.o: ..\CORE\core_cmFunc.h
 .\output\sys.o: ..\CORE\core_cm4_simd.h

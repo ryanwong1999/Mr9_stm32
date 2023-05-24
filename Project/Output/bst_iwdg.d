@@ -3,7 +3,7 @@
 .\output\bst_iwdg.o: ..\Source\SYSTEM\sys.h
 .\output\bst_iwdg.o: ..\Source\User\stm32f4xx.h
 .\output\bst_iwdg.o: ..\CORE\core_cm4.h
-.\output\bst_iwdg.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\bst_iwdg.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
 .\output\bst_iwdg.o: ..\CORE\core_cmInstr.h
 .\output\bst_iwdg.o: ..\CORE\core_cmFunc.h
 .\output\bst_iwdg.o: ..\CORE\core_cm4_simd.h

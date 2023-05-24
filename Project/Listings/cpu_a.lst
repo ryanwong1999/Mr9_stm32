@@ -449,17 +449,17 @@ ARM Macro Assembler    Page 7
   282 00000034         
   283 00000034                 END
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
-interwork --depend=.\output\cpu_a.d -o.\output\cpu_a.o -ID:\Arm\Packs\Keil\STM3
-2F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -ID:\Arm\Packs\Keil\
-STM32F4xx_DFP\2.16.0\Device\Include --predefine="__UVISION_VERSION SETA 538" --
-predefine="STM32F407xx SETA 1" --list=.\listings\cpu_a.lst ..\UCOSIII\uC_CPU\cp
+interwork --depend=.\output\cpu_a.d -o.\output\cpu_a.o -IC:\Users\wangs\AppData
+\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\In
+clude -IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device
+\Include --predefine="__UVISION_VERSION SETA 538" --predefine="STM32F407xx SETA
 
 
 
 ARM Macro Assembler    Page 8 
 
 
-u_a.asm
+ 1" --list=.\listings\cpu_a.lst ..\UCOSIII\uC_CPU\cpu_a.asm
 
 
 

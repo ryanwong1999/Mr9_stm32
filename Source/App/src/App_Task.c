@@ -1152,7 +1152,7 @@ void LiftMoto_task(void *p_arg)
 	while(1)
 	{
 		LiftMoto_Process();
-
+		GetLiftHeight();
 		if(Lift_Moto.Cmd == LIFT_STOP && Lift_Moto.Set_Height == 0xffff){
 			Robot_Sys.Lift_Task_flag = false;
 			Lift_Moto.Cmd = LIFT_STOP;

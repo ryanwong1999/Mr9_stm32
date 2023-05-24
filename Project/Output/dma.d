@@ -3,7 +3,7 @@
 .\output\dma.o: ..\Source\SYSTEM\sys.h
 .\output\dma.o: ..\Source\User\stm32f4xx.h
 .\output\dma.o: ..\CORE\core_cm4.h
-.\output\dma.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\dma.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
 .\output\dma.o: ..\CORE\core_cmInstr.h
 .\output\dma.o: ..\CORE\core_cmFunc.h
 .\output\dma.o: ..\CORE\core_cm4_simd.h
