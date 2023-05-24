@@ -11,6 +11,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdio.h>
+#include <stdlib.h>
 #include "Bsp_CAP_Cfg.h"
 
 #define ENCODER_RESOLUTION 1    /*编码器一圈的物理脉冲数*/
@@ -195,23 +196,36 @@ void TIM8_Configuration(void)
     TIM_Cmd(TIM8, ENABLE);
 }
 
-int encoderNum = 0;
-int encoderNum1 = 0;
-float hight = 0;
-// 读取定时器计数值
+
+int encoderNum = CNT_INIT;
+int encoderOld = CNT_INIT;
+int hight = 0;
+//读取定时器计数值
 static int read_encoder(void)
 {
-    encoderNum = TIM_GetCounter(TIM8);
-//    TIM_SetCounter(TIM8, CNT_INIT);/*CNT设初值*/
-		printf("encoderNum: %d\r\n",encoderNum);
-    return encoderNum;
+	encoderNum = TIM_GetCounter(TIM8);
+	
+	if(abs(encoderNum-encoderOld)>20) 
+	{
+		encoderNum = encoderOld;
+		TIM_SetCounter(TIM8, encoderOld);
+	}
+	else 
+		encoderOld = encoderNum;
+	
+	if(encoderNum < CNT_INIT) 
+		TIM_SetCounter(TIM8, CNT_INIT);/*CNT设初值*/
+	
+	return encoderNum;
 }
 
 //计算高度（被另一个定时器每100ms调用1次） 
 void GetLiftHeight(void)
 {
-    /*读取编码器的值，正负代表旋转方向*/
-    encoderNum1 = read_encoder();
+	/*读取编码器的值，正负代表旋转方向*/
+	hight = read_encoder();
+	hight = (hight - 1000) * 0.0213;		//(80/3750) = 0.0213
+	printf("hight: %d\r\n",hight);
 }
 
 

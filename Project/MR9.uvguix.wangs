@@ -3615,9 +3615,9 @@
       </Doc>
       <Doc>
         <Name>..\Source\Bsp\src\Bsp_CAP_Cfg.c</Name>
-        <ColumnNumber>1</ColumnNumber>
-        <TopLine>165</TopLine>
-        <CurrentLine>196</CurrentLine>
+        <ColumnNumber>25</ColumnNumber>
+        <TopLine>200</TopLine>
+        <CurrentLine>228</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
@@ -3625,7 +3625,7 @@
       <Doc>
         <Name>..\Source\App\src\App_System.c</Name>
         <ColumnNumber>0</ColumnNumber>
-        <TopLine>207</TopLine>
+        <TopLine>222</TopLine>
         <CurrentLine>232</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
@@ -3660,9 +3660,9 @@
       </Doc>
       <Doc>
         <Name>..\Source\App\src\App_Task.c</Name>
-        <ColumnNumber>40</ColumnNumber>
-        <TopLine>1136</TopLine>
-        <CurrentLine>1156</CurrentLine>
+        <ColumnNumber>26</ColumnNumber>
+        <TopLine>1154</TopLine>
+        <CurrentLine>1163</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
