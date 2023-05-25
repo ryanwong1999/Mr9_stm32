@@ -60,6 +60,9 @@
 #define LAMP_GREEN_PIN	        GPIO_Pin_11
 #define LAMP_YELLOW_PIN	      	GPIO_Pin_12
 #define LAMP_BEEP_PIN          	GPIO_Pin_13
+#define LAMP_WHITE_PIN					GPIO_Pin_10
+#define LAMP_LEFT_PIN						GPIO_Pin_12
+#define LAMP_RIGHT_PIN					GPIO_Pin_13
 
 #define LAMP_RED_TOGGLE      		digitalToggle(LAMP_PORT, LAMP_RED_PIN)
 #define LAMP_RED_ON			    		GPIO_SetBits(LAMP_PORT, LAMP_RED_PIN)
@@ -76,6 +79,15 @@
 #define LAMP_BEEP_ON			    	GPIO_SetBits(LAMP_PORT, LAMP_BEEP_PIN)
 #define LAMP_BEEP_OFF			  		GPIO_ResetBits(LAMP_PORT, LAMP_BEEP_PIN)
 
+#define LAMP_WHITE_ON			    	GPIO_SetBits(LAMP_PORT, LAMP_WHITE_PIN)
+#define LAMP_WHITE_OFF			  	GPIO_ResetBits(LAMP_PORT, LAMP_WHITE_PIN)
+
+#define LAMP_LEFT_ON			    	GPIO_SetBits(LAMP_PORT, LAMP_LEFT_PIN)
+#define LAMP_LEFT_OFF			  		GPIO_ResetBits(LAMP_PORT, LAMP_LEFT_PIN)
+
+#define LAMP_RIGHT_ON			    	GPIO_SetBits(LAMP_PORT, LAMP_RIGHT_PIN)
+#define LAMP_RIGHT_OFF			  	GPIO_ResetBits(LAMP_PORT, LAMP_RIGHT_PIN)
+
 
 // BEEP
 #define BEEP_PORT_CLK          	RCC_AHB1Periph_GPIOD
@@ -85,13 +97,12 @@
 #define BEEP_ENABLE            	GPIO_SetBits(BEEP_PORT, BEEP_PIN);
 #define BEEP_DISABLE           	GPIO_ResetBits(BEEP_PORT, BEEP_PIN);
 
-
 #define BEEP_TOGGLE		   				digitalToggle(BEEP_PORT,BEEP_PIN)
 #define BEEP_ON		       				digitalHi(BEEP_PORT, BEEP_PIN)
 #define BEEP_OFF				 				digitalLo(BEEP_PORT, BEEP_PIN)	 
 
-#define ON  0
-#define OFF 1
+#define ON  			0
+#define OFF 			1
 
 
 //charging control

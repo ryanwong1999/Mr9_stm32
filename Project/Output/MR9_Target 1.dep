@@ -815,7 +815,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -1162,7 +1162,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
 I (..\Source\Bsp\inc\Bsp_TIM_Cfg.h)(0x5F65BEB0)
@@ -1230,7 +1230,7 @@ I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
 F (..\Source\Bsp\src\Bsp_GPIO_Cfg.c)(0x6405618D)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\bsp_gpio_cfg.o --omf_browse .\output\bsp_gpio_cfg.crf --depend .\output\bsp_gpio_cfg.d)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\User\stm32f4xx.h)(0x544E44C2)
 I (..\CORE\core_cm4.h)(0x527B7158)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\stdint.h)(0x6025237E)
@@ -1424,7 +1424,7 @@ I (..\UCOSIII\UCOS_BSP\bsp.h)(0x544B6ECA)
 I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_TIM_Cfg.h)(0x5F65BEB0)
@@ -1567,7 +1567,7 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\UCOSIII\uCOS_CONFIG\includes.h)(0x628DA981)
@@ -1697,7 +1697,7 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
-F (..\Source\App\src\App_24cxx.c)(0x64222FF9)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\app_24cxx.o --omf_browse .\output\app_24cxx.crf --depend .\output\app_24cxx.d)
+F (..\Source\App\src\App_24cxx.c)(0x646F4A6D)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\app_24cxx.o --omf_browse .\output\app_24cxx.crf --depend .\output\app_24cxx.d)
 I (..\Source\App\inc\App_24cxx.h)(0x64218FE6)
 I (..\Source\Bsp\inc\Bsp_IIC.h)(0x60459743)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
@@ -1761,7 +1761,7 @@ I (..\UCOSIII\UCOS_BSP\bsp.h)(0x544B6ECA)
 I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -1789,7 +1789,7 @@ I (..\Source\App\inc\App_Environmental.h)(0x619F42F0)
 I (..\Source\App\inc\App_PID.h)(0x62538D94)
 I (..\Source\App\inc\App_Test.h)(0x60467CF4)
 I (..\Source\App\inc\App_MotoDrv.h)(0x628EF01E)
-F (..\Source\App\src\App_AutoCharge.c)(0x641D17CD)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\app_autocharge.o --omf_browse .\output\app_autocharge.crf --depend .\output\app_autocharge.d)
+F (..\Source\App\src\App_AutoCharge.c)(0x646F4A95)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\app_autocharge.o --omf_browse .\output\app_autocharge.crf --depend .\output\app_autocharge.d)
 I (..\UCOSIII\uCOS_CONFIG\includes.h)(0x628DA981)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\string.h)(0x6025237E)
@@ -1851,7 +1851,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -1881,7 +1881,7 @@ I (..\Source\App\inc\App_24cxx.h)(0x64218FE6)
 I (..\Source\App\inc\App_PID.h)(0x62538D94)
 I (..\Source\App\inc\App_Test.h)(0x60467CF4)
 I (..\Source\App\inc\App_MotoDrv.h)(0x628EF01E)
-F (..\Source\App\src\App_AnalysisCMD.c)(0x646DB6BD)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\app_analysiscmd.o --omf_browse .\output\app_analysiscmd.crf --depend .\output\app_analysiscmd.d)
+F (..\Source\App\src\App_AnalysisCMD.c)(0x646DC7F8)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\app_analysiscmd.o --omf_browse .\output\app_analysiscmd.crf --depend .\output\app_analysiscmd.d)
 I (..\UCOSIII\uCOS_CONFIG\includes.h)(0x628DA981)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\string.h)(0x6025237E)
@@ -1943,7 +1943,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -2036,7 +2036,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -2065,7 +2065,7 @@ I (..\Source\App\inc\App_24cxx.h)(0x64218FE6)
 I (..\Source\App\inc\App_PID.h)(0x62538D94)
 I (..\Source\App\inc\App_Test.h)(0x60467CF4)
 I (..\Source\App\inc\App_MotoDrv.h)(0x628EF01E)
-F (..\Source\App\src\App_Environmental.c)(0x6417C2E2)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\app_environmental.o --omf_browse .\output\app_environmental.crf --depend .\output\app_environmental.d)
+F (..\Source\App\src\App_Environmental.c)(0x646EC388)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\app_environmental.o --omf_browse .\output\app_environmental.crf --depend .\output\app_environmental.d)
 I (..\UCOSIII\uCOS_CONFIG\includes.h)(0x628DA981)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\string.h)(0x6025237E)
@@ -2127,7 +2127,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -2219,7 +2219,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -2311,7 +2311,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -2404,7 +2404,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -2433,7 +2433,7 @@ I (..\Source\App\inc\App_24cxx.h)(0x64218FE6)
 I (..\Source\App\inc\App_PID.h)(0x62538D94)
 I (..\Source\App\inc\App_Test.h)(0x60467CF4)
 I (..\Source\App\inc\App_MotoDrv.h)(0x628EF01E)
-F (..\Source\App\src\App_MotoDrv.c)(0x6412B2A8)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\app_motodrv.o --omf_browse .\output\app_motodrv.crf --depend .\output\app_motodrv.d)
+F (..\Source\App\src\App_MotoDrv.c)(0x646F49F9)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\app_motodrv.o --omf_browse .\output\app_motodrv.crf --depend .\output\app_motodrv.d)
 I (..\UCOSIII\uCOS_CONFIG\includes.h)(0x628DA981)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\string.h)(0x6025237E)
@@ -2495,7 +2495,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -2588,7 +2588,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -2679,7 +2679,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -2709,7 +2709,7 @@ I (..\Source\App\inc\App_24cxx.h)(0x64218FE6)
 I (..\Source\App\inc\App_PID.h)(0x62538D94)
 I (..\Source\App\inc\App_Test.h)(0x60467CF4)
 I (..\Source\App\inc\App_MotoDrv.h)(0x628EF01E)
-F (..\Source\App\src\App_System.c)(0x646DA9B8)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\app_system.o --omf_browse .\output\app_system.crf --depend .\output\app_system.d)
+F (..\Source\App\src\App_System.c)(0x646EC388)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\app_system.o --omf_browse .\output\app_system.crf --depend .\output\app_system.d)
 I (..\UCOSIII\uCOS_CONFIG\includes.h)(0x628DA981)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\string.h)(0x6025237E)
@@ -2771,7 +2771,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -2801,7 +2801,7 @@ I (..\Source\App\inc\App_24cxx.h)(0x64218FE6)
 I (..\Source\App\inc\App_PID.h)(0x62538D94)
 I (..\Source\App\inc\App_Test.h)(0x60467CF4)
 I (..\Source\App\inc\App_MotoDrv.h)(0x628EF01E)
-F (..\Source\App\src\App_Task.c)(0x646DAF9B)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\app_task.o --omf_browse .\output\app_task.crf --depend .\output\app_task.d)
+F (..\Source\App\src\App_Task.c)(0x646DD4A2)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\app_task.o --omf_browse .\output\app_task.crf --depend .\output\app_task.d)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\UCOSIII\uCOS_CONFIG\includes.h)(0x628DA981)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\stdio.h)(0x60252374)
@@ -2863,7 +2863,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -2955,7 +2955,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -3049,7 +3049,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -3139,7 +3139,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -3231,7 +3231,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -3323,7 +3323,7 @@ I (..\UCOSIII\uCOS_CONFIG\app_cfg.h)(0x545891FD)
 I (..\UCOSIII\UCOS_BSP\bsp.h)(0x544B6ECA)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -3525,7 +3525,7 @@ I (..\UCOSIII\uCOS_CONFIG\app_cfg.h)(0x545891FD)
 I (..\UCOSIII\UCOS_BSP\bsp.h)(0x544B6ECA)
 I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -3555,7 +3555,7 @@ I (..\Source\App\inc\App_24cxx.h)(0x64218FE6)
 I (..\Source\App\inc\App_PID.h)(0x62538D94)
 I (..\Source\App\inc\App_Test.h)(0x60467CF4)
 I (..\Source\App\inc\App_MotoDrv.h)(0x628EF01E)
-F (..\Source\User\main.c)(0x646DBC43)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\main.o --omf_browse .\output\main.crf --depend .\output\main.d)
+F (..\Source\User\main.c)(0x646DD4A2)(-c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\FWLIB\inc -I ..\Source\App\inc -I ..\Source\Bsp\inc -I ..\Source\SYSTEM -I ..\Source\User -I ..\UCOSIII\uCOSIII_Core -I ..\UCOSIII\uCOSIII_Ports -I ..\UCOSIII\UCOS_BSP -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uCOS_CONFIG -I ..\UCOSIII\uC_CPU -I ..\UCOSIII\uC_LIB-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\wangs\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Device\Include-D__UVISION_VERSION="538" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__FPU_USED="1"-o .\output\main.o --omf_browse .\output\main.crf --depend .\output\main.d)
 I (..\UCOSIII\uCOS_CONFIG\includes.h)(0x628DA981)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (C:\AAAAAAAAPP\Keil5\ARM\ARMCC\include\string.h)(0x6025237E)
@@ -3617,7 +3617,7 @@ I (..\Source\SYSTEM\delay.h)(0x555D4A36)
 I (..\Source\SYSTEM\sys.h)(0x5B356CB6)
 I (..\Source\SYSTEM\usart.h)(0x5B44532F)
 I (..\Source\SYSTEM\malloc.h)(0x5F65C063)
-I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x64055F8A)
+I (..\Source\Bsp\inc\Bsp_GPIO_Cfg.h)(0x646EC02B)
 I (..\Source\Bsp\inc\Bsp_ADC_Cfg.h)(0x6406DF55)
 I (..\Source\Bsp\inc\Bsp_CAP_Cfg.h)(0x646DAA2A)
 I (..\Source\Bsp\inc\Bsp_PWM_Cfg.h)(0x6135B6C3)
@@ -3718,4 +3718,4 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
-F (..\README.md)(0x646DA26A)()
+F (..\README.md)(0x646DD170)()

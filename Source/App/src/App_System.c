@@ -47,7 +47,7 @@ void  RCC_Configuration(void)
 	PLL_Q         =    7;
 	
 	RCC_PLLConfig(RCC_PLLSource_HSE, PLL_M, PLL_N, PLL_P, PLL_Q);  // 配置PLL并将其使能，获得 168Mhz 的 System Clock 时钟*/
-    RCC_PLLCmd(ENABLE);
+  RCC_PLLCmd(ENABLE);
 		
 	RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK); // 选择PLL时钟作为系统时钟源*/
 	

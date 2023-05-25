@@ -63,7 +63,7 @@ void Moto_mdrv_analysis(void)
 		UsartToDrv.Disconnect_flag = 0;
 		if(UsartToDrv.Rx_Buf[0] == 0x01){		
 			if(UsartToDrv.Rx_Len%2 != 0){
-			 UsartToDrv.Rx_Len--;
+				UsartToDrv.Rx_Len--;
 			}
 		  rx_crc = (uint16_t)UsartToDrv.Rx_Buf[UsartToDrv.Rx_Len - 2] << 8 | UsartToDrv.Rx_Buf[UsartToDrv.Rx_Len - 1];
 			cal_crc = ModBusCRC16(UsartToDrv.Rx_Buf,UsartToDrv.Rx_Len - 2);
@@ -95,7 +95,6 @@ void Moto_mdrv_analysis(void)
 						if(addr1 == 0x5000 && addr2 == 0x5100){
 							Moto.left_rpm = (int16_t)UsartToDrv.Rx_Buf[6]<<8 | UsartToDrv.Rx_Buf[7];
 							Moto.right_rpm = (int16_t)UsartToDrv.Rx_Buf[8]<<8 | UsartToDrv.Rx_Buf[9];
-//							printf("Moto.left_rpm:%d Moto.right_rpm:%d", Moto.left_rpm, Moto.right_rpm);		//wsy printf
 						}else if(addr1 == 0x5002 && addr2 == 0x5102){
 						}else if(addr1 == 0x5004 && addr2 == 0x5104){
 							Moto.right_pos= (uint16_t)UsartToDrv.Rx_Buf[6]<<8 | UsartToDrv.Rx_Buf[7];
@@ -106,7 +105,6 @@ void Moto_mdrv_analysis(void)
 							}
 							Moto_Odom.Left_Value = 0;
 							Moto_Odom.Right_Value = 0;
-//							printf("Moto.right_pos:%d Moto.left_pos:%d", Moto.right_pos, Moto.left_pos);		//wsy printf
 						}
 						break;
 						
@@ -146,7 +144,7 @@ void Moto_mdrv_analysis(void)
 							Moto.right_pwm = (int16_t)UsartToDrv.Rx_Buf[16]<<8 | UsartToDrv.Rx_Buf[17];
 							#ifndef ROBOT_YZ01	
 							if(UsartToPC.Disconnect_flag == 0 && Robot_Sys.Speed_Timeout_cnt < 5000){
-							Send_Speed_reply(1, 0xff,Moto.lear, Moto.angle);
+								Send_Speed_reply(1, 0xff,Moto.lear, Moto.angle);
 							}
 							#endif
 						}
@@ -313,26 +311,24 @@ void Send_wheel_pwm_set(int16_t l_pwm, int16_t r_pwm)
 */
 void Send_speed_set(int16_t set_lear, int16_t set_angle)
 {
-
 	uint8_t i;
   uint16_t crc16_data;
-	
 	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,10);//申请2K字节
+  buf = mymalloc(sramx,10);	//申请2K字节
 	
 	buf[0] = 0x01;
-	buf[1] =0xEA;
-	buf[2] =set_lear ;
-	buf[3] =set_lear>>8;
-	buf[4] =set_angle;
-	buf[5] =set_angle>>8;
+	buf[1] = 0xEA;
+	buf[2] = set_lear ;
+	buf[3] = set_lear>>8;
+	buf[4] = set_angle;
+	buf[5] = set_angle>>8;
 	crc16_data = ModBusCRC16(buf,6);
 	buf[6] = crc16_data >> 8;
 	buf[7] = crc16_data;
 	RS485_SendMultibyte(USART_RS485, buf, 8);
 	//USARTx_SendMultibyte(USART1, buf, 8);
-	myfree(sramx,buf);//释放内存
+	myfree(sramx,buf);				//释放内存
 }
 
 /*=============================================================================
@@ -348,17 +344,16 @@ void Send_speed_set(int16_t set_lear, int16_t set_angle)
 void Send_read_mdrv_cmd(uint16_t addr1, uint16_t addr2)
 {
   uint16_t crc16_data;
-	
   uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,10);//申请20字节
+  buf = mymalloc(sramx,10);	//申请20字节
 	
 	buf[0] = 0x01;
-	buf[1] =0x43;
-	buf[2] =addr1>>8 ;
-	buf[3] =addr1;
-	buf[4] =addr2>>8;
-	buf[5] =addr2;
+	buf[1] = 0x43;
+	buf[2] = addr1>>8 ;
+	buf[3] = addr1;
+	buf[4] = addr2>>8;
+	buf[5] = addr2;
 	crc16_data = ModBusCRC16(buf,6);
 	buf[6] = crc16_data >> 8;
 	buf[7] = crc16_data;
@@ -380,25 +375,24 @@ void Send_read_mdrv_cmd(uint16_t addr1, uint16_t addr2)
 void Send_wr_all_mdrv_cmd(uint16_t addr1, uint16_t addr2,int16_t set_l,int16_t set_a, int16_t l_pwm, int16_t r_pwm)
 {
   uint16_t crc16_data;
-	
 	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请2K字节
+  buf = mymalloc(sramx,20);	//申请2K字节
 	
 	buf[0] = 0x01;
-	buf[1] =0x45;
-	buf[2] =addr1>>8 ;
-	buf[3] =addr1;
-	buf[4] =addr2>>8;
-	buf[5] =addr2;
-	buf[6] =set_l>>8 ;
-	buf[7] =set_l;
-	buf[8] =set_a>>8;
-	buf[9] =set_a;
-	buf[10] =l_pwm>>8 ;
-	buf[11] =l_pwm;
-	buf[12] =r_pwm>>8;
-	buf[13] =r_pwm;
+	buf[1] = 0x45;
+	buf[2] = addr1>>8 ;
+	buf[3] = addr1;
+	buf[4] = addr2>>8;
+	buf[5] = addr2;
+	buf[6] = set_l>>8 ;
+	buf[7] = set_l;
+	buf[8] = set_a>>8;
+	buf[9] = set_a;
+	buf[10] = l_pwm>>8 ;
+	buf[11] = l_pwm;
+	buf[12] = r_pwm>>8;
+	buf[13] = r_pwm;
 	
 	crc16_data = ModBusCRC16(buf,14);
 	buf[14] = crc16_data >> 8;
@@ -419,24 +413,23 @@ void Send_wr_all_mdrv_cmd(uint16_t addr1, uint16_t addr2,int16_t set_l,int16_t s
 *  输   出：
 *  说   明：写数据命令
 */
-void Send_write_mdrv_cmd(uint16_t addr1, uint16_t addr2,int16_t dat1,int16_t dat2)
+void Send_write_mdrv_cmd(uint16_t addr1, uint16_t addr2, int16_t dat1, int16_t dat2)
 {
   uint16_t crc16_data;
-
-		uint8_t *buf;
+	uint8_t *buf;
 	uint8_t sramx=0;					//默认为内部sram
   buf = mymalloc(sramx,20); //申请2K字节
 	
 	buf[0] = 0x01;
-	buf[1] =0x44;
-	buf[2] =addr1>>8 ;
-	buf[3] =addr1;
-	buf[4] =addr2>>8;
-	buf[5] =addr2;
-	buf[6] =dat1>>8 ;
-	buf[7] =dat1;
-	buf[8] =dat2>>8;
-	buf[9] =dat2;
+	buf[1] = 0x44;
+	buf[2] = addr1>>8 ;
+	buf[3] = addr1;
+	buf[4] = addr2>>8;
+	buf[5] = addr2;
+	buf[6] = dat1>>8 ;
+	buf[7] = dat1;
+	buf[8] = dat2>>8;
+	buf[9] = dat2;
 	crc16_data = ModBusCRC16(buf,10);
 	buf[10] = crc16_data >> 8;
 	buf[11] = crc16_data;
@@ -458,7 +451,7 @@ void Send_write_mdrv_cmd(uint16_t addr1, uint16_t addr2,int16_t dat1,int16_t dat
 */
 unsigned short ModBusCRC16(const void *s, int n) 
 {
-	unsigned short c = 0xffff,b;
+	unsigned short c = 0xffff, b;
 	char i;
 	int k;
 	for(k=0; k<n; k++) 

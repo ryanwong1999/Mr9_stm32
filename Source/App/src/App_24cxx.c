@@ -34,18 +34,18 @@ u8 AT24CXX_ReadOneByte(u16 ReadAddr)
   IIC_Start();  
 	if(EE_TYPE>AT24C16)
 	{
-		IIC_Send_Byte(0XA0);	   //发送写命令
+		IIC_Send_Byte(0XA0);	   			//发送写命令
 		IIC_Wait_Ack();
-		IIC_Send_Byte(ReadAddr>>8);//发送高地址	    
+		IIC_Send_Byte(ReadAddr>>8);		//发送高地址	    
 	}else IIC_Send_Byte(0XA0+((ReadAddr/256)<<1));   //发送器件地址0XA0,写数据 
 	IIC_Wait_Ack(); 
-  IIC_Send_Byte(ReadAddr%256);   //发送低地址
+  IIC_Send_Byte(ReadAddr%256);   	//发送低地址
 	IIC_Wait_Ack();	    
 	IIC_Start();  	 	   
-	IIC_Send_Byte(0XA1);           //进入接收模式			   
+	IIC_Send_Byte(0XA1);           	//进入接收模式			   
 	IIC_Wait_Ack();	 
   temp=IIC_Read_Byte(0);		   
-  IIC_Stop();//产生一个停止条件	    
+  IIC_Stop();											//产生一个停止条件	    
 	return temp;
 }
 
@@ -57,16 +57,16 @@ void AT24CXX_WriteOneByte(u16 WriteAddr,u8 DataToWrite)
   IIC_Start();  
 	if(EE_TYPE>AT24C16)
 	{
-		IIC_Send_Byte(0XA0);	    //发送写命令
+		IIC_Send_Byte(0XA0);	    		//发送写命令
 		IIC_Wait_Ack();
-		IIC_Send_Byte(WriteAddr>>8);//发送高地址	  
+		IIC_Send_Byte(WriteAddr>>8);	//发送高地址	  
 	}else IIC_Send_Byte(0XA0+((WriteAddr/256)<<1));   //发送器件地址0XA0,写数据 	 
 	IIC_Wait_Ack();	   
   IIC_Send_Byte(WriteAddr%256);   //发送低地址
 	IIC_Wait_Ack(); 	 										  		   
 	IIC_Send_Byte(DataToWrite);     //发送字节							   
 	IIC_Wait_Ack();  		    	   
-  IIC_Stop();//产生一个停止条件 
+  IIC_Stop();											//产生一个停止条件 
 	delay_ms(50);	 
 }
 
@@ -114,6 +114,8 @@ void AT24CXX_Read(u16 ReadAddr,u8 *pBuffer,u16 NumToRead)
 		NumToRead--;
 	}
 }  
+
+
 //在AT24CXX里面的指定地址开始写入指定个数的数据
 //WriteAddr :开始写入的地址 对24c02为0~255
 //pBuffer   :数据数组首地址
@@ -187,6 +189,7 @@ uint8_t AT24xx_Check(void)
 	}
 	return 1;											  
 }
+
 
 /*=============================================================================
 *  函数名 ：Read_PowerOn_AT24xx

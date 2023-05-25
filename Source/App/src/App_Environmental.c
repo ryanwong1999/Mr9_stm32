@@ -96,40 +96,38 @@ void Environmental_Process(void)
 	uint16_t cal_crc;
 	if(UsartToEnviro.Usart_Rx_OK == true){
 		len = UsartToEnviro.Rx_Len;
-		rx_crc = (uint16_t)UsartToEnviro.Rx_Buf[ len - 1] << 8 | UsartToEnviro.Rx_Buf[ len - 2];
+		rx_crc = (uint16_t)UsartToEnviro.Rx_Buf[len - 1] << 8 | UsartToEnviro.Rx_Buf[len - 2];
 		cal_crc =  CRC_Compute (UsartToEnviro.Rx_Buf, len - 2);
 
 		if(rx_crc == cal_crc){
-			memcpy(&Environ.CO2,  &UsartToEnviro.Rx_Buf[ 3 ],sizeof(int16_t));
+			memcpy(&Environ.CO2, &UsartToEnviro.Rx_Buf[3], sizeof(int16_t));
 			Environ.CO2 = (short int)t_ntohs(Environ.CO2);
 
-			memcpy(&Environ.VOC, &UsartToEnviro.Rx_Buf[ 5 ],sizeof(int16_t));
+			memcpy(&Environ.VOC, &UsartToEnviro.Rx_Buf[5], sizeof(int16_t));
 			Environ.VOC = (short int) t_ntohs(Environ.VOC);
 			
-			memcpy(&Environ.Humi, &UsartToEnviro.Rx_Buf[ 7 ],sizeof(int16_t));
+			memcpy(&Environ.Humi, &UsartToEnviro.Rx_Buf[7], sizeof(int16_t));
 			Environ.CH2O = (short int) t_ntohs(Environ.Humi);	
 			
-			memcpy(&Environ.PM2_5, &UsartToEnviro.Rx_Buf[ 9 ],sizeof(int16_t));
+			memcpy(&Environ.PM2_5, &UsartToEnviro.Rx_Buf[9], sizeof(int16_t));
 			Environ.PM2_5 = (short int) t_ntohs(Environ.PM2_5);
 
-			memcpy(&Environ.Humi, &UsartToEnviro.Rx_Buf[ 11 ],sizeof(int16_t));
+			memcpy(&Environ.Humi, &UsartToEnviro.Rx_Buf[11], sizeof(int16_t));
 			hum_tmp = (float) t_ntohs(Environ.Humi);
 			Environ.Humi = (uint16_t)hum_tmp;
 
-			memcpy(&Environ.Tempera, &UsartToEnviro.Rx_Buf[ 13 ],sizeof(int16_t));
+			memcpy(&Environ.Tempera, &UsartToEnviro.Rx_Buf[13], sizeof(int16_t));
 
 			tem_tmp = (float) t_ntohs(Environ.Tempera);
 			Environ.Tempera = (int16_t)tem_tmp;
 
-			memcpy(&Environ.PM10, &UsartToEnviro.Rx_Buf[ 15 ],sizeof(int16_t));
+			memcpy(&Environ.PM10, &UsartToEnviro.Rx_Buf[15], sizeof(int16_t));
 			Environ.PM10 = (short int) t_ntohs(Environ.PM10);
 		}
-		
-	UsartToEnviro.Rx_Len = 0;
-	UsartToEnviro.Rx_Sta = 0;
-  UsartToEnviro.Comm_TimeOut = 0;
-	UsartToEnviro.Usart_Rx_OK = false;
-
+		UsartToEnviro.Rx_Len = 0;
+		UsartToEnviro.Rx_Sta = 0;
+		UsartToEnviro.Comm_TimeOut = 0;
+		UsartToEnviro.Usart_Rx_OK = false;
 	}
 }
 
@@ -153,7 +151,7 @@ void Voice_Process(void)
 			rx_crc = (uint16_t)UsartToVoice.Rx_Buf[UsartToVoice.Rx_Len-1] << 8 | UsartToVoice.Rx_Buf[UsartToVoice.Rx_Len-2];
 			cal_crc = CRC_Compute ( UsartToVoice.Rx_Buf, UsartToVoice.Rx_Len-2);
 			if(rx_crc == cal_crc){
-		 		memcpy(&Environ.voice, &UsartToVoice.Rx_Buf[ 3 ],sizeof(int16_t));
+		 		memcpy(&Environ.voice, &UsartToVoice.Rx_Buf[3],sizeof(int16_t));
 				Environ.voice = (short int) t_ntohs(Environ.voice);
 				//printf("voice: %d\r\n",Environ.voice);
 			}
@@ -191,9 +189,9 @@ void Send_TempHumMess(uint8_t index,uint8_t addr,Environmental_Typedef *_environ
 	buf[10] = (_environ->VOC>>8)&0x00FF;
 	buf[11] = _environ->VOC&0x00FF;
 	buf[12] = (_environ->Humi>>8)&0x00FF;
-	buf[13] = _environ->Humi&0x00FF;;
-	buf[14] = (_environ->Tempera>>8)&0x00FF;;
-	buf[15] = _environ->Tempera&0x00FF;;;
+	buf[13] = _environ->Humi&0x00FF;
+	buf[14] = (_environ->Tempera>>8)&0x00FF;
+	buf[15] = _environ->Tempera&0x00FF;
 	buf[16]= CRC8_Table(buf, 16);
 	buf[17]= 0x0D;
 	buf[18]= 0x0A;
@@ -229,10 +227,10 @@ void Send_EnvironMess(uint8_t index,uint8_t addr,Environmental_Typedef *_environ
 	buf[8] = (_environ->PM2_5>>8)&0x00FF;
 	buf[9] = _environ->PM2_5&0x00FF;
 	buf[10] = (_environ->PM10>>8)&0x00FF;
-	buf[11] = _environ->PM10&0x00FF;;
+	buf[11] = _environ->PM10&0x00FF;
 	buf[12] = (_environ->PM1_0>>8)&0x00FF;
-	buf[13] = _environ->PM1_0&0x00FF;;
-	buf[14] = (_environ->state>>8)&0x00FF;;
+	buf[13] = _environ->PM1_0&0x00FF;
+	buf[14] = (_environ->state>>8)&0x00FF;
 	buf[15] = _environ->state&0x00FF;
 	buf[16]= CRC8_Table(buf, 16);
 	buf[17]= 0x0D;

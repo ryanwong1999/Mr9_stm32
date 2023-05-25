@@ -17,14 +17,14 @@
 
 uint8_t PID_Sampling_Period = 0;    // PID 采样率
 
-PID_typedef LeftPID ;     // 左PID 调节
-PID_typedef RightPID ;    // 右PID 调节
+PID_typedef LeftPID;	// 左PID 调节
+PID_typedef RightPID;	// 右PID 调节
 
 PID_typedef PID_Stru;
 PID_typedef PID_BACK_Stru;
-float  Kp =     1  ;      // 比例常数
-float  Ti =     0 ;       // 积分时间常数
-float  Td =     0 ;       // 微分时间常数
+float  Kp = 1;      	// 比例常数
+float  Ti = 0;       	// 积分时间常数
+float  Td = 0;       	// 微分时间常数
 
 /*=============================================================================
 *  函数名 ：IncPID_Init
@@ -39,30 +39,30 @@ float  Td =     0 ;       // 微分时间常数
 void IncPID_Init(void)
 {
 	LeftPID.SumErr = 0;
-	LeftPID.LastErr = 0;     // Error[-1]
-	LeftPID.PrevErr = 0;     // Error[-2]
+	LeftPID.LastErr = 0;	// Error[-1]
+	LeftPID.PrevErr = 0;	// Error[-2]
 	
-	LeftPID.KP = 0;    // 比例常数Proportion
-	LeftPID.KI = 0;      // 积分常数Integral
-	LeftPID.KD = 0;    // 微分常数Derivative
-	LeftPID.SetPoint  =0;
+	LeftPID.KP = 0;				// 比例常数Proportion
+	LeftPID.KI = 0;      	// 积分常数Integral
+	LeftPID.KD = 0;    		// 微分常数Derivative
+	LeftPID.SetPoint = 0;
 	
 	RightPID.SumErr = 0;
-	RightPID.LastErr = 0;    // Error[-1]
-	RightPID.PrevErr = 0;    // Error[-2]
+	RightPID.LastErr = 0;	// Error[-1]
+	RightPID.PrevErr = 0;	// Error[-2]
 	
-	RightPID.KP = 0;   // 比例常数Proportion
-	RightPID.KI = 0;     // 积分常数Integral
-	RightPID.KD = 0;   // 微分常数Derivative
+	RightPID.KP = 0;   		// 比例常数Proportion
+	RightPID.KI = 0;     	// 积分常数Integral
+	RightPID.KD = 0;   		// 微分常数Derivative
 	RightPID.SetPoint  =0;	
 	
 	PID_Stru.SumErr = 0;
-	PID_Stru.LastErr = 0;    // Error[-1]
-	PID_Stru.PrevErr = 0;    // Error[-2]
+	PID_Stru.LastErr = 0;	// Error[-1]
+	PID_Stru.PrevErr = 0;	// Error[-2]
 	
-	PID_Stru.KP = 20;   // 比例常数Proportion
-	PID_Stru.KI = 0;     // 积分常数Integral
-	PID_Stru.KD = 30;   // 微分常数Derivative
+	PID_Stru.KP = 20;   	// 比例常数Proportion
+	PID_Stru.KI = 0;     	// 积分常数Integral
+	PID_Stru.KD = 30;   	// 微分常数Derivative
 	PID_Stru.SetPoint  =0;	
 }
 
@@ -81,15 +81,15 @@ int IncPIDCalc(PID_typedef *pPid, uint16_t iNextPoint)
 {
 	int iError, iIncPid;
 	
-	iError = pPid->SetPoint - iNextPoint;         // 当前误差
-	iIncPid=					                             // 增量计算
-           pPid->KP * iError	           // e[k]项
-         - pPid->KI * pPid->LastErr	   // e[k-1]
-         + pPid->KD * pPid->PrevErr; // e[k-2]
+	iError = pPid->SetPoint - iNextPoint;	// 当前误差
+	iIncPid=															// 增量计算
+           pPid->KP * iError						// e[k]项
+         - pPid->KI * pPid->LastErr	   	// e[k-1]
+         + pPid->KD * pPid->PrevErr; 		// e[k-2]
 
 
 	// 存储误差，用于下次计算
-	pPid->PrevErr = pPid->LastErr; //存储误差，便于下次计算
+	pPid->PrevErr = pPid->LastErr; 				//存储误差，便于下次计算
 	pPid->LastErr = iError;
 	// 返回增量值
 	return(iIncPid) ;
@@ -110,7 +110,7 @@ int LocPIDCalc(PID_typedef *pPid, uint16_t icurPoint)
 {
 	int iError, dError ;
 
-	iError = icurPoint - pPid->SetPoint;         // 当前误差
+	iError = icurPoint - pPid->SetPoint;	// 当前误差
 
 	pPid->SumErr += iError ;
 	
@@ -118,9 +118,9 @@ int LocPIDCalc(PID_typedef *pPid, uint16_t icurPoint)
 	
 	pPid->LastErr = iError ;
 	// 返回增量值
-	return(pPid->KP * iError              // 比例
-		+ pPid->KI * pPid->SumErr          // 积分
-	  + pPid->KD * dError) ;	             // 微分
+	return(pPid->KP * iError							// 比例
+		+ pPid->KI * pPid->SumErr          	// 积分
+	  + pPid->KD * dError) ;							// 微分
 }
 
 
@@ -160,25 +160,25 @@ int16_t Get_INCPID_PWM(PID_typedef *pPid,uint16_t set_point, uint16_t cur_point,
 	uint16_t set_tmp;
 	pPid->SetPoint = set_point;
 	
-	iError = pPid->SetPoint - cur_point;         // 当前误差
+	iError = pPid->SetPoint - cur_point;	// 当前误差
 	
-	if(abs(set_point) >  abs(cur_point)){     // get slower
+	if(abs(set_point) >  abs(cur_point)){	// get slower
 	  pPid->KP = 580/(float)(set_point + cur_point);
 		pPid->KI = 500/(float)(set_point + cur_point);
 		pPid->KD = 0;
-	}else{       //get faster
+	}else{       													//get faster
 		pPid->KP = 580/(float)(set_point + cur_point);
 		pPid->KI = 460/(float)(set_point + cur_point);
 		pPid->KD = 0;
 	}	
 
-	iIncPid=					                             // 增量计算
-           pPid->KP * iError	           // e[k]项
-         - pPid->KI * pPid->LastErr	   // e[k-1]
-         + pPid->KD * pPid->PrevErr; // e[k-2]
+	iIncPid=															// 增量计算
+           pPid->KP * iError						// e[k]项
+         - pPid->KI * pPid->LastErr			// e[k-1]
+         + pPid->KD * pPid->PrevErr;		// e[k-2]
 
 	// 存储误差，用于下次计算 
-	pPid->PrevErr = pPid->LastErr; //存储误差，便于下次计算
+	pPid->PrevErr = pPid->LastErr; 				//存储误差，便于下次计算
 	pPid->LastErr = iError;
 	// 返回增量值
 
@@ -218,26 +218,26 @@ int16_t Get_Chg_INCPID(PID_typedef *pPid,uint16_t set_point, uint16_t cur_point,
 	uint16_t set_tmp;
 	pPid->SetPoint = set_point;
 	
-	iError = pPid->SetPoint - cur_point;         // 当前误差
-	if(abs(set_point) >  abs(cur_point)){     // get slower
+	iError = pPid->SetPoint - cur_point;	// 当前误差
+	if(abs(set_point) >  abs(cur_point)){	// get slower
 		pPid->KP = 1000/(float)(set_point + cur_point);
 		pPid->KI = 800/(float)(set_point + cur_point);
 		pPid->KD = 0;
 
-	}else{       //get faster
+	}else{																//get faster
 		pPid->KP = 900/(float)(set_point + cur_point);
 		pPid->KI = 750/(float)(set_point + cur_point);
 		pPid->KD = 0;
 
 	}
 	
-	iIncPid=					                             // 增量计算
-           pPid->KP * iError	           // e[k]项
-         - pPid->KI * pPid->LastErr	   // e[k-1]
-         + pPid->KD * pPid->PrevErr; // e[k-2]
+	iIncPid=															// 增量计算
+           pPid->KP * iError	         	// e[k]项
+         - pPid->KI * pPid->LastErr	   	// e[k-1]
+         + pPid->KD * pPid->PrevErr; 		// e[k-2]
 
 
-	pPid->PrevErr = pPid->LastErr; //存储误差，便于下次计算
+	pPid->PrevErr = pPid->LastErr; 				//存储误差，便于下次计算
 	pPid->LastErr = iError;
 	// 返回增量值
 

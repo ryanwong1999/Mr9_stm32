@@ -36,6 +36,7 @@ void Charge_Tim1ms(void)
 	}
 }
 
+
 /*=============================================================================
 *  函数名 ：Charge_Init
 *  作   者：hrx
@@ -61,8 +62,8 @@ void Charge_Init(void)
 	memset(AutoCharge.CH2_IrDa_Dat, 0x00, 4);
 	memset(AutoCharge.CH3_IrDa_Dat, 0x00, 4);
 	AutoCharge.Move_Sta = CHG_MOVE_STOP;
-  
 }
+
 
 /*=============================================================================
 *  函数名 ：Get_Charger_Code
@@ -194,7 +195,7 @@ void AutoCharge_Processing(void)
 *
 ==============================================================================*/
 
-void AutoCharge_move( uint8_t Move_sta1)
+void AutoCharge_move(uint8_t Move_sta1)
 {	
 	static uint16_t left_period_set;
 	static uint16_t right_period_set;
@@ -222,29 +223,29 @@ void AutoCharge_move( uint8_t Move_sta1)
 					sta_last = Move_sta1;
 					Moto.cmd_addr1 = 0x2610;
 					Moto.cmd_addr2 = 0x3610;
-				#ifdef ROBOT_M100
-						AutoCharge.set_lear = -30;     //60,230
-						AutoCharge.set_angle = -110;
-				 #else						
+					#ifdef ROBOT_M100
+					AutoCharge.set_lear = -30;     //60,230
+					AutoCharge.set_angle = -110;
+					#else						
 					AutoCharge.set_lear = -40;     //60,230
 					AutoCharge.set_angle = -246;
-				#endif
+					#endif
 					}
 				break;
 		 
 			case CHG_MOVE_LEFT: 
-			 if(sta_last != Move_sta1){
-				 sta_last = Move_sta1;
-				 Moto.cmd_addr1 = 0x2610;
-				 Moto.cmd_addr2 = 0x3610;
-				#ifdef ROBOT_M100
+				if(sta_last != Move_sta1){
+					sta_last = Move_sta1;
+					Moto.cmd_addr1 = 0x2610;
+					Moto.cmd_addr2 = 0x3610;
+					#ifdef ROBOT_M100
 					AutoCharge.set_lear = -30;
 					AutoCharge.set_angle = 110;
-				#else
-				 AutoCharge.set_lear = -40;
-				 AutoCharge.set_angle = 246;
-				#endif
-				}
+					#else
+					AutoCharge.set_lear = -40;
+					AutoCharge.set_angle = 246;
+					#endif
+					}
 			 break;
 		
 			case CHG_MOVE_ZERORIGHT:
@@ -253,38 +254,37 @@ void AutoCharge_move( uint8_t Move_sta1)
 					Moto.cmd_addr1 = 0x2620;
 					Moto.cmd_addr2 = 0x3620;
 					#ifdef ROBOT_M100
-						AutoCharge.set_lear = 0;
-						AutoCharge.set_angle = -200;
+					AutoCharge.set_lear = 0;
+					AutoCharge.set_angle = -200;
 					#else
-						AutoCharge.set_lear = 0;
-						AutoCharge.set_angle = -250;
+					AutoCharge.set_lear = 0;
+					AutoCharge.set_angle = -250;
 					#endif
 					}
 				break;
 	 
 			case CHG_MOVE_ZEROLEFT:
-					if(sta_last != Move_sta1){
-						sta_last = Move_sta1;
-						Moto.cmd_addr1 = 0x2620;
-						Moto.cmd_addr2 = 0x3620;
-						
+				if(sta_last != Move_sta1){
+					sta_last = Move_sta1;
+					Moto.cmd_addr1 = 0x2620;
+					Moto.cmd_addr2 = 0x3620;
 					#ifdef ROBOT_M100
-						AutoCharge.set_lear = 0;
-						AutoCharge.set_angle = 200;
+					AutoCharge.set_lear = 0;
+					AutoCharge.set_angle = 200;
 					#else
-						AutoCharge.set_lear = 0;
-						AutoCharge.set_angle = 250;
+					AutoCharge.set_lear = 0;
+					AutoCharge.set_angle = 250;
 					#endif
-						}
+					}
 					break;
 		
 			case CHG_MOVE_BACKWARD:
-					Moto.set_left_pwm = 90 ;
-					Moto.set_right_pwm = 90;
+				Moto.set_left_pwm = 90 ;
+				Moto.set_right_pwm = 90;
 				break;
 			
 		 default:
-			 sta_last = 0;
+				sta_last = 0;
 				break;
 	}
 }
