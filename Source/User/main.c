@@ -121,13 +121,13 @@ int main(void)
 	
 	//创建开始任务
 	#ifdef ROBOT_YZ01	
-		printf(" ROBOT_YZ01 Sys starting!!\r\n"); 
+	printf(" ROBOT_YZ01 Sys starting!!\r\n"); 
 	#endif
 	#ifdef ROBOT_M100	
-		printf(" ROBOT_M100 Sys starting!!\r\n"); 
+	printf(" ROBOT_M100 Sys starting!!\r\n"); 
 	#endif
 	#ifdef ROBOT_MR9	
-		printf(" ROBOT_MR9 Sys starting!!\r\n"); 
+	printf(" ROBOT_MR9 Sys starting!!\r\n"); 
 	#endif
 	
 	DMA_ITConfig(DMA2_Stream0, DMA_IT_TC, ENABLE);	//使能中断

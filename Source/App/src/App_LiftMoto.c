@@ -246,7 +246,7 @@ void LiftMoto_GoTO_SetHeiht(uint16_t *_set_height)
 			}else{
 				Lift_Moto.Cmd = LIFT_DOWN;
 			}
-		}else if(Lift_Moto.Height < *_set_height ){	
+		}else if(Lift_Moto.Height < *_set_height){	
 			if(Lift_Moto.Height >= *_set_height){
 				Lift_Moto.Cmd = LIFT_STOP;
 				Lift_Moto.Lift_OK_flag = true;
@@ -264,19 +264,19 @@ void LiftMoto_GoTO_SetHeiht(uint16_t *_set_height)
 			}
 		}	
 	#elif LiftMoto_2
-		if(*_set_height == MAX_HEIGHT){
-			if(Lift_Moto.Limit_Switch_Flag >= 79){	//上限位
+		if(*_set_height == MAX_HEIGHT_2){
+			if(Lift_Moto.Height >= 79){		//上限位
 				Lift_Moto.Lift_OK_flag = true;
 			}else{
 				Lift_Moto.Cmd = LIFT_UP;
 			}
 		}else if(*_set_height == 0){
-			if(Lift_Moto.Limit_Switch_Flag <= 0){		//下限位
+			if(Lift_Moto.Height <= 1){		//下限位
 				Lift_Moto.Lift_OK_flag = true;
 			}else{
 				Lift_Moto.Cmd = LIFT_DOWN;
 			}
-		}else if(Lift_Moto.Height < *_set_height ){	
+		}else if(Lift_Moto.Height < *_set_height){	
 			if(Lift_Moto.Height >= *_set_height){
 				Lift_Moto.Cmd = LIFT_STOP;
 				Lift_Moto.Lift_OK_flag = true;
@@ -320,6 +320,7 @@ void LiftMoto_Process(void)
 		LiftMoto_Set(Lift_Moto.Cmd);
 	#elif LiftMoto_2
 		Lift_Moto.Height = GetLiftHeight();
+//	  printf("Lift_Moto.Lift_OK_flag: %d\r\n",Lift_Moto.Lift_OK_flag);
 		if(Lift_Moto.Set_Height != 0xffff){
 			LiftMoto_GoTO_SetHeiht(&Lift_Moto.Set_Height);
 		}else{
@@ -344,7 +345,7 @@ void LiftMoto_Init(void)
 {
 	static uint8_t cnt = 0;
 
-	if( LIMIT_DOWN_READ == 0){
+	if(LIMIT_DOWN_READ == 0){
 		LIFTMOTO_DISABLE;
 		delay_ms(50);
 		LIFTMOTO_UP;

@@ -138,27 +138,27 @@ void AnalysisCMD(void)
 						}
 						
 						#ifdef MOTO_LOCK	 	
-							//电机不动时可以用手推动，适用于室外
-							if(Moto.en_sta == 0){
-								 Send_mdrv_en_set(1, 1);
-							}else{
-								 Send_speed_set(Moto.set_lear, Moto.set_angle);
-							}
+						//电机不动时可以用手推动，适用于室外
+						if(Moto.en_sta == 0){
+							 Send_mdrv_en_set(1, 1);
+						}else{
+							 Send_speed_set(Moto.set_lear, Moto.set_angle);
+						}
 						#else
-							//电机不动时可以用手推动，适用于室内
-							if(Moto.set_lear == 0 && Moto.set_angle == 0 && (Pms.Bat_Sta & 0x01) == 0){
-								if(Moto.stop_sta == 1 && Moto.en_sta == 1){
-									Send_mdrv_en_set(0, 0);
-								}else{
-									Send_speed_set(Moto.set_lear, Moto.set_angle);
-								}
+						//电机不动时可以用手推动，适用于室内
+						if(Moto.set_lear == 0 && Moto.set_angle == 0 && (Pms.Bat_Sta & 0x01) == 0){
+							if(Moto.stop_sta == 1 && Moto.en_sta == 1){
+								Send_mdrv_en_set(0, 0);
 							}else{
-								if(Moto.en_sta == 0){
-									Send_mdrv_en_set(1, 1);
-								}else{
-									Send_speed_set(Moto.set_lear, Moto.set_angle);
-								}
+								Send_speed_set(Moto.set_lear, Moto.set_angle);
 							}
+						}else{
+							if(Moto.en_sta == 0){
+								Send_mdrv_en_set(1, 1);
+							}else{
+								Send_speed_set(Moto.set_lear, Moto.set_angle);
+							}
+						}
 						#endif
 					}
 					break;
@@ -186,7 +186,7 @@ void AnalysisCMD(void)
 						}
 					}
 					#ifndef ROBOT_YZ01	
-						Send_Autocharge_reply(gUpdateCnt, Sdev_tmp, charge_tmp);
+					Send_Autocharge_reply(gUpdateCnt, Sdev_tmp, charge_tmp);
 					#endif
 					break;
 								
@@ -203,7 +203,7 @@ void AnalysisCMD(void)
 				  Head_Angle_Control(level, pitch);
 				
 				  #ifndef ROBOT_YZ01	
-						Send_HeadAngle_reply(gPscCnt ++, Sdev_tmp, level, pitch);
+					Send_HeadAngle_reply(gPscCnt ++, Sdev_tmp, level, pitch);
 					#endif
 					break;
 				
@@ -239,7 +239,7 @@ void AnalysisCMD(void)
 						  break;
 					}	
 					#ifndef ROBOT_YZ01	
-						Send_HeadCtrl_reply(gUpdateCnt++, Sdev_tmp, UsartToPC.Rx_Buf[8]);		
+					Send_HeadCtrl_reply(gUpdateCnt++, Sdev_tmp, UsartToPC.Rx_Buf[8]);		
           #endif					
 					break;
 					
@@ -265,7 +265,7 @@ void AnalysisCMD(void)
 					Lift_Moto.Set_Height = (uint16_t)UsartToPC.Rx_Buf[8]<<8 | UsartToPC.Rx_Buf[9];
 					Lift_Moto.Lift_OK_flag = false;
 					#ifndef ROBOT_YZ01	
-						Send_SetLift_reply(gUpdateCnt++, Sdev_tmp, Lift_Moto.Set_Height);
+					Send_SetLift_reply(gUpdateCnt++, Sdev_tmp, Lift_Moto.Set_Height);
 					#endif
 					break;
 	

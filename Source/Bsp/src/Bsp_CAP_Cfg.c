@@ -12,7 +12,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
-#include "Bsp_CAP_Cfg.h"
+#include "includes.h"
 
 #define ENCODER_RESOLUTION 1    /*编码器一圈的物理脉冲数*/
 #define ENCODER_MULTIPLE 4      /*编码器倍频，通过定时器的编码器模式设置*/
@@ -195,22 +195,44 @@ void TIM8_Configuration(void)
 int encoderNum = CNT_INIT;
 int encoderOld = CNT_INIT;
 int hight = 0;
+int reset_cnt = 0;
 //读取定时器计数值
 static int read_encoder(void)
 {
-	encoderNum = TIM_GetCounter(TIM8);
+	encoderNum = TIM_GetCounter(TIM8);	
 	
-	if(abs(encoderNum-encoderOld)>20) 
+
+	if(encoderNum == encoderOld)
 	{
-		encoderNum = encoderOld;
-		TIM_SetCounter(TIM8, encoderOld);
+		if(Lift_Moto.Set_Height == 0)
+		{
+			reset_cnt++;
+			if(reset_cnt >= 50)
+			{
+				encoderNum = CNT_INIT;
+				encoderOld = CNT_INIT;
+				TIM_SetCounter(TIM8, CNT_INIT);		/*CNT设初值*/	
+				reset_cnt = 0;
+			}
+		}
 	}
-	else 
-		encoderOld = encoderNum;
+	else
+	{
+		reset_cnt = 0;
 	
-	if(encoderNum < CNT_INIT) 
-		TIM_SetCounter(TIM8, CNT_INIT);		/*CNT设初值*/
+		if(abs(encoderNum - encoderOld) > 20) 
+		{
+			encoderNum = encoderOld;
+			TIM_SetCounter(TIM8, encoderOld);
+		}
+		else 
+			encoderOld = encoderNum;
+		
+		if(encoderNum < CNT_INIT) 
+			TIM_SetCounter(TIM8, CNT_INIT);		/*CNT设初值*/	
+	}
 	
+//	printf("encoderNum: %d\r\n", encoderNum);
 	return encoderNum;
 }
 
@@ -220,7 +242,7 @@ int GetLiftHeight(void)
 	/*读取编码器的值，正负代表旋转方向*/
 	hight = read_encoder();
 	hight = (hight - 1000) * 0.0213;		//(80/3750) = 0.0213
-	printf("hight: %d\r\n",hight);
+//	printf("hight: %d\r\n", hight);
 	return hight;
 }
 

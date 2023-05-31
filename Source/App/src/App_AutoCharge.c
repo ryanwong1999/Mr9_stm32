@@ -598,7 +598,7 @@ void chg_move_left_process(void)
 			AutoCharge.Move_Sta = CHG_MOVE_RIGHT;	
 		}else if(AutoCharge.CH1_IrDa_Dat[0] == 0x0 && AutoCharge.CH3_IrDa_Dat[0] == TXDAT_LEFT){
 			AutoCharge.Move_Sta = CHG_MOVE_RIGHT;			
-		}else if(AutoCharge.CH_IrDate[0] == 0 && AutoCharge.CH_IrDate[2] != 0){   //?????,?????	
+		}else if(AutoCharge.CH_IrDate[0] == 0 && AutoCharge.CH_IrDate[2] != 0){
 			AutoCharge.Move_Sta = CHG_MOVE_RIGHT;
     }
 	 
@@ -710,7 +710,7 @@ void chg_move_zeroright_process(void)
 ==============================================================================*/	
 void chg_move_zeroleft_process(void)
 {
-	if(AutoCharge.angle < -200  ){
+	if(AutoCharge.angle < -200){
 		AutoCharge.Position = POSITION_NULL;             
 		AutoCharge.Last_Position = POSITION_NULL;        
 		AutoCharge.Move_Sta = CHG_MOVE_ZERORIGHT;
@@ -756,7 +756,7 @@ void chg_move_zeroleft_process(void)
 			}
 		}
 	}
-	if(AutoCharge.Move_Sta != CHG_MOVE_ZEROLEFT ){
+	if(AutoCharge.Move_Sta != CHG_MOVE_ZEROLEFT){
 		AutoCharge.OverTime = 0;
 	}
 }

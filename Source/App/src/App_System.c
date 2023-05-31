@@ -28,37 +28,33 @@
 
 void  RCC_Configuration(void)
 {
-	uint32_t           PLL_M;      
-  uint32_t           PLL_N;
-  uint32_t           PLL_P;
-  uint32_t           PLL_Q;
+	uint32_t	PLL_M;      
+  uint32_t	PLL_N;
+  uint32_t	PLL_P;
+  uint32_t	PLL_Q;
 	
-	RCC_DeInit();                      // 复位RCC外部设备寄存器到默认值
-	RCC_HSEConfig(RCC_HSE_ON);         // 打开外部高速晶振
+	RCC_DeInit();								// 复位RCC外部设备寄存器到默认值
+	RCC_HSEConfig(RCC_HSE_ON);	// 打开外部高速晶振
     
 	//等待外部高速时钟准备好
 	do{
 		RCC_WaitForHSEStartUp();
 	}while( RCC_WaitForHSEStartUp() != SUCCESS );
 	
-	PLL_M         =    8;
-	PLL_N        	=    336;
-	PLL_P         =    2;
-	PLL_Q         =    7;
+	PLL_M	=	8;
+	PLL_N	=	336;
+	PLL_P	=	2;
+	PLL_Q	=	7;
 	
 	RCC_PLLConfig(RCC_PLLSource_HSE, PLL_M, PLL_N, PLL_P, PLL_Q);  // 配置PLL并将其使能，获得 168Mhz 的 System Clock 时钟*/
   RCC_PLLCmd(ENABLE);
 		
 	RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK); // 选择PLL时钟作为系统时钟源*/
-	
 	/*首先配置 AHB时钟（HCLK）. 为了获得较高的频率，我们对 SYSCLK 1分频，得到HCLK*/
   RCC_HCLKConfig(RCC_HCLK_Div1);
- 
 	/*APBx时钟（PCLK）由AHB时钟（HCLK）分频得到，下面我们配置 PCLK*/
-	
 	/*APB1时钟配置. 4分频，即 PCLK1 = 42 MHz*/
 	RCC_PCLK1Config(RCC_HCLK_Div4);
-
 	/*APB2时钟配置. 2分频，即 PCLK2 = 84 MHz*/
 	RCC_PCLK2Config(RCC_HCLK_Div2);
 }

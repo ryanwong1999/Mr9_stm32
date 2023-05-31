@@ -30,6 +30,7 @@
 */                                                                                                                            
 
 #define MAX_HEIGHT    144	 		//最高高度
+#define MAX_HEIGHT_2  80	 		//最高高度
 #define MAX_LIFT_TIM  10200   //升到最高高度所需时间
 	
 //#define MAX_HEIGHT    95  //中山第一台
@@ -42,7 +43,7 @@
 typedef enum
 {
 	LIFT_STOP = 0x00 ,
-	LIFT_UP = 0x01,
+	LIFT_UP 	= 0x01,
 	LIFT_DOWN = 0x02,
 }Lift_Cmd;
 
@@ -50,16 +51,14 @@ typedef enum
 typedef struct
 {
 	uint8_t Status;
-	uint8_t Limit_Switch_Flag;		//限位标志
+	uint8_t Limit_Switch_Flag;	//限位标志
 	uint8_t OverCurrent_Flag;
 	bool  Lift_OK_flag;
-	//uint8_t Cmd;     //状态
-	uint16_t Height;   //高度
+	uint16_t Height;						//高度
 	uint16_t Set_Height;
-	uint16_t Lift_Tim;  //升降时间
+	uint16_t Lift_Tim;					//升降时间
 	uint8_t Init_OK_Flag;
 	Lift_Cmd Cmd;
-	
 }LiftMoto_Type;
 
 

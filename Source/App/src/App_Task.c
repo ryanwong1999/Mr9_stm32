@@ -1151,13 +1151,17 @@ void LiftMoto_task(void *p_arg)
 	while(1)
 	{
 		LiftMoto_Process();
+		#ifdef LiftMoto_1
 		if(Lift_Moto.Cmd == LIFT_STOP && Lift_Moto.Set_Height == 0xffff){
 			Robot_Sys.Lift_Task_flag = false;
 			Lift_Moto.Cmd = LIFT_STOP;
 			LiftMoto_Set(Lift_Moto.Cmd);
 			OSTaskSuspend((OS_TCB*)&LIFTMOTO_TASKTCB,&err);			//挂起控制任务
 		}
-		OSTimeDlyHMSM(0, 0, 0, 10, OS_OPT_TIME_HMSM_STRICT, &err); //延时20ms
+		OSTimeDlyHMSM(0, 0, 0, 10, OS_OPT_TIME_HMSM_STRICT, &err); //延时10ms
+		#elif LiftMoto_2
+		OSTimeDlyHMSM(0, 0, 0, 100, OS_OPT_TIME_HMSM_STRICT, &err); //延时100ms
+		#endif
 	}
 }
 
@@ -1318,14 +1322,14 @@ void LED_task(void *p_arg)
 			LAMP_WHITE_OFF;
 		#endif
 
-//			printf("CH1_DAT1=%02X CH1_DAT2=%02X CH1_DAT3=%02X  CH1_DAT4=%02X \r\n", AutoCharge.CH1_IrDa_Dat[0],  
-//			AutoCharge.CH1_IrDa_Dat[1],AutoCharge.CH1_IrDa_Dat[2], AutoCharge.CH1_IrDa_Dat[3] );
-//			printf("CH3_DAT1=%02X CH3_DAT2=%02X CH3_DAT3=%02X CH3_DAT4=%02X \r\n", AutoCharge.CH3_IrDa_Dat[0],   
-//			AutoCharge.CH3_IrDa_Dat[1], AutoCharge.CH3_IrDa_Dat[2], AutoCharge.CH3_IrDa_Dat[3] );
-//			printf("Move_Sta = %d,%d\r\n", AutoCharge.Position, AutoCharge.Move_Sta);
-//			printf("\r\n");
-//			memset(AutoCharge.CH1_IrDa_Dat, 0x00, 4);  
-//			memset(AutoCharge.CH3_IrDa_Dat, 0x00, 4);
+//		printf("CH1_DAT1=%02X CH1_DAT2=%02X CH1_DAT3=%02X  CH1_DAT4=%02X \r\n", AutoCharge.CH1_IrDa_Dat[0],  
+//		AutoCharge.CH1_IrDa_Dat[1],AutoCharge.CH1_IrDa_Dat[2], AutoCharge.CH1_IrDa_Dat[3] );
+//		printf("CH3_DAT1=%02X CH3_DAT2=%02X CH3_DAT3=%02X CH3_DAT4=%02X \r\n", AutoCharge.CH3_IrDa_Dat[0],   
+//		AutoCharge.CH3_IrDa_Dat[1], AutoCharge.CH3_IrDa_Dat[2], AutoCharge.CH3_IrDa_Dat[3] );
+//		printf("Move_Sta = %d,%d\r\n", AutoCharge.Position, AutoCharge.Move_Sta);
+//		printf("\r\n");
+//		memset(AutoCharge.CH1_IrDa_Dat, 0x00, 4);  
+//		memset(AutoCharge.CH3_IrDa_Dat, 0x00, 4);
 		OSTimeDlyHMSM(0, 0, 0, 500, OS_OPT_TIME_HMSM_STRICT, &err); //延时500ms
 
 	}
