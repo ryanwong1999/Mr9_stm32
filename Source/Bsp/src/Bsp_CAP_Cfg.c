@@ -194,14 +194,12 @@ void TIM8_Configuration(void)
 
 int encoderNum = CNT_INIT;
 int encoderOld = CNT_INIT;
-int hight = 0;
-int reset_cnt = 0;
+int hight = 0, hight_read = 0, hight_mm = 0, reset_cnt = 0;
 //读取定时器计数值
 static int read_encoder(void)
 {
 	encoderNum = TIM_GetCounter(TIM8);	
 	
-
 	if(encoderNum == encoderOld)
 	{
 		if(Lift_Moto.Set_Height == 0)
@@ -212,6 +210,18 @@ static int read_encoder(void)
 				encoderNum = CNT_INIT;
 				encoderOld = CNT_INIT;
 				TIM_SetCounter(TIM8, CNT_INIT);		/*CNT设初值*/	
+				reset_cnt = 0;
+			}
+		}		
+		if(Lift_Moto.Set_Height == MAX_HEIGHT_2)
+		{
+			reset_cnt++;
+			if(reset_cnt >= 50)
+			{
+				encoderNum = 4750;
+				encoderOld = 4750;
+				TIM_SetCounter(TIM8, 4750);		/*CNT设初值*/	
+				Lift_Moto.Lift_OK_flag = true;
 				reset_cnt = 0;
 			}
 		}
@@ -231,7 +241,6 @@ static int read_encoder(void)
 		if(encoderNum < CNT_INIT) 
 			TIM_SetCounter(TIM8, CNT_INIT);		/*CNT设初值*/	
 	}
-	
 //	printf("encoderNum: %d\r\n", encoderNum);
 	return encoderNum;
 }
@@ -240,9 +249,10 @@ static int read_encoder(void)
 int GetLiftHeight(void)
 {
 	/*读取编码器的值，正负代表旋转方向*/
-	hight = read_encoder();
-	hight = (hight - 1000) * 0.0213;		//(80/3750) = 0.0213
-//	printf("hight: %d\r\n", hight);
+	hight_read = read_encoder();
+	hight = (hight_read - 1000) * 0.0213;		//(80/3750) = 0.0213
+	hight_mm = ((hight_read - 1000) * 0.0213) * 10;
+	printf("hight: %d       hight: %d\r\n", hight, hight_mm);
 	return hight;
 }
 

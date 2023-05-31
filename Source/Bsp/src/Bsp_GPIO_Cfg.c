@@ -516,7 +516,7 @@ void LiftMoto_Gpio_Cfg_Init(void)
 */
 void LimitSwitch_Gpio_Cfg_Init(void)
 {
-	GPIO_InitTypeDef  GPIO_InitStructure;    
+	GPIO_InitTypeDef GPIO_InitStructure;    
 	
 	RCC_AHB1PeriphClockCmd(LIMIT_UP_PORT_CLK, ENABLE);		
 

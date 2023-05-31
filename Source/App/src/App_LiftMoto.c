@@ -388,4 +388,3 @@ void LiftMoto_Init(void)
 	LiftMoto_Set(Lift_Moto.Cmd);
 	delay_ms(10);
 }
-

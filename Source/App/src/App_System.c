@@ -271,5 +271,4 @@ void System_StartTips(void)
 	LED_GREEN_OFF;
 	LED_TEST_OFF;
 	delay_ms(200);
-
 }

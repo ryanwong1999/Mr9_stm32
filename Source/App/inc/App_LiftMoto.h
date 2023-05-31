@@ -53,7 +53,7 @@ typedef struct
 	uint8_t Status;
 	uint8_t Limit_Switch_Flag;	//限位标志
 	uint8_t OverCurrent_Flag;
-	bool  Lift_OK_flag;
+	bool Lift_OK_flag;
 	uint16_t Height;						//高度
 	uint16_t Set_Height;
 	uint16_t Lift_Tim;					//升降时间
