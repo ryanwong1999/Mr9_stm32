@@ -95,10 +95,10 @@ int main(void)
 	SetHeadLevelPosition(PSC_LEVEL_DEFAULT, Head_Status.Level_Offset);
 	delay_ms(100);
 	
-//	//新升降杆初始化让它一直往下
-//	#ifdef LiftMoto_2
-//	Lift_Moto.Cmd = LIFT_DOWN;
-//	#endif
+	//新升降杆初始化让它一直往下
+	#ifdef LiftMoto_2
+	Lift_Moto.Cmd = LIFT_DOWN;
+	#endif
 
 	Moto_mdrv_init();	
 	Robot_Sys.Remote_flag = true;
@@ -119,7 +119,7 @@ int main(void)
 //		//Send_PowerDataUpdata(gPscCnt++, Sdev_tmp, Robot_Sys.mSysPower);
 //		delay_ms(500);
 //	}
-	IWDG_Init(4,500); 		//与分频数为64,重载值为500,溢出时间为1s	
+	IWDG_Init(4, 500); 		//与分频数为64,重载值为500,溢出时间为1s	
 	
 	OSInit(&err);		    	//初始化UCOSIII
 	OS_CRITICAL_ENTER();	//进入临界区			  

@@ -252,7 +252,7 @@ int GetLiftHeight(void)
 	hight_read = read_encoder();
 	hight = (hight_read - 1000) * 0.0213;		//(80/3750) = 0.0213
 	hight_mm = ((hight_read - 1000) * 0.0213) * 10;
-	printf("hight: %d       hight: %d\r\n", hight, hight_mm);
+//	printf("hight: %d       hight: %d\r\n", hight, hight_mm);
 	return hight;
 }
 

@@ -52,7 +52,7 @@ void Moto_mdrv_analysis(void)
 	uint16_t rx_crc;
 	uint16_t cal_crc;
 	uint8_t cmd;
-	uint16_t addr1,addr2;
+	uint16_t addr1, addr2;
 	int16_t l_pulse_tmp;
 	int16_t r_pulse_tmp;
 	
@@ -66,7 +66,7 @@ void Moto_mdrv_analysis(void)
 				UsartToDrv.Rx_Len--;
 			}
 		  rx_crc = (uint16_t)UsartToDrv.Rx_Buf[UsartToDrv.Rx_Len - 2] << 8 | UsartToDrv.Rx_Buf[UsartToDrv.Rx_Len - 1];
-			cal_crc = ModBusCRC16(UsartToDrv.Rx_Buf,UsartToDrv.Rx_Len - 2);
+			cal_crc = ModBusCRC16(UsartToDrv.Rx_Buf, UsartToDrv.Rx_Len - 2);
 			cal_crc = rx_crc;	
 			//printf("drv_cmd : %02x\r\n",UsartToDrv.Rx_Buf[1]);
 			if(cal_crc == rx_crc){
@@ -82,9 +82,8 @@ void Moto_mdrv_analysis(void)
 							Moto.stop_sta = 0;
 						}
 						#ifndef ROBOT_YZ01
-						if(UsartToPC.Disconnect_flag == 0 && Robot_Sys.Speed_Timeout_cnt < 2000){
+						if(UsartToPC.Disconnect_flag == 0 && Robot_Sys.Speed_Timeout_cnt < 2000)
 							Send_Speed_reply(1, 0xff, Moto.lear, Moto.angle);
-						}
             #endif
 					 break;
 					
@@ -143,9 +142,8 @@ void Moto_mdrv_analysis(void)
 							Moto.left_pwm = (int16_t)UsartToDrv.Rx_Buf[14]<<8 | UsartToDrv.Rx_Buf[15];
 							Moto.right_pwm = (int16_t)UsartToDrv.Rx_Buf[16]<<8 | UsartToDrv.Rx_Buf[17];
 							#ifndef ROBOT_YZ01	
-							if(UsartToPC.Disconnect_flag == 0 && Robot_Sys.Speed_Timeout_cnt < 5000){
-								Send_Speed_reply(1, 0xff,Moto.lear, Moto.angle);
-							}
+							if(UsartToPC.Disconnect_flag == 0 && Robot_Sys.Speed_Timeout_cnt < 5000)
+								Send_Speed_reply(1, 0xff, Moto.lear, Moto.angle);
 							#endif
 						}
 						break;
@@ -157,43 +155,34 @@ void Moto_mdrv_analysis(void)
 }
 
 
-bool Get_Drv_OverCur_Flag(uint16_t drv_cur, int16_t bat_cur)	//过流保护超过40A 3秒
+/*=============================================================================
+*  函数名 ：Get_Drv_OverCur_Flag
+*  作   者：hrx
+*  创建时间：2022年4月11日 
+*  修改时间：
+*  输   入：
+*           
+*  输   出：
+*  说   明：驱动器过流保护
+*/
+bool Get_Drv_OverCur_Flag(uint16_t drv_cur, int16_t bat_cur)
 {
 	static bool sta = 0;
-	static uint8_t over_cnt = 0, over_rst_cnt = 0, stop_flag_cnt = 0, timeout = 0;
-	Robot_Sys.Stop_flag = 0;
+	static uint8_t over_cnt = 0, over_rst_cnt = 0;
 	//if(drv_cur >= 30000 || bat_cur <= -30000){
-	if(drv_cur >= 38000){
+	if(drv_cur >= 40000){
 		over_cnt ++;
 		over_rst_cnt = 0;
 		if(over_cnt >= 3){
-			stop_flag_cnt++;
 			over_cnt = 0;
 			sta = true;
 		}
 	}else{
-		if(stop_flag_cnt < 3){
-			if(stop_flag_cnt == 2){		//两分钟内如果没有触发第三次就置0
-				timeout++;
-				if(timeout >= 240){
-					stop_flag_cnt = 0;
-					timeout = 0;
-				}
-			}
-			over_rst_cnt ++;
-			over_cnt = 0;
-			if(over_rst_cnt > 15){
-				over_rst_cnt = 0;
-				sta = false;
-			}
-		}else{
-			timeout++;
-			Robot_Sys.Stop_flag = 1;
-			if(Robot_Sys.StopDisable_flag == 1 || timeout >= 240){
-				stop_flag_cnt = 0;
-				sta = false;
-				Robot_Sys.Stop_flag = 0;
-			}
+		over_rst_cnt ++;
+		over_cnt = 0;
+		if(over_rst_cnt > 20){
+			over_rst_cnt = 0;
+			sta = false;
 		}
 	}
 	

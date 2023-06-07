@@ -968,18 +968,17 @@ void Pmu_task(void *p_arg)    //电源管理函数
 		
 //		if(last_lever_offset != Head_Status.Level_Offset)
 //		{
-//		
 //			printf("write level\r\n");
-//			AT24CXX_WriteOneByte(6,Head_Status.Level_Offset);   //当前容量
-//			 OSTimeDlyHMSM(0,0,0,10,OS_OPT_TIME_HMSM_STRICT,&err); //延时1s
-//				//last_lever_offset = Head_Status.Level_Offset;
+//			AT24CXX_WriteOneByte(6, Head_Status.Level_Offset);   //当前容量
+//			OSTimeDlyHMSM(0,0,0,10,OS_OPT_TIME_HMSM_STRICT, &err); //延时1s
+//			//last_lever_offset = Head_Status.Level_Offset;
 //			last_lever_offset = AT24CXX_ReadOneByte(6);
 //		}
 //		if(last_pitch_offset != Head_Status.Pitch_Offset)
 //		{
 //			//last_pitch_offset = Head_Status.Pitch_Offset;
 //			printf("write pitch\r\n");
-//		 AT24CXX_WriteOneByte(7,Head_Status.Pitch_Offset);
+//		  AT24CXX_WriteOneByte(7,Head_Status.Pitch_Offset);
 //			OSTimeDlyHMSM(0,0,0,10,OS_OPT_TIME_HMSM_STRICT,&err); //延时1s
 //			last_pitch_offset = AT24CXX_ReadOneByte(7);
 //		}
@@ -1025,7 +1024,7 @@ void Head_Ctrl_task(void *p_arg)
 		Head_Control_Done();	 // 头部控制
 		if(Head_Status.PSC_Dir == 0 ){   //头部停止
 			Robot_Sys.Psc_Task_flag = false;
-			OSTaskSuspend((OS_TCB*)&HEAD_CTRL_TASKTCB,&err);//挂起头部控制任务
+			OSTaskSuspend((OS_TCB*)&HEAD_CTRL_TASKTCB, &err);//挂起头部控制任务
 		}
 		OSTimeDlyHMSM(0, 0, 0, 20, OS_OPT_TIME_HMSM_STRICT, &err); //延时1s
 	}
@@ -1093,8 +1092,7 @@ void Ultrasonic_task(void *p_arg)
 				charge_overtime = 0;
 				AutoCharge.chg_flag = 0;
 			}
-		}
-		else if((Ultra3.Distance < 300 || Ultra4.Distance < 300) && (Pms.Bat_Sta & 0x01) == 0 && Robot_Sys.Last_Task == CHG_TASK){	
+		}else if((Ultra3.Distance < 300 || Ultra4.Distance < 300) && (Pms.Bat_Sta & 0x01) == 0 && Robot_Sys.Last_Task == CHG_TASK){	
 			chg_oc_cnt = 0;
 			charge_overtime ++;
 			if(charge_overtime > 100){
@@ -1106,11 +1104,10 @@ void Ultrasonic_task(void *p_arg)
 		}
 //		else if(AutoCharge.Time_out > 65000 && AutoCharge.NotFind_Flag != true && Robot_Sys.Last_Task == CHG_TASK){
 //		 	AutoCharge.StartUp_Flag = 1;
-//				AutoCharge.Chg_Sta = 0;
-//				charge_overtime = 0;
-//			  AutoCharge.Time_out = 0;
+//			AutoCharge.Chg_Sta = 0;
+//			charge_overtime = 0;
+//			 AutoCharge.Time_out = 0;
 //			AutoCharge.chg_flag = 0;
-//	
 //		}
 		else{
 		  charge_overtime = 0;
@@ -1119,9 +1116,8 @@ void Ultrasonic_task(void *p_arg)
 		}
 						
 //		if(UsartToPC.Comm_TimeOut >= 500){    //0.5S没在收到命令则停止
-//		 UsartToPC.Comm_TimeOut = 500;
-//		 UsartToPC.Disconnect_flag = 1;
-
+//		  UsartToPC.Comm_TimeOut = 500;
+//		  UsartToPC.Disconnect_flag = 1;
 //		}
 //		
 //		if(UsartToDrv.Comm_TimeOut >= 1000){
@@ -1129,7 +1125,7 @@ void Ultrasonic_task(void *p_arg)
 //			UsartToDrv.Disconnect_flag = 1;
 //		}
 		
-		//printf("----%d, %d, %d, %d\r\n\r\n",Ultra1.Distance,Ultra2.Distance,Ultra3.Distance,Ultra4.Distance);
+		//printf("----%d, %d, %d, %d\r\n\r\n", Ultra1.Distance, Ultra2.Distance, Ultra3.Distance, Ultra4.Distance);
 		OSTimeDlyHMSM(0, 0, 0, 120, OS_OPT_TIME_HMSM_STRICT, &err); //延时100ms
 	}
 }
@@ -1156,7 +1152,7 @@ void LiftMoto_task(void *p_arg)
 			Robot_Sys.Lift_Task_flag = false;
 			Lift_Moto.Cmd = LIFT_STOP;
 			LiftMoto_Set(Lift_Moto.Cmd);
-			OSTaskSuspend((OS_TCB*)&LIFTMOTO_TASKTCB,&err);			//挂起控制任务
+			OSTaskSuspend((OS_TCB*)&LIFTMOTO_TASKTCB, &err);			//挂起控制任务
 		}
 		OSTimeDlyHMSM(0, 0, 0, 10, OS_OPT_TIME_HMSM_STRICT, &err); //延时10ms
 		#elif LiftMoto_2
@@ -1338,11 +1334,11 @@ void LED_task(void *p_arg)
 //定时器1的回调函数
 void tmr1_callback(void *p_tmr, void *p_arg)
 {
-	static u8 tmr1_num=0;
+	static u8 tmr1_num = 0;
 	tmr1_num++;		//定时器1执行次数加1
 	if(tmr1_num < 4)
 	{
-   //LED_TEST_TOGGLE;
+    //LED_TEST_TOGGLE;
 		tmr1_num = 0;
 	}
 }

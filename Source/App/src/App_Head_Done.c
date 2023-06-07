@@ -33,7 +33,7 @@ uint8_t autoscan_flag ;
 *  输   出：
 *  说   明：设定俯仰角度和水平旋转角度
 */
-void  Head_Angle_Control(int level, int pitch)
+void Head_Angle_Control(int level, int pitch)
 {
 	 Head_UD_To_SomeWhere(pitch);    
 	 Head_Level_To_SomeWhere(level);
@@ -49,7 +49,7 @@ void  Head_Angle_Control(int level, int pitch)
 *  输   出：
 *  说   明：俯仰控制
 */
-void  Moto_Pit(uint8_t Pit_dir)
+void Moto_Pit(uint8_t Pit_dir)
 {
 	switch(Pit_dir)
 	{
@@ -82,7 +82,7 @@ void  Moto_Pit(uint8_t Pit_dir)
 *  输   出：
 *  说   明：水平旋转控制
 */
-void  Moto_Level(uint8_t Level_dir)
+void Moto_Level(uint8_t Level_dir)
 {
 	switch(Level_dir)
 	{
@@ -119,16 +119,15 @@ void  Moto_Level(uint8_t Level_dir)
 *  输   出：
 *  说   明：俯仰到指定的位置
 */
-void  Head_UD_To_SomeWhere(float pos)
+void Head_UD_To_SomeWhere(float pos)
 {
 	Head_Status.PSC_UD_Goal_Pos = pos;
 	if(Head_Status.PSC_UD_Pos < Head_Status.PSC_UD_Goal_Pos - 0.5)
 	{
 		// Up
 		Head_Status.PSC_Dir  |= 1<<(6-1);
-	Head_Status.PSC_Dir  &= ~(1<<(8-1));
-	}else if(Head_Status.PSC_UD_Pos > Head_Status.PSC_UD_Goal_Pos + 0.5)
-	{
+		Head_Status.PSC_Dir  &= ~(1<<(8-1));
+	}else if(Head_Status.PSC_UD_Pos > Head_Status.PSC_UD_Goal_Pos + 0.5){
 		// Down
 		Head_Status.PSC_Dir  |= 1<<(8-1);
 		Head_Status.PSC_Dir  &= ~(1<<(6-1));
@@ -148,18 +147,15 @@ void  Head_UD_To_SomeWhere(float pos)
 *  输   出：
 *  说   明：水平旋转到指定的位置
 */
-void  Head_Level_To_SomeWhere(float pos)
+void Head_Level_To_SomeWhere(float pos)
 {
 	Head_Status.PSC_Level_Goal_Pos = pos;
 	if(Head_Status.PSC_Level_Pos > Head_Status.PSC_Level_Goal_Pos + 0.5)
 	{
-		//left
+		// left
 		Head_Status.PSC_Dir |= 1<<(5-1);
 		Head_Status.PSC_Dir &= ~(1<< (7-1));
-			
-
-	}else if(Head_Status.PSC_Level_Pos < Head_Status.PSC_Level_Goal_Pos - 0.5)
-	{
+	}else if(Head_Status.PSC_Level_Pos < Head_Status.PSC_Level_Goal_Pos - 0.5){
 		// right
 		Head_Status.PSC_Dir |= 1<<(7-1);
 		Head_Status.PSC_Dir &= ~(1<< (5-1));
@@ -179,7 +175,7 @@ void  Head_Level_To_SomeWhere(float pos)
 *  输   出：
 *  说   明：头部复位，归正
 */
-void  Head_Back()
+void Head_Back()
 {
 	// 俯仰
 	Head_UD_To_SomeWhere(Head_Status.PSC_UD_Default_Pos);
@@ -198,7 +194,7 @@ void  Head_Back()
 *  输   出：
 *  说   明：是否转到位，转到位则停止
 */
-void  Check_Assign_Ok()
+void Check_Assign_Ok()
 {
 	if(Head_Status.PSC_Level_Goal_Pos > 0)    // 水平目标值
 	{
@@ -232,7 +228,7 @@ void  Check_Assign_Ok()
 *  输   出：
 *  说   明：头部转动控制
 */
-void  Head_Control_Done()
+void Head_Control_Done()
 {
 	OS_ERR err;
 	if(Head_Status.PSC_Dir == 0){

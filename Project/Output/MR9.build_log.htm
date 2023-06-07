@@ -27,7 +27,52 @@ Project File Date:  05/24/2023
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-".\Output\MR9.axf" - 0 Error(s), 0 Warning(s).
+compiling App_Head_Done.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(83): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_Head_Done.c(58): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				Head_Status.PSC_UD_Pos += 0.5;
+..\Source\App\src\App_Head_Done.c(65): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				Head_Status.PSC_UD_Pos -= 0.5;
+..\Source\App\src\App_Head_Done.c(90): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if(Head_Status.PSC_Level_Pos >= Head_Status.PSC_Level_MIN_Pos + 0.5){
+..\Source\App\src\App_Head_Done.c(91): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				Head_Status.PSC_Level_Pos -= 0.5;
+..\Source\App\src\App_Head_Done.c(100): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if(Head_Status.PSC_Level_Pos <= Head_Status.PSC_Level_MAX_Pos - 0.5) {
+..\Source\App\src\App_Head_Done.c(101): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				Head_Status.PSC_Level_Pos += 0.5;
+..\Source\App\src\App_Head_Done.c(125): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if(Head_Status.PSC_UD_Pos < Head_Status.PSC_UD_Goal_Pos - 0.5)
+..\Source\App\src\App_Head_Done.c(130): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	}else if(Head_Status.PSC_UD_Pos > Head_Status.PSC_UD_Goal_Pos + 0.5){
+..\Source\App\src\App_Head_Done.c(153): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if(Head_Status.PSC_Level_Pos > Head_Status.PSC_Level_Goal_Pos + 0.5)
+..\Source\App\src\App_Head_Done.c(158): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	}else if(Head_Status.PSC_Level_Pos < Head_Status.PSC_Level_Goal_Pos - 0.5){
+..\Source\App\src\App_Head_Done.c(233): warning:  #177-D: variable "err"  was declared but never referenced
+  	OS_ERR err;
+..\Source\App\src\App_Head_Done.c: 15 warnings, 0 errors
+compiling Bsp_CAP_Cfg.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(83): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\Bsp\src\Bsp_CAP_Cfg.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=58872 RO-data=1304 RW-data=548 ZI-data=1185820  
+FromELF: creating hex file...
+".\Output\MR9.axf" - 0 Error(s), 19 Warning(s).
 
 <h2>Software Packages used:</h2>
 

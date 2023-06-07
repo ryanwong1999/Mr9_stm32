@@ -474,7 +474,7 @@ void LiftMoto_Gpio_Cfg_Init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;    //定义一个GPIO_InitTypeDef类型的结构体
 	
-	RCC_AHB1PeriphClockCmd(LIFTMOTO_PORT_CLK,ENABLE);    		//开启 GPIO 的时钟
+	RCC_AHB1PeriphClockCmd(LIFTMOTO_PORT_CLK, ENABLE);    	//开启 GPIO 的时钟
 	
 	GPIO_InitStructure.GPIO_Pin = LIFTMOTO_EN_PIN | LIFTMOTO_DIR_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;          	//输出
@@ -483,7 +483,7 @@ void LiftMoto_Gpio_Cfg_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;				
 	GPIO_Init(LIFTMOTO_PORT,&GPIO_InitStructure);
 	
-	RCC_AHB1PeriphClockCmd(LIFTMOTO_PWM_CLK,ENABLE);    		//开启 GPIO 的时钟
+	RCC_AHB1PeriphClockCmd(LIFTMOTO_PWM_CLK, ENABLE);    		//开启 GPIO 的时钟
 	
 	GPIO_InitStructure.GPIO_Pin =  LIFTMOTO_PWM_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;          	//输出
@@ -492,11 +492,11 @@ void LiftMoto_Gpio_Cfg_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;				
 	GPIO_Init(LIFTMOTO_PWM_PORT,&GPIO_InitStructure);
 	
- #ifdef LIFTMOTO_TASK_OS
+  #ifdef LIFTMOTO_TASK_OS
 	LIFTMOTO_DISABLE;
 	LIFTMOTO_DOWN;
 	LIFTMOTO_PWM_EN;   
- #else	
+  #else	
  	LIFTMOTO_ENABLE;
 	LIFTMOTO_UP;
 	LIFTMOTO_PWM_EN;   
