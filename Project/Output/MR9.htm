@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Output\MR9.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Output\MR9.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Jun 07 08:11:17 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Jun 07 18:45:52 2023
 <BR><P>
-<H3>Maximum Stack Usage =        240 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        248 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 Cammand_task &rArr; AnalysisCMD &rArr; Send_mdrv_en_set &rArr; Send_write_mdrv_cmd &rArr; RS485_SendMultibyte &rArr; delay_ms &rArr; delay_us &rArr; delay_osschedunlock &rArr; OSSchedUnlock &rArr; OSSched &rArr; OS_PrioGetHighest
 <P>
@@ -874,8 +874,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[bd]"></a>AnalysisCMD</STRONG> (Thumb, 1584 bytes, Stack size 56 bytes, app_analysiscmd.o(i.AnalysisCMD))
-<BR><BR>[Stack]<UL><LI>Max Depth = 224 + Unknown Stack Size
+<P><STRONG><a name="[bd]"></a>AnalysisCMD</STRONG> (Thumb, 1604 bytes, Stack size 64 bytes, app_analysiscmd.o(i.AnalysisCMD))
+<BR><BR>[Stack]<UL><LI>Max Depth = 232 + Unknown Stack Size
 <LI>Call Chain = AnalysisCMD &rArr; Send_mdrv_en_set &rArr; Send_write_mdrv_cmd &rArr; RS485_SendMultibyte &rArr; delay_ms &rArr; delay_us &rArr; delay_osschedunlock &rArr; OSSchedUnlock &rArr; OSSched &rArr; OS_PrioGetHighest
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Send_speed_set
@@ -1042,7 +1042,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[72]"></a>Cammand_task</STRONG> (Thumb, 150 bytes, Stack size 16 bytes, app_task.o(i.Cammand_task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 240 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 248 + Unknown Stack Size
 <LI>Call Chain = Cammand_task &rArr; AnalysisCMD &rArr; Send_mdrv_en_set &rArr; Send_write_mdrv_cmd &rArr; RS485_SendMultibyte &rArr; delay_ms &rArr; delay_us &rArr; delay_osschedunlock &rArr; OSSchedUnlock &rArr; OSSched &rArr; OS_PrioGetHighest
 </UL>
 <BR>[Calls]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDlyHMSM
@@ -1428,7 +1428,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_IRQHandler
 </UL>
 
-<P><STRONG><a name="[10d]"></a>Get_odom_pulse</STRONG> (Thumb, 320 bytes, Stack size 32 bytes, app_motodrv.o(i.Get_odom_pulse))
+<P><STRONG><a name="[10d]"></a>Get_odom_pulse</STRONG> (Thumb, 384 bytes, Stack size 32 bytes, app_motodrv.o(i.Get_odom_pulse))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Get_odom_pulse &rArr; __aeabi_cdcmple
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
@@ -1743,7 +1743,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[73]"></a>Mdrv_task</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, app_task.o(i.Mdrv_task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 208 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 216 + Unknown Stack Size
 <LI>Call Chain = Mdrv_task &rArr; Moto_mdrv_analysis &rArr; Send_speed_set &rArr; RS485_SendMultibyte &rArr; delay_ms &rArr; delay_us &rArr; delay_osschedunlock &rArr; OSSchedUnlock &rArr; OSSched &rArr; OS_PrioGetHighest
 </UL>
 <BR>[Calls]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDlyHMSM
@@ -1807,8 +1807,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM1_UP_TIM10_IRQHandler
 </UL>
 
-<P><STRONG><a name="[12d]"></a>Moto_mdrv_analysis</STRONG> (Thumb, 776 bytes, Stack size 48 bytes, app_motodrv.o(i.Moto_mdrv_analysis))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192 + Unknown Stack Size
+<P><STRONG><a name="[12d]"></a>Moto_mdrv_analysis</STRONG> (Thumb, 792 bytes, Stack size 56 bytes, app_motodrv.o(i.Moto_mdrv_analysis))
+<BR><BR>[Stack]<UL><LI>Max Depth = 200 + Unknown Stack Size
 <LI>Call Chain = Moto_mdrv_analysis &rArr; Send_speed_set &rArr; RS485_SendMultibyte &rArr; delay_ms &rArr; delay_us &rArr; delay_osschedunlock &rArr; OSSchedUnlock &rArr; OSSched &rArr; OS_PrioGetHighest
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Send_speed_set
@@ -3195,7 +3195,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AnalysisCMD
 </UL>
 
-<P><STRONG><a name="[be]"></a>Send_OdomUpdata</STRONG> (Thumb, 194 bytes, Stack size 40 bytes, app_analysiscmd.o(i.Send_OdomUpdata))
+<P><STRONG><a name="[be]"></a>Send_OdomUpdata</STRONG> (Thumb, 200 bytes, Stack size 40 bytes, app_analysiscmd.o(i.Send_OdomUpdata))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = Send_OdomUpdata &rArr; mymalloc &rArr; my_mem_malloc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mymalloc

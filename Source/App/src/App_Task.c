@@ -280,7 +280,6 @@ void start_task(void *p_arg)
 								(OS_ERR *)&err);
 	#endif 	
 
-	
 	#ifdef SEND_DMRV_TASK_OS							
 // command handle task	 							
 	OSTaskCreate( (OS_TCB *)&SEND_MDRV_TASKTCB,
@@ -297,7 +296,6 @@ void start_task(void *p_arg)
 								(OS_OPT )OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR,
 								(OS_ERR *)&err);
 	#endif 
-				
 								
 	#ifdef DMRV_TASK_OS							
 // command handle task	 							
@@ -332,12 +330,9 @@ void start_task(void *p_arg)
 								(OS_OPT )OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR,
 								(OS_ERR *)&err);
 	#endif 	
-								
-								
-
 
 	#ifdef PMU_TASK_OS								
-	// PMU handle  task	 					
+// PMU handle task	 					
 	OSTaskCreate( (OS_TCB *)&PMU_TASKTCB,
 								(CPU_CHAR *)"Pmu_task",
 								(OS_TASK_PTR)Pmu_task,
@@ -420,11 +415,10 @@ void start_task(void *p_arg)
 								(void *)0,
 								(OS_OPT )OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR,
 	              (OS_ERR *)&err );		
-	#endif 
-								
+	#endif
 								
 	#ifdef ENVIRON_TASK_OS								
-										//environmental task	
+// environmental task	
 	OSTaskCreate( (OS_TCB *)&	ENVIRON_TASKTCB,       
 	              (CPU_CHAR *) "Environ_task",
 								(OS_TASK_PTR )Environ_task,
@@ -441,7 +435,7 @@ void start_task(void *p_arg)
 	#endif
 
 	#ifdef ENVIRON_QUERY_TASK_OS								
-								//environmental task	
+// environmental task	
 	OSTaskCreate( (OS_TCB *)&	ENVIRON_QUERY_TASKTCB,       
 	              (CPU_CHAR *) "Environ_Query_task",
 								(OS_TASK_PTR )Environ_Query_task,
@@ -457,10 +451,8 @@ void start_task(void *p_arg)
 	              (OS_ERR *)&err );										
 	#endif
 
-
-
 	#ifdef LED_TASK_OS								
-		//LED test task						
+// LED test task						
 	OSTaskCreate( (OS_TCB *)&LED_TASKTCB,
 	              (CPU_CHAR *)"LED_task",
 								(OS_TASK_PTR)LED_task,
@@ -646,7 +638,7 @@ void Chg_task(void *p_arg)    //充电处理函数
 {
 	static uint8_t cha_sta = 0;
 	static uint8_t check_cnt = 0;
-	//static uint8_t last_sta = 0;
+//	static uint8_t last_sta = 0;
 	OS_ERR err;
 	p_arg = p_arg;
 	while(1)
@@ -695,7 +687,7 @@ void Chg_task(void *p_arg)    //充电处理函数
 			}			
 		}else{                 //charging
 			if((cha_sta & 0x20) == 0){
-				if(ADC_Filter_Value[3] < 1990 ){     //currnet > -375A（-187.5ma） ,charger is not connected
+				if(ADC_Filter_Value[3] < 1990){     //currnet > -375A（-187.5ma） ,charger is not connected
 				 	check_cnt ++;
 				  if(check_cnt > 10){
 						check_cnt = 0;
@@ -709,9 +701,9 @@ void Chg_task(void *p_arg)    //充电处理函数
 					check_cnt = 0;
 				 }
 			}else{
-				if( ADC_Filter_Value[2] <= 2600 ){      //voltage < 12V ,  no charger 
+				if(ADC_Filter_Value[2] <= 2600){      //voltage < 12V ,  no charger 
 					delay_ms(800);
-					if( ADC_Filter_Value[2] <= 2600 ){
+					if(ADC_Filter_Value[2] <= 2600){
 						cha_sta = 0;
 						EN_CHG_DISABLE;
 						Pms.Bat_Sta &= 0xfe;   //no chargine
@@ -817,13 +809,14 @@ void AutoCharge_task(void *p_arg)
 void Cammand_task(void *p_arg)
 {
 	static uint16_t last_left_set = 0;
-	static uint16_t  last_right_set = 0;		
+	static uint16_t last_right_set = 0;		
 	int16_t lear_tmp;
 	int16_t angular_tmp;
 	int16_t real_lear;
 	int16_t real_angle;
   OS_ERR err;
 	p_arg = p_arg;
+	
 	while(1)
 	{	
 		#ifdef ROBOT_YZ01		
@@ -873,6 +866,7 @@ void Send_Mdrv_task(void *p_arg)
 	uint16_t addr1;
 	uint16_t addr2;
 	p_arg = p_arg;
+	
 	while(1)
 	{
 		if(Robot_Sys.AutoCharge_task_flag == true){
@@ -905,6 +899,7 @@ void Mdrv_task(void *p_arg)
 	OS_ERR err;
 	uint8_t i;
 	p_arg = p_arg;
+	
 	while(1)
 	{
 		Moto_mdrv_analysis();
@@ -952,8 +947,9 @@ void Pmu_task(void *p_arg)    //电源管理函数
 	OS_ERR err;
 	uint8_t i;
 	static uint8_t cnt;
-	static uint16_t  min_cnt = 0;
+	static uint16_t min_cnt = 0;
 	p_arg = p_arg;
+	
 	while(1)
 	{
 	  Read_PMUData();
@@ -1125,7 +1121,7 @@ void Ultrasonic_task(void *p_arg)
 //			UsartToDrv.Disconnect_flag = 1;
 //		}
 		
-		//printf("----%d, %d, %d, %d\r\n\r\n", Ultra1.Distance, Ultra2.Distance, Ultra3.Distance, Ultra4.Distance);
+//		printf("----%d, %d, %d, %d\r\n\r\n", Ultra1.Distance, Ultra2.Distance, Ultra3.Distance, Ultra4.Distance);
 		OSTimeDlyHMSM(0, 0, 0, 120, OS_OPT_TIME_HMSM_STRICT, &err); //延时100ms
 	}
 }

@@ -55,9 +55,9 @@ void AnalysisCMD(void)
 	uint16_t addr1;
 	uint16_t addr2;
 	uint8_t charge_tmp = 0;
-	uint8_t cmd_tmp ;
-	uint8_t Sdev_tmp ;  // 源地址
-	uint8_t Pdev_tmp ;  // 目地址	
+	uint8_t cmd_tmp;
+	uint8_t Sdev_tmp;  // 源地址
+	uint8_t Pdev_tmp;  // 目地址	
 	float l_speed;
 	float r_speed;
 	float angle_div;
@@ -68,7 +68,7 @@ void AnalysisCMD(void)
 		
 	if(UsartToPC.Usart_Rx_OK == true)
 	{
-		UsartToPC.Usart_Rx_OK = false ;					//清空等待下一次接收完成
+		UsartToPC.Usart_Rx_OK = false;					//清空等待下一次接收完成
 		UsartToPC.Comm_TimeOut = 0;
 		UsartToPC.Disconnect_flag = 0;	
 		Sdev_tmp = UsartToPC.Rx_Buf[S_ID_REG];	//取源地址
@@ -81,6 +81,7 @@ void AnalysisCMD(void)
 				case CMD_QUERY_ODOM:   //查询ODOM
 					Robot_Sys.Odom_Timeout_cnt = 0;
 					if(Robot_Sys.Mergency_Stop_flag == true){
+						Moto_Odom.Clean_Flag = 1;
 						Moto_Odom.Left_Value = 0;
 						Moto_Odom.Right_Value = 0;
 						Send_OdomUpdata(1, 0xff, Moto_Odom);
@@ -96,11 +97,8 @@ void AnalysisCMD(void)
 					rx_lear = (short int)t_ntohs(lear_tmp);
 					rx_angle = (short int)t_ntohs(angular_tmp);
 				 
-					if(rx_lear > 1500){
-						rx_lear = 1500;
-					}else if(rx_lear < -1500){
-						rx_lear = -1500;
-					}
+					if(rx_lear > 1500) rx_lear = 1500;
+					else if(rx_lear < -1500) rx_lear = -1500;
 					
 					if(rx_lear != 0 || rx_angle != 0){
 						Robot_Sys.AutoCharge_task_flag = false;
@@ -139,25 +137,22 @@ void AnalysisCMD(void)
 						
 						#ifdef MOTO_LOCK	 	
 						//电机不动时可以用手推动，适用于室外
-						if(Moto.en_sta == 0){
+						if(Moto.en_sta == 0)
 							 Send_mdrv_en_set(1, 1);
-						}else{
+						else
 							 Send_speed_set(Moto.set_lear, Moto.set_angle);
-						}
 						#else
 						//电机不动时可以用手推动，适用于室内
 						if(Moto.set_lear == 0 && Moto.set_angle == 0 && (Pms.Bat_Sta & 0x01) == 0){
-							if(Moto.stop_sta == 1 && Moto.en_sta == 1){
+							if(Moto.stop_sta == 1 && Moto.en_sta == 1)
 								Send_mdrv_en_set(0, 0);
-							}else{
+							else
 								Send_speed_set(Moto.set_lear, Moto.set_angle);
-							}
 						}else{
-							if(Moto.en_sta == 0){
+							if(Moto.en_sta == 0)
 								Send_mdrv_en_set(1, 1);
-							}else{
+							else
 								Send_speed_set(Moto.set_lear, Moto.set_angle);
-							}
 						}
 						#endif
 					}
@@ -337,7 +332,7 @@ void AnalysisCMD(void)
 *  输   出：
 *  说   明：发送Odom信息
 */ 
-void  Send_OdomUpdata(uint8_t index, uint8_t addr, Odom_Data_type odom_dat)
+void Send_OdomUpdata(uint8_t index, uint8_t addr, Odom_Data_type odom_dat)
 {
 	int16_t tmpYaw;
 	int16_t tmpAngular_Rate;
@@ -360,6 +355,7 @@ void  Send_OdomUpdata(uint8_t index, uint8_t addr, Odom_Data_type odom_dat)
 	buf[5] = addr;   //目的ID
 	buf[6] = 0x01;   //功能码
 	buf[7] = 0x08;   //数据包个数
+	
 	buf[8] = (odom_dat.Left_Value >> 8) & 0x00ff;
 	buf[9] = odom_dat.Left_Value & 0x00ff; 
 	buf[10] = (odom_dat.Right_Value>>8) & 0x00ff; 
@@ -368,12 +364,12 @@ void  Send_OdomUpdata(uint8_t index, uint8_t addr, Odom_Data_type odom_dat)
 	buf[13]	= ultra[1];
 	buf[14]	= ultra[2];
 	buf[15]	= ultra[3];
+	
 	buf[16]	= CRC8_Table(buf, 16);
 	buf[17]	= 0x0D;
 	buf[18]	= 0x0A;
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
-	//USARTx_SendMultibyte(USART1, buf, SEND_PC_LEN);
 	myfree(sramx,buf);
 }
 
@@ -389,10 +385,10 @@ void  Send_OdomUpdata(uint8_t index, uint8_t addr, Odom_Data_type odom_dat)
 */ 
 void  Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool stop_key)
 {
-	int16_t   level;
-	int16_t   pitch;
-	uint8_t 	*buf;
-	uint8_t 	sramx=0;				//默认为内部sram
+	int16_t level;
+	int16_t pitch;
+	uint8_t *buf;
+	uint8_t sramx=0;				//默认为内部sram
   buf = mymalloc(sramx,20);	//申请20字节
 	
 	buf[0] = 0x55;
@@ -403,15 +399,16 @@ void  Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool
 	buf[5] = addr;
 	buf[6] = 0x10;
 	buf[7] = 0x08;
+	
 	buf[8] = (mHead_Pose.Level>>8)&0x00FF;
 	buf[9] = (mHead_Pose.Level)&0x00FF;
 	buf[10] = (mHead_Pose.Pitch>>8)&0x00FF;
 	buf[11] = (mHead_Pose.Pitch)&0x00FF;
-
 	buf[12] = 0x00;
 	buf[13] = Robot_Sys.Mergency_Stop_flag;
 	buf[14] = (uint8_t)stop_key;
 	buf[15] = 0x00;
+	
 	buf[16]	= CRC8_Table(buf, 16);
 	buf[17]	= 0x0D;
 	buf[18]	= 0x0A;
@@ -444,6 +441,7 @@ void Send_LiftMoto_Mess(uint8_t index, uint8_t addr,LiftMoto_Type *_liftmoto)
 	buf[5] = addr;
 	buf[6] = 0x61;
 	buf[7] = 0x08;
+	
 	buf[8] = (_liftmoto->Height>>8)&0x00FF;
 	buf[9] = _liftmoto->Height&0x00FF;
 	buf[10] = _liftmoto->Limit_Switch_Flag | _liftmoto->OverCurrent_Flag;
@@ -452,6 +450,7 @@ void Send_LiftMoto_Mess(uint8_t index, uint8_t addr,LiftMoto_Type *_liftmoto)
 	buf[13] = 0;
 	buf[14] = 0;
 	buf[15] = 0;
+	
 	buf[16]	= CRC8_Table(buf, 16);
 	buf[17]	= 0x0D;
 	buf[18]	= 0x0A;
@@ -478,14 +477,14 @@ void Send_PowerDataUpdata(uint8_t index, uint8_t addr, Power_Type mPower)
 	uint8_t sramx=0;					//默认为内部sram
   buf = mymalloc(sramx,20);	//申请2K字节
 	
-  buf[0] =0x55;
-	buf[1] =0xAA;
-	buf[2] =index;
-	buf[3] =0x13;
-	buf[4] =0x01;   //本机ID
-	buf[5] =addr;   //目的ID
-	buf[6] =0x09;   //功能码
-	buf[7] =0x08;		//数据包个数
+  buf[0] = 0x55;
+	buf[1] = 0xAA;
+	buf[2] = index;
+	buf[3] = 0x13;
+	buf[4] = 0x01;		//本机ID
+	buf[5] = addr;		//目的ID
+	buf[6] = 0x09;		//功能码
+	buf[7] = 0x08;		//数据包个数
 
 	tmpCharger = (uint32_t) mPower.charger;	//以整形发送
 	tmpPower = (uint32_t) mPower.power;			//以整形发送	
@@ -505,7 +504,6 @@ void Send_PowerDataUpdata(uint8_t index, uint8_t addr, Power_Type mPower)
 	buf[18]	= 0x0A;
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN); 
-	//USARTx_SendMultibyte(USART1, buf, SEND_PC_LEN); 
 	myfree(sramx, buf);	//释放内存
 }
 
@@ -528,14 +526,14 @@ void Send_HeadCtrlCmd(uint8_t index, uint8_t addr, uint8_t cmd_dat)
 	uint8_t sramx=0;					//默认为内部sram
   buf = mymalloc(sramx,20);	//申请20字节
 	
-	buf[0] =0x55;
-	buf[1] =0xAA;
-	buf[2] =index;
-	buf[3] =0x13;
-	buf[4] =0x01;   //本机ID
-	buf[5] =addr;   //目的ID
-	buf[6] =0x32;   //功能码
-	buf[7] =0x08;   //数据包个数
+	buf[0] = 0x55;
+	buf[1] = 0xAA;
+	buf[2] = index;
+	buf[3] = 0x13;
+	buf[4] = 0x01;   //本机ID
+	buf[5] = addr;   //目的ID
+	buf[6] = 0x32;   //功能码
+	buf[7] = 0x08;   //数据包个数
 
 	buf[8] = cmd_dat;
 	
@@ -573,6 +571,7 @@ void Send_Obs_EN_Mess(uint8_t index, uint8_t addr)
 	buf[5] = addr;
 	buf[6] = 0x64;
 	buf[7] = 0x08;
+	
 	buf[8] = Robot_Sys.Ultra_Disable_Flag;		//超声失能标志
 	buf[9] = Robot_Sys.IR_Bottom_Disable_Flag;
 	buf[10] = Robot_Sys.IR_Front_Disable_Flag;
@@ -580,6 +579,7 @@ void Send_Obs_EN_Mess(uint8_t index, uint8_t addr)
 	buf[12] = 0;
 	buf[13] = 0;
 	buf[14] = 0;
+	
 	buf[15] = 0;
 	buf[16]	= CRC8_Table(buf, 16);
 	buf[17]	= 0x0D;
@@ -677,6 +677,7 @@ void Send_Speed_reply(uint8_t index, uint8_t paddr, uint16_t linear, uint16_t an
 	buf[16] = CRC8_Table(buf, 16);
 	buf[17] = 0x0D;
 	buf[18] = 0x0A;
+	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
 	myfree(sramx, buf);
 }
@@ -1035,14 +1036,14 @@ unsigned char CRC8_Table(unsigned char *p, char counter)
 *  输   出：
 *  说   明：校验
 */ 
-uint8_t  CRC8(uint8_t *pDate, uint8_t length)
+uint8_t CRC8(uint8_t *pDate, uint8_t length)
 {
-	uint8_t crc=0;
-	uint8_t i=0;
+	uint8_t crc = 0;
+	uint8_t i = 0;
 	while(length--)
 	{
 		crc ^= *pDate++;
-		for(i = 0;i < 8;i++)
+		for(i = 0; i < 8; i++)
 		{
 			if(crc & 0x01)
 			{

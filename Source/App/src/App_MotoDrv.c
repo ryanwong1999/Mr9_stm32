@@ -56,31 +56,32 @@ void Moto_mdrv_analysis(void)
 	int16_t l_pulse_tmp;
 	int16_t r_pulse_tmp;
 	
-	if(UsartToDrv.Usart_Rx_OK == true){
+	if(UsartToDrv.Usart_Rx_OK == true)
+	{
 		delay_us(10);
 		UsartToDrv.Usart_Rx_OK = false;
 		UsartToDrv.Comm_TimeOut = 0;
 		UsartToDrv.Disconnect_flag = 0;
-		if(UsartToDrv.Rx_Buf[0] == 0x01){		
-			if(UsartToDrv.Rx_Len%2 != 0){
-				UsartToDrv.Rx_Len--;
-			}
-		  rx_crc = (uint16_t)UsartToDrv.Rx_Buf[UsartToDrv.Rx_Len - 2] << 8 | UsartToDrv.Rx_Buf[UsartToDrv.Rx_Len - 1];
+		if(UsartToDrv.Rx_Buf[0] == 0x01)
+		{		
+			if(UsartToDrv.Rx_Len%2 != 0) UsartToDrv.Rx_Len--;
+		  rx_crc = (uint16_t)UsartToDrv.Rx_Buf[UsartToDrv.Rx_Len - 2]<<8 | UsartToDrv.Rx_Buf[UsartToDrv.Rx_Len - 1];
 			cal_crc = ModBusCRC16(UsartToDrv.Rx_Buf, UsartToDrv.Rx_Len - 2);
 			cal_crc = rx_crc;	
-			//printf("drv_cmd : %02x\r\n",UsartToDrv.Rx_Buf[1]);
-			if(cal_crc == rx_crc){
+//			printf("drv_cmd : %02x\r\n",UsartToDrv.Rx_Buf[1]);
+			if(cal_crc == rx_crc)
+			{
 				cmd = UsartToDrv.Rx_Buf[1];
 				switch(cmd)
 				{
 					case MDRV_SET_SPEED:
 						Moto.lear = (int16_t)UsartToDrv.Rx_Buf[3]<<8 | UsartToDrv.Rx_Buf[2];
 						Moto.angle = (int16_t)UsartToDrv.Rx_Buf[5]<<8 | UsartToDrv.Rx_Buf[4];
-				    if(Moto.lear == 0 && Moto.angle == 0){
+				    if(Moto.lear == 0 && Moto.angle == 0) 
 							Moto.stop_sta = 1;
-						}else{
+						else 
 							Moto.stop_sta = 0;
-						}
+						
 						#ifndef ROBOT_YZ01
 						if(UsartToPC.Disconnect_flag == 0 && Robot_Sys.Speed_Timeout_cnt < 2000)
 							Send_Speed_reply(1, 0xff, Moto.lear, Moto.angle);
@@ -90,18 +91,21 @@ void Moto_mdrv_analysis(void)
 					case MDRV_READ:
 						addr1 = (uint16_t)UsartToDrv.Rx_Buf[2]<<8 | UsartToDrv.Rx_Buf[3];
 						addr2 = (uint16_t)UsartToDrv.Rx_Buf[4]<<8 | UsartToDrv.Rx_Buf[5];
-					
-						if(addr1 == 0x5000 && addr2 == 0x5100){
+						if(addr1 == 0x5000 && addr2 == 0x5100)
+						{
 							Moto.left_rpm = (int16_t)UsartToDrv.Rx_Buf[6]<<8 | UsartToDrv.Rx_Buf[7];
 							Moto.right_rpm = (int16_t)UsartToDrv.Rx_Buf[8]<<8 | UsartToDrv.Rx_Buf[9];
-						}else if(addr1 == 0x5002 && addr2 == 0x5102){
-						}else if(addr1 == 0x5004 && addr2 == 0x5104){
-							Moto.right_pos= (uint16_t)UsartToDrv.Rx_Buf[6]<<8 | UsartToDrv.Rx_Buf[7];
+						}
+						else if(addr1 == 0x5002 && addr2 == 0x5102)
+						{
+						}
+						else if(addr1 == 0x5004 && addr2 == 0x5104)
+						{
+							Moto.right_pos = (uint16_t)UsartToDrv.Rx_Buf[6]<<8 | UsartToDrv.Rx_Buf[7];
 							Moto.left_pos = (uint16_t)UsartToDrv.Rx_Buf[8]<<8 | UsartToDrv.Rx_Buf[9];
-							Get_odom_pulse(Moto.left_pos, 	Moto.right_pos, &Moto_Odom.Left_Value, &Moto_Odom.Right_Value);				
-							if(UsartToPC.Disconnect_flag == 0 &&  Robot_Sys.Odom_Timeout_cnt < 5000){
-								Send_OdomUpdata(1, 0xff, Moto_Odom );
-							}
+							Get_odom_pulse(Moto.left_pos, Moto.right_pos, &Moto_Odom.Left_Value, &Moto_Odom.Right_Value);				
+							if(UsartToPC.Disconnect_flag == 0 &&  Robot_Sys.Odom_Timeout_cnt < 5000)
+								Send_OdomUpdata(1, 0xff, Moto_Odom);
 							Moto_Odom.Left_Value = 0;
 							Moto_Odom.Right_Value = 0;
 						}
@@ -110,19 +114,21 @@ void Moto_mdrv_analysis(void)
 					case MDRV_WRITE:
 						addr1 = (uint16_t)UsartToDrv.Rx_Buf[2]<<8 | UsartToDrv.Rx_Buf[3];
 					  addr2 = (uint16_t)UsartToDrv.Rx_Buf[4]<<8 | UsartToDrv.Rx_Buf[5];
-						if(addr1 == 0x2318 && addr2 == 0x3318){
-						  int16_t l_rpm,r_rpm;
+						if(addr1 == 0x2318 && addr2 == 0x3318)
+						{
+						  int16_t l_rpm, r_rpm;
 							l_rpm = (int16_t)UsartToDrv.Rx_Buf[6]<<8 | UsartToDrv.Rx_Buf[7];
 							r_rpm = (int16_t)UsartToDrv.Rx_Buf[8]<<8 | UsartToDrv.Rx_Buf[9];
-						}else if(addr1 == 0x2100 && addr2 == 0x3100){
-							uint8_t rx_l_en,rx_r_en;
+						}
+						else if(addr1 == 0x2100 && addr2 == 0x3100)
+						{
+							uint8_t rx_l_en, rx_r_en;
 							rx_l_en = UsartToDrv.Rx_Buf[7];
 							rx_r_en = UsartToDrv.Rx_Buf[9];
-							if(rx_l_en == 1 || rx_r_en == 1){
+							if(rx_l_en == 1 || rx_r_en == 1)
 								Moto.en_sta = 1;
-							}else{
-							 Moto.en_sta = 0;
-							}
+							else
+							  Moto.en_sta = 0;
 							Send_speed_set(Moto.set_lear, Moto.set_angle);
 						}
 						break;
@@ -185,7 +191,6 @@ bool Get_Drv_OverCur_Flag(uint16_t drv_cur, int16_t bat_cur)
 			sta = false;
 		}
 	}
-	
 	return sta;
 }
 /*=============================================================================
@@ -200,32 +205,49 @@ bool Get_Drv_OverCur_Flag(uint16_t drv_cur, int16_t bat_cur)
 */
 void Get_odom_pulse(int16_t l_pos, int16_t r_pos, int16_t *l_pulse, int16_t *r_pulse)
 {
-	static int16_t last_l_pos = 0;
-	static int16_t last_r_pos = 0;
-	
+	static int16_t last_l_pos = 0, last_r_pos = 0;
+	static int16_t last_l_pulse = 0, last_r_pulse = 0;
+	static int16_t l_pulse_temp = 0, r_pulse_temp = 0;
 	int16_t pulse_tmp;
-	
+
+	//计算左轮脉冲
 	if(l_pos > PULSE_CYCLE * 0.75 && last_l_pos < PULSE_CYCLE * 0.25){
 		pulse_tmp = PULSE_CYCLE;
 	}else if(l_pos < PULSE_CYCLE * 0.25 && last_l_pos > PULSE_CYCLE * 0.75){
 		pulse_tmp = 0 - PULSE_CYCLE;
 	}else{
 		pulse_tmp = 0;
-	}
-	*l_pulse = pulse_tmp + last_l_pos - l_pos;
-	
-	*l_pulse = *l_pulse/4;  
+	} 
+	l_pulse_temp = pulse_tmp + last_l_pos - l_pos;
+	l_pulse_temp = l_pulse_temp/4; 
+	//计算右轮脉冲
 	if(r_pos > PULSE_CYCLE * 0.75 && last_r_pos < PULSE_CYCLE * 0.25){
 		pulse_tmp = 0 - PULSE_CYCLE;
 	}else if(r_pos < PULSE_CYCLE * 0.25 && last_r_pos > PULSE_CYCLE * 0.75){
-		pulse_tmp =  PULSE_CYCLE;
+		pulse_tmp = PULSE_CYCLE;
 	}else{
 		pulse_tmp = 0;
 	}
-	*r_pulse = pulse_tmp + r_pos - last_r_pos;
-	*r_pulse = *r_pulse/4;
+	r_pulse_temp = pulse_tmp + r_pos - last_r_pos;
+	r_pulse_temp = r_pulse_temp/4;
+	
+	if(Moto_Odom.Clean_Flag == 1){
+		*l_pulse = 0;
+		*r_pulse = 0;
+		Moto_Odom.Clean_Flag = 0;
+	}else{
+		*l_pulse = l_pulse_temp;
+		*r_pulse = r_pulse_temp;
+	}
+	
+//	printf("last_l_pos : %d, last_r_pos : %d, last_l_pulse : %d, last_r_pulse : %d\r\n",last_l_pos, last_r_pos, last_l_pulse, last_r_pulse);
+	
+	last_l_pulse = l_pulse_temp;
+	last_r_pulse = r_pulse_temp;
 	last_l_pos = l_pos;
 	last_r_pos = r_pos;
+	
+//	printf("l_pos : %d, r_pos : %d, *l_pulse : %d, *r_pulse : %d ----------------------------------\r\n", l_pos, r_pos, *l_pulse, *r_pulse);
 }
 
 /*=============================================================================
@@ -270,7 +292,7 @@ void Send_mdrv_en_set(int16_t l_en, int16_t r_en)
 */
 void Send_wheel_speed_set(int16_t l_speed, int16_t r_speed)
 {
-  Send_write_mdrv_cmd(0x2318, 0x3318,r_speed,l_speed);
+  Send_write_mdrv_cmd(0x2318, 0x3318, r_speed, l_speed);
 }
 
 /*=============================================================================
@@ -285,7 +307,7 @@ void Send_wheel_speed_set(int16_t l_speed, int16_t r_speed)
 */
 void Send_wheel_pwm_set(int16_t l_pwm, int16_t r_pwm)
 {
-  Send_write_mdrv_cmd(0x2600, 0x3600,l_pwm,r_pwm);
+  Send_write_mdrv_cmd(0x2600, 0x3600, l_pwm, r_pwm);
 }
 
 /*=============================================================================
@@ -303,8 +325,8 @@ void Send_speed_set(int16_t set_lear, int16_t set_angle)
 	uint8_t i;
   uint16_t crc16_data;
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,10);	//申请2K字节
+	uint8_t sramx = 0;					//默认为内部sram
+  buf = mymalloc(sramx, 10);	//申请2K字节
 	
 	buf[0] = 0x01;
 	buf[1] = 0xEA;
@@ -312,12 +334,11 @@ void Send_speed_set(int16_t set_lear, int16_t set_angle)
 	buf[3] = set_lear>>8;
 	buf[4] = set_angle;
 	buf[5] = set_angle>>8;
-	crc16_data = ModBusCRC16(buf,6);
+	crc16_data = ModBusCRC16(buf, 6);
 	buf[6] = crc16_data >> 8;
 	buf[7] = crc16_data;
 	RS485_SendMultibyte(USART_RS485, buf, 8);
-	//USARTx_SendMultibyte(USART1, buf, 8);
-	myfree(sramx,buf);				//释放内存
+	myfree(sramx, buf);				//释放内存
 }
 
 /*=============================================================================
@@ -334,8 +355,8 @@ void Send_read_mdrv_cmd(uint16_t addr1, uint16_t addr2)
 {
   uint16_t crc16_data;
   uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,10);	//申请20字节
+	uint8_t sramx = 0;					//默认为内部sram
+  buf = mymalloc(sramx, 10);	//申请20字节
 	
 	buf[0] = 0x01;
 	buf[1] = 0x43;
@@ -343,12 +364,12 @@ void Send_read_mdrv_cmd(uint16_t addr1, uint16_t addr2)
 	buf[3] = addr1;
 	buf[4] = addr2>>8;
 	buf[5] = addr2;
-	crc16_data = ModBusCRC16(buf,6);
+	crc16_data = ModBusCRC16(buf, 6);
 	buf[6] = crc16_data >> 8;
 	buf[7] = crc16_data;
 	
 	RS485_SendMultibyte(USART_RS485, buf, 8);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
 
 /*=============================================================================
@@ -365,8 +386,8 @@ void Send_wr_all_mdrv_cmd(uint16_t addr1, uint16_t addr2,int16_t set_l,int16_t s
 {
   uint16_t crc16_data;
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);	//申请2K字节
+	uint8_t sramx = 0;					//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请2K字节
 	
 	buf[0] = 0x01;
 	buf[1] = 0x45;
@@ -388,7 +409,7 @@ void Send_wr_all_mdrv_cmd(uint16_t addr1, uint16_t addr2,int16_t set_l,int16_t s
 	buf[15] = crc16_data;
 	
 	RS485_SendMultibyte(USART_RS485, buf, 16);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
 
 
@@ -406,8 +427,8 @@ void Send_write_mdrv_cmd(uint16_t addr1, uint16_t addr2, int16_t dat1, int16_t d
 {
   uint16_t crc16_data;
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20); //申请2K字节
+	uint8_t sramx = 0;					//默认为内部sram
+  buf = mymalloc(sramx, 20); //申请2K字节
 	
 	buf[0] = 0x01;
 	buf[1] = 0x44;
@@ -424,8 +445,7 @@ void Send_write_mdrv_cmd(uint16_t addr1, uint16_t addr2, int16_t dat1, int16_t d
 	buf[11] = crc16_data;
 	
 	RS485_SendMultibyte(USART_RS485, buf, 12);
-	//USARTx_SendMultibyte(USART1, buf, 12);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
 
 /*=============================================================================

@@ -152,6 +152,7 @@ typedef struct
 	int16_t Right_Value;
 	int16_t Left_Value_Sum;
 	int16_t Right_Value_Sum;
+	int8_t Clean_Flag;
 }Odom_Data_type;
 
 
