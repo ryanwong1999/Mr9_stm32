@@ -211,31 +211,44 @@ void Get_odom_pulse(int16_t l_pos, int16_t r_pos, int16_t *l_pulse, int16_t *r_p
 	int16_t pulse_tmp;
 
 	//计算左轮脉冲
-	if(l_pos > PULSE_CYCLE * 0.75 && last_l_pos < PULSE_CYCLE * 0.25){
+	if(l_pos > PULSE_CYCLE * 0.75 && last_l_pos < PULSE_CYCLE * 0.25)
+	{
 		pulse_tmp = PULSE_CYCLE;
-	}else if(l_pos < PULSE_CYCLE * 0.25 && last_l_pos > PULSE_CYCLE * 0.75){
+	}
+	else if(l_pos < PULSE_CYCLE * 0.25 && last_l_pos > PULSE_CYCLE * 0.75)
+	{
 		pulse_tmp = 0 - PULSE_CYCLE;
-	}else{
+	}
+	else
+	{
 		pulse_tmp = 0;
 	} 
 	l_pulse_temp = pulse_tmp + last_l_pos - l_pos;
 	l_pulse_temp = l_pulse_temp/4; 
 	//计算右轮脉冲
-	if(r_pos > PULSE_CYCLE * 0.75 && last_r_pos < PULSE_CYCLE * 0.25){
+	if(r_pos > PULSE_CYCLE * 0.75 && last_r_pos < PULSE_CYCLE * 0.25)
+	{
 		pulse_tmp = 0 - PULSE_CYCLE;
-	}else if(r_pos < PULSE_CYCLE * 0.25 && last_r_pos > PULSE_CYCLE * 0.75){
+	}
+	else if(r_pos < PULSE_CYCLE * 0.25 && last_r_pos > PULSE_CYCLE * 0.75)
+	{
 		pulse_tmp = PULSE_CYCLE;
-	}else{
+	}
+	else
+	{
 		pulse_tmp = 0;
 	}
 	r_pulse_temp = pulse_tmp + r_pos - last_r_pos;
 	r_pulse_temp = r_pulse_temp/4;
 	//判断急停松开后的第一个脉冲数有跳变，滤掉
-	if(Moto_Odom.Clean_Flag == 1){
+	if(Moto_Odom.Clean_Flag == 1)
+	{
 		*l_pulse = 0;
 		*r_pulse = 0;
 		Moto_Odom.Clean_Flag = 0;
-	}else{
+	}
+	else
+	{
 		*l_pulse = l_pulse_temp;
 		*r_pulse = r_pulse_temp;
 	}

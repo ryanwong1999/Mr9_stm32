@@ -37,7 +37,8 @@ u8 AT24CXX_ReadOneByte(u16 ReadAddr)
 		IIC_Send_Byte(0XA0);	   			//发送写命令
 		IIC_Wait_Ack();
 		IIC_Send_Byte(ReadAddr>>8);		//发送高地址	    
-	}else IIC_Send_Byte(0XA0+((ReadAddr/256)<<1));   //发送器件地址0XA0,写数据 
+	}
+	else IIC_Send_Byte(0XA0+((ReadAddr/256)<<1));   //发送器件地址0XA0,写数据 
 	IIC_Wait_Ack(); 
   IIC_Send_Byte(ReadAddr%256);   	//发送低地址
 	IIC_Wait_Ack();	    
@@ -60,7 +61,8 @@ void AT24CXX_WriteOneByte(u16 WriteAddr,u8 DataToWrite)
 		IIC_Send_Byte(0XA0);	    		//发送写命令
 		IIC_Wait_Ack();
 		IIC_Send_Byte(WriteAddr>>8);	//发送高地址	  
-	}else IIC_Send_Byte(0XA0+((WriteAddr/256)<<1));   //发送器件地址0XA0,写数据 	 
+	}
+	else IIC_Send_Byte(0XA0+((WriteAddr/256)<<1));   //发送器件地址0XA0,写数据 	 
 	IIC_Wait_Ack();	   
   IIC_Send_Byte(WriteAddr%256);   //发送低地址
 	IIC_Wait_Ack(); 	 										  		   
@@ -144,11 +146,14 @@ uint8_t AT24xx_Check(void)
 {
 	u8 temp;
 	temp = AT24CXX_ReadOneByte(FIRST_STA_ADDR);//避免每次开机都写AT24CXX			  
-	if(temp == AT24CXX_FIRST_STA){
+	if(temp == AT24CXX_FIRST_STA)
+	{
 		printf("Read AT24xx OK!\r\n");
 		Robot_Sys.mBeepStatus.BeepMode = 1;
 		return 0;	
-	}else{		//排除第一次初始化的情况
+	}
+	else
+	{		//排除第一次初始化的情况
 		Pms.Capacity_Set = FULL_CAP;
 		Capacity_Init();
 		
@@ -181,7 +186,8 @@ uint8_t AT24xx_Check(void)
 	
     delay_ms(2);
     printf("write first sta : %02x\r\n",temp);		
-		if(temp == AT24CXX_FIRST_STA){
+		if(temp == AT24CXX_FIRST_STA)
+		{
 			Robot_Sys.mBeepStatus.BeepMode = 2;
 			printf("Firse Read AT24xx OK!\r\n");
 			return 0;

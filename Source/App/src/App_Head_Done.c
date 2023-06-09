@@ -14,14 +14,12 @@
 #include "includes.h"
 
 #define  UD_MAX_      180
-
 #define  UD_MIN_      0
-
 
 Head_Pos_Type Head_Status;
                                                                                                                                                   
+uint8_t autoscan_flag;
 
-uint8_t autoscan_flag ;
 
 /*=============================================================================
 *  函数名 ：Head_Angle_Control
@@ -39,6 +37,7 @@ void Head_Angle_Control(int level, int pitch)
 	 Head_Level_To_SomeWhere(level);
 }
 
+
 /*=============================================================================
 *  函数名 ：Moto_Pit
 *  作   者：hrx
@@ -54,22 +53,30 @@ void Moto_Pit(uint8_t Pit_dir)
 	switch(Pit_dir)
 	{
 		case PSC_MOVE_UP:
-			if(Head_Status.PSC_UD_Pos < Head_Status.PSC_UD_MAX_Pos)  {
+			if(Head_Status.PSC_UD_Pos < Head_Status.PSC_UD_MAX_Pos)
+			{
 				Head_Status.PSC_UD_Pos += 0.5;
-			}else{
+			}
+			else
+			{
 			}
 			SetHeadPitchPosition(Head_Status.PSC_UD_Pos, Head_Status.Pitch_Offset);
 			break;
+			
 		case PSC_MOVE_DOWN:
-			if(Head_Status.PSC_UD_Pos > Head_Status.PSC_UD_MIN_Pos){
+			if(Head_Status.PSC_UD_Pos > Head_Status.PSC_UD_MIN_Pos)
+			{
 				Head_Status.PSC_UD_Pos -= 0.5;
-			}else{
+			}
+			else
+			{
 			}
 			SetHeadPitchPosition(Head_Status.PSC_UD_Pos, Head_Status.Pitch_Offset);
 			break;
-		default:break;
+			
+		default:
+			break;
 	}
-	
 }
 
 /*=============================================================================
@@ -87,9 +94,12 @@ void Moto_Level(uint8_t Level_dir)
 	switch(Level_dir)
 	{
 		case PSC_MOVE_LEFT:
-			if(Head_Status.PSC_Level_Pos >= Head_Status.PSC_Level_MIN_Pos + 0.5){
+			if(Head_Status.PSC_Level_Pos >= Head_Status.PSC_Level_MIN_Pos + 0.5)
+			{
 				Head_Status.PSC_Level_Pos -= 0.5;
-			}else{
+			}
+			else
+			{
 				Head_Status.PSC_Level_Pos = Head_Status.PSC_Level_MIN_Pos;
 			}
 			SetHeadLevelPosition(Head_Status.PSC_Level_Pos,	Head_Status.Level_Offset);
@@ -97,14 +107,19 @@ void Moto_Level(uint8_t Level_dir)
 			break;
 			
 		case PSC_MOVE_RIGHT:
-			if(Head_Status.PSC_Level_Pos <= Head_Status.PSC_Level_MAX_Pos - 0.5) {
+			if(Head_Status.PSC_Level_Pos <= Head_Status.PSC_Level_MAX_Pos - 0.5)
+			{
 				Head_Status.PSC_Level_Pos += 0.5;
-			}else{
+			}
+			else
+			{
 				Head_Status.PSC_Level_Pos =  Head_Status.PSC_Level_MAX_Pos ;
 			}
 			SetHeadLevelPosition(Head_Status.PSC_Level_Pos,	Head_Status.Level_Offset);
 			break;
-		default:break;
+			
+		default:
+			break;
 	}
 }
 
@@ -124,18 +139,23 @@ void Head_UD_To_SomeWhere(float pos)
 	Head_Status.PSC_UD_Goal_Pos = pos;
 	if(Head_Status.PSC_UD_Pos < Head_Status.PSC_UD_Goal_Pos - 0.5)
 	{
-		// Up
-		Head_Status.PSC_Dir  |= 1<<(6-1);
-		Head_Status.PSC_Dir  &= ~(1<<(8-1));
-	}else if(Head_Status.PSC_UD_Pos > Head_Status.PSC_UD_Goal_Pos + 0.5){
-		// Down
-		Head_Status.PSC_Dir  |= 1<<(8-1);
-		Head_Status.PSC_Dir  &= ~(1<<(6-1));
-	}else{
-		Head_Status.PSC_Dir  &= ~(1<<(6-1));
-		Head_Status.PSC_Dir  &= ~(1<<(8-1));
+		//Up
+		Head_Status.PSC_Dir |= 1<<(6-1);
+		Head_Status.PSC_Dir &= ~(1<<(8-1));
+	}
+	else if(Head_Status.PSC_UD_Pos > Head_Status.PSC_UD_Goal_Pos + 0.5)
+	{
+		//Down
+		Head_Status.PSC_Dir |= 1<<(8-1);
+		Head_Status.PSC_Dir &= ~(1<<(6-1));
+	}
+	else
+	{
+		Head_Status.PSC_Dir &= ~(1<<(6-1));
+		Head_Status.PSC_Dir &= ~(1<<(8-1));
 	}
 }
+
 
 /*=============================================================================
 *  函数名 ：Head_Level_To_SomeWhere
@@ -152,18 +172,23 @@ void Head_Level_To_SomeWhere(float pos)
 	Head_Status.PSC_Level_Goal_Pos = pos;
 	if(Head_Status.PSC_Level_Pos > Head_Status.PSC_Level_Goal_Pos + 0.5)
 	{
-		// left
+		//left
 		Head_Status.PSC_Dir |= 1<<(5-1);
-		Head_Status.PSC_Dir &= ~(1<< (7-1));
-	}else if(Head_Status.PSC_Level_Pos < Head_Status.PSC_Level_Goal_Pos - 0.5){
-		// right
+		Head_Status.PSC_Dir &= ~(1<<(7-1));
+	}
+	else if(Head_Status.PSC_Level_Pos < Head_Status.PSC_Level_Goal_Pos - 0.5)
+	{
+		//right
 		Head_Status.PSC_Dir |= 1<<(7-1);
-		Head_Status.PSC_Dir &= ~(1<< (5-1));
-	}else{
+		Head_Status.PSC_Dir &= ~(1<<(5-1));
+	}
+	else
+	{
 		Head_Status.PSC_Dir  &= ~(1<<(5-1));
 		Head_Status.PSC_Dir  &= ~(1<<(7-1));
 	}
 }
+
 
 /*=============================================================================
 *  函数名 ：Head_Level_To_SomeWhere
@@ -177,9 +202,9 @@ void Head_Level_To_SomeWhere(float pos)
 */
 void Head_Back()
 {
-	// 俯仰
+	//俯仰
 	Head_UD_To_SomeWhere(Head_Status.PSC_UD_Default_Pos);
-	// 水平  
+	//水平  
 	Head_Level_To_SomeWhere(Head_Status.PSC_Level_Default_Pos);
 	
 }
@@ -196,9 +221,10 @@ void Head_Back()
 */
 void Check_Assign_Ok()
 {
-	if(Head_Status.PSC_Level_Goal_Pos > 0)    // 水平目标值
+	//水平目标值
+	if(Head_Status.PSC_Level_Goal_Pos > 0)
 	{
-		if(fabs(Head_Status.PSC_Level_Pos - Head_Status.PSC_Level_Goal_Pos)< 0.5)
+		if(fabs(Head_Status.PSC_Level_Pos - Head_Status.PSC_Level_Goal_Pos) < 0.5)
 		{
 			//左右停止
 			Head_Status.PSC_Dir &= ~((1 << (5-1)) | (1<<(7-1)));
@@ -206,10 +232,10 @@ void Check_Assign_Ok()
 			
 		}
 	}
-	
-	if(Head_Status.PSC_UD_Goal_Pos > 0)        // 垂直目标值
+	//垂直目标值
+	if(Head_Status.PSC_UD_Goal_Pos > 0)
 	{
-		if(fabs(Head_Status.PSC_UD_Pos - Head_Status.PSC_UD_Goal_Pos)<0.5)
+		if(fabs(Head_Status.PSC_UD_Pos - Head_Status.PSC_UD_Goal_Pos) < 0.5)
 		{
 			//俯仰停止
 			Head_Status.PSC_Dir &= ~((1 << (6-1)) | (1<<(8-1)));
@@ -217,6 +243,7 @@ void Check_Assign_Ok()
 		}
 	}
 }
+
 
 /*=============================================================================
 *  函数名 ：Head_Control_Done
@@ -231,29 +258,45 @@ void Check_Assign_Ok()
 void Head_Control_Done()
 {
 	OS_ERR err;
-	if(Head_Status.PSC_Dir == 0){
-	}else if((Head_Status.PSC_Dir & (1<<(5-1)))!= 0 ){
-		Moto_Level(PSC_MOVE_LEFT);  //5  左  
-	}else if((Head_Status.PSC_Dir &(1<<(7-1))) != 0 ){
-			Moto_Level(PSC_MOVE_RIGHT);	//7  右   为 0
-		}
-
-	if((Head_Status.PSC_Dir &(1<<(6-1))) != 0){
-		Moto_Pit(PSC_MOVE_UP);	//这个是 上
-	}else if((Head_Status.PSC_Dir &(1<<(8-1))) != 0){
-		Moto_Pit(PSC_MOVE_DOWN);	//这个是 下 
-	}else if(Head_Status.PSC_Dir == 9){
-		Head_Back();    //回中
+	if(Head_Status.PSC_Dir == 0)
+	{
+	}
+	else if((Head_Status.PSC_Dir & (1<<(5-1))) != 0)
+	{
+		//5  左
+		Moto_Level(PSC_MOVE_LEFT);  
+	}
+	else if((Head_Status.PSC_Dir & (1<<(7-1))) != 0)
+	{
+		//7  右   为 0
+		Moto_Level(PSC_MOVE_RIGHT);
 	}
 
-	if((Head_Status.PSC_Dir & 0xF0) == 0){
+	if((Head_Status.PSC_Dir & (1<<(6-1))) != 0)
+	{
+		//这个是 上
+		Moto_Pit(PSC_MOVE_UP);
+	}
+	else if((Head_Status.PSC_Dir & (1<<(8-1))) != 0)
+	{
+		//这个是 下 
+		Moto_Pit(PSC_MOVE_DOWN);
+	}
+	else if(Head_Status.PSC_Dir == 9)
+	{
+		//回中
+		Head_Back();
+	}
+
+	if((Head_Status.PSC_Dir & 0xF0) == 0)
+	{
 		Head_Status.PSC_Dir = 0;
 	}
 
-	if(Head_Status.PSC_Dir != 0){
+	if(Head_Status.PSC_Dir != 0)
+	{
 		Check_Assign_Ok();
 	}
-
 }
 
 

@@ -26,30 +26,33 @@
 *  说   明：系统时钟配置
 */
 
-void  RCC_Configuration(void)
+void RCC_Configuration(void)
 {
-	uint32_t	PLL_M;      
-  uint32_t	PLL_N;
-  uint32_t	PLL_P;
-  uint32_t	PLL_Q;
+	uint32_t PLL_M;      
+  uint32_t PLL_N;
+  uint32_t PLL_P;
+  uint32_t PLL_Q;
 	
-	RCC_DeInit();								// 复位RCC外部设备寄存器到默认值
-	RCC_HSEConfig(RCC_HSE_ON);	// 打开外部高速晶振
-    
+	//复位RCC外部设备寄存器到默认值
+	RCC_DeInit();
+	//打开外部高速晶振
+	RCC_HSEConfig(RCC_HSE_ON);
 	//等待外部高速时钟准备好
-	do{
+	do
+	{
 		RCC_WaitForHSEStartUp();
-	}while( RCC_WaitForHSEStartUp() != SUCCESS );
+	}
+	while(RCC_WaitForHSEStartUp() != SUCCESS);
 	
 	PLL_M	=	8;
 	PLL_N	=	336;
 	PLL_P	=	2;
 	PLL_Q	=	7;
-	
-	RCC_PLLConfig(RCC_PLLSource_HSE, PLL_M, PLL_N, PLL_P, PLL_Q);  // 配置PLL并将其使能，获得 168Mhz 的 System Clock 时钟*/
+	/*配置PLL并将其使能，获得 168Mhz 的 System Clock 时钟*/
+	RCC_PLLConfig(RCC_PLLSource_HSE, PLL_M, PLL_N, PLL_P, PLL_Q);
   RCC_PLLCmd(ENABLE);
-		
-	RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK); // 选择PLL时钟作为系统时钟源*/
+	/*选择PLL时钟作为系统时钟源*/
+	RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
 	/*首先配置 AHB时钟（HCLK）. 为了获得较高的频率，我们对 SYSCLK 1分频，得到HCLK*/
   RCC_HCLKConfig(RCC_HCLK_Div1);
 	/*APBx时钟（PCLK）由AHB时钟（HCLK）分频得到，下面我们配置 PCLK*/
@@ -70,7 +73,7 @@ void  RCC_Configuration(void)
 *  输   出：
 *  说   明：中断优先级配置
 */
-void  NVIC_Configuration(void)
+void NVIC_Configuration(void)
 {
 	NVIC_InitTypeDef NVIC_InitStructure; 
 	//设置中断组为1
@@ -185,49 +188,41 @@ void  NVIC_Configuration(void)
 *  输   出：
 *  说   明：系统硬件资源初始化
 */
-void  System_Board_Init(void)
+void System_Board_Init(void)
 {
 	delay_init(168);										//时钟初始化
-
-	LED_GPIO_Cfg_Init();    						//LED GPIO initialization
-	BEEP_GPIO_Cfg_Init();   						//BEEP GPIO initialization
-	Lamp_GPIO_Cfg_Init();
-	PowerSys_Gpio_Cfg_Init();						//Power system control GPIO initialization
-	PC_Power_Cfg_Init(PC_STARTUP_OFF);
-
+	LED_GPIO_Cfg_Init();								//LED GPIO 初始化
+	BEEP_GPIO_Cfg_Init();								//蜂鸣器 GPIO 初始化
+	Lamp_GPIO_Cfg_Init();								//警示灯 GPIO 初始化
+	PowerSys_Gpio_Cfg_Init();						//Power system control GPIO 初始化	
+	PC_Power_Cfg_Init(PC_STARTUP_OFF);	//系统开关机 GPIO 初始化
 	IR_Decoding_GPIO_Cfg_Init();				//红外解码初始化
-	Crash_Gpio_Cfg_Init();
+	Crash_Gpio_Cfg_Init();							//碰撞 GPIO 初始化
+	LiftMoto_Gpio_Cfg_Init();						//升降电机 GPIO 初始化
+	LimitSwitch_Gpio_Cfg_Init();				//升降电机限位开关 GPIO 初始化
+	Ultrasonic_Exti_Init();							//超声模块 GPIO 初始化
+	ADC_Cfg_Init();    									//ADC 初始化
 	
-	LiftMoto_Gpio_Cfg_Init();
-	LimitSwitch_Gpio_Cfg_Init();
-		
-	Ultrasonic_Exti_Init();
-	
-	ADC_Cfg_Init();    									//ADC Init
-	
-	TIMx_Cfg_Init(RCC_APB2Periph_TIM1, TIM1, 10, 168);   //1ms timer
-	TIMx_Cfg_Init(RCC_APB1Periph_TIM2, TIM2, 1000, 84);  //10us timer
-	
-	TIM7_Cfg_Init(100, 840);      		//10ms timer  
-	  
-	//PWM_Wheel_Cfg_Init(1000, 84);			//PWM initialization.foc = 2K
-	PWM_Head_Cfg_Init(20000, 84);   	//TIM3 PWM initialization,
-	  
-	//TIM_ICP_Cfg_Init(0xffff, 168);		//input capture
+	TIMx_Cfg_Init(RCC_APB2Periph_TIM1, TIM1, 10, 168);	//1ms 定时器
+	TIMx_Cfg_Init(RCC_APB1Periph_TIM2, TIM2, 1000, 84);	//10us 定时器
+	TIM7_Cfg_Init(100, 840);      			//10ms 定时器  
+	//PWM_Wheel_Cfg_Init(1000, 84);				//PWM 初始化.foc = 2K
+	PWM_Head_Cfg_Init(20000, 84);   		//TIM3 PWM 初始化,
+	//TIM_ICP_Cfg_Init(0xffff, 168);			//输入捕获
 	//TIM_Encoder_Init(0xffff, 168);
 	TIM8_Configuration();
 	
-  AT24CXX_Init();	
-  USARTx_Cfg_Init(USART1, 115200);  //USART to printf 
-	USARTx_Cfg_Init(USART2, 9600);    //USART to 
-	USARTx_Cfg_Init(USART3, 9600);    //USART to PC
-	//USARTx_Cfg_Init(UART4, 115200);		//USART to 
-	USARTx_Cfg_Init(UART5, 9600);			//USART to Environmental
-	RS485_Cfg_Init(115200);  					//UART4 to moto drv
+  AT24CXX_Init();											//AT24CXX 初始化
+  USARTx_Cfg_Init(USART1, 115200);  	//USART to 打印 
+	USARTx_Cfg_Init(USART2, 9600);    	//USART to 
+	USARTx_Cfg_Init(USART3, 9600);    	//USART to 上位机
+	//USARTx_Cfg_Init(UART4, 115200);			//USART to 
+	USARTx_Cfg_Init(UART5, 9600);				//USART to 环境传感器
+	RS485_Cfg_Init(115200);  						//UART4 to 电机驱动器
 	
-	my_mem_init(SRAMIN);							//初始化内部内存池 
-	//my_mem_init(SRAMEX);							//初始化外部内存池
-	my_mem_init(SRAMCCM);							//初始化CCM内存池 
+	my_mem_init(SRAMIN);								//初始化内部内存池 
+	//my_mem_init(SRAMEX);								//初始化外部内存池
+	my_mem_init(SRAMCCM);								//初始化CCM内存池 
 
 	printf("Bsp init OK!\r\n");
 }

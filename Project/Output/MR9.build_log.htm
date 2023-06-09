@@ -26,31 +26,169 @@ Project File Date:  05/24/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin'
-Build target 'Target 1'
-compiling App_MotoDrv.c...
+Rebuild target 'Target 1'
+assembling startup_stm32f40_41xxx.s...
+compiling stm32f4xx_crc.c...
+compiling misc.c...
+compiling stm32f4xx_can.c...
+compiling stm32f4xx_dma.c...
+compiling stm32f4xx_exti.c...
+compiling stm32f4xx_gpio.c...
+compiling stm32f4xx_i2c.c...
+compiling stm32f4xx_rcc.c...
+compiling stm32f4xx_spi.c...
+compiling stm32f4xx_rtc.c...
+compiling stm32f4xx_adc.c...
+compiling stm32f4xx_iwdg.c...
+compiling stm32f4xx_flash.c...
+compiling stm32f4xx_tim.c...
+compiling stm32f4xx_usart.c...
+compiling cpu_c.c...
+compiling cpu_core.c...
+assembling cpu_a.asm...
+assembling lib_mem_a.asm...
+compiling lib_ascii.c...
+compiling lib_math.c...
+compiling os_app_hooks.c...
+assembling os_cpu_a.asm...
+compiling lib_str.c...
+compiling lib_mem.c...
+compiling stm32f4xx_wwdg.c...
+compiling stm32f4xx_syscfg.c...
+compiling stm32f4xx_dma2d.c...
+compiling os_cfg_app.c...
+compiling os_dbg.c...
+compiling os_mem.c...
+compiling os_int.c...
+compiling os_core.c...
+compiling os_pend_multi.c...
+compiling os_flag.c...
+compiling os_msg.c...
+compiling os_prio.c...
+compiling os_mutex.c...
+compiling os_q.c...
+compiling bsp.c...
+compiling os_sem.c...
+compiling os_stat.c...
+compiling os_tick.c...
+compiling os_time.c...
+compiling os_var.c...
+compiling os_tmr.c...
+compiling os_task.c...
+compiling os_cpu_c.c...
 ..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
   	 
 ..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
   	 
 ..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
   #endif /*__BSP_SYSTICK_CFG_H */
-..\Source\App\inc\App_MotoDrv.h(83): warning:  #1-D: last line of file ends without a newline
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
   	 
-..\Source\App\src\App_MotoDrv.c(119): warning:  #550-D: variable "l_rpm"  was set but never used
-  						  int16_t l_rpm, r_rpm;
-..\Source\App\src\App_MotoDrv.c(119): warning:  #550-D: variable "r_rpm"  was set but never used
-  						  int16_t l_rpm, r_rpm;
-..\Source\App\src\App_MotoDrv.c(51): warning:  #177-D: variable "i"  was declared but never referenced
-  	uint8_t i;
-..\Source\App\src\App_MotoDrv.c(209): warning:  #550-D: variable "last_l_pulse"  was set but never used
-  	static int16_t last_l_pulse = 0, last_r_pulse = 0;
-..\Source\App\src\App_MotoDrv.c(209): warning:  #550-D: variable "last_r_pulse"  was set but never used
-  	static int16_t last_l_pulse = 0, last_r_pulse = 0;
-..\Source\App\src\App_MotoDrv.c(325): warning:  #177-D: variable "i"  was declared but never referenced
-  	uint8_t i;
-..\Source\App\src\App_MotoDrv.c(476): warning:  #1-D: last line of file ends without a newline
-  }
-..\Source\App\src\App_MotoDrv.c: 11 warnings, 0 errors
+..\UCOSIII\uCOSIII_Ports\os_cpu_c.c: 4 warnings, 0 errors
+compiling Bsp_IIC.c...
+compiling Bsp_TIM_Cfg.c...
+..\Source\Bsp\src\Bsp_TIM_Cfg.c(102): warning:  #177-D: variable "NVIC_InitStructure"  was declared but never referenced
+  	NVIC_InitTypeDef NVIC_InitStructure;
+..\Source\Bsp\src\Bsp_TIM_Cfg.c: 1 warning, 0 errors
+compiling Bsp_RS485_Cfg.c...
+compiling Bsp_CAP_Cfg.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\Bsp\src\Bsp_CAP_Cfg.c: 4 warnings, 0 errors
+compiling Bsp_ADC_Cfg.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\Bsp\src\Bsp_ADC_Cfg.c: 4 warnings, 0 errors
+compiling inet.c...
+compiling Bst_iwdg.c...
+compiling Bsp_GPIO_Cfg.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\Bsp\src\Bsp_GPIO_Cfg.c: 4 warnings, 0 errors
+compiling Bsp_PWM_Cfg.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\Bsp\src\Bsp_PWM_Cfg.c(243): warning:  #177-D: variable "tmp"  was declared but never referenced
+  	uint16_t tmp ;
+..\Source\Bsp\src\Bsp_PWM_Cfg.c(260): warning:  #177-D: variable "tmp"  was declared but never referenced
+  	uint16_t tmp ;
+..\Source\Bsp\src\Bsp_PWM_Cfg.c: 6 warnings, 0 errors
+compiling Bsp_USART_Cfg.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\Bsp\src\Bsp_USART_Cfg.c: 4 warnings, 0 errors
+compiling App_Cap.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_Cap.c: 4 warnings, 0 errors
+compiling App_AutoCharge.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_AutoCharge.c(224): warning:  #177-D: variable "left_period_set"  was declared but never referenced
+  	static uint16_t left_period_set;
+..\Source\App\src\App_AutoCharge.c(225): warning:  #177-D: variable "right_period_set"  was declared but never referenced
+  	static uint16_t right_period_set;
+..\Source\App\src\App_AutoCharge.c(226): warning:  #177-D: variable "max_pwm"  was declared but never referenced
+  	static int16_t max_pwm;
+..\Source\App\src\App_AutoCharge.c(227): warning:  #177-D: variable "min_pwm"  was declared but never referenced
+  	static int16_t min_pwm;
+..\Source\App\src\App_AutoCharge.c(629): warning:  #550-D: variable "right_cnt"  was set but never used
+  	static uint8_t right_cnt = 0;
+..\Source\App\src\App_AutoCharge.c(722): warning:  #550-D: variable "left_cnt"  was set but never used
+  	static uint8_t left_cnt = 0;
+..\Source\App\src\App_AutoCharge.c: 10 warnings, 0 errors
+compiling App_24cxx.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_24cxx.c: 4 warnings, 0 errors
 compiling App_AnalysisCMD.c...
 ..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
   	 
@@ -58,9 +196,9 @@ compiling App_AnalysisCMD.c...
   	 
 ..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
   #endif /*__BSP_SYSTICK_CFG_H */
-..\Source\App\inc\App_MotoDrv.h(83): warning:  #1-D: last line of file ends without a newline
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
   	 
-..\Source\App\src\App_AnalysisCMD.c(300): warning:  #188-D: enumerated type mixed with another type
+..\Source\App\src\App_AnalysisCMD.c(330): warning:  #188-D: enumerated type mixed with another type
   					Lift_Moto.Cmd = UsartToPC.Rx_Buf[8];
 ..\Source\App\src\App_AnalysisCMD.c(41): warning:  #177-D: variable "i"  was declared but never referenced
   	uint8_t i=0;
@@ -100,21 +238,173 @@ compiling App_AnalysisCMD.c...
   	int16_t chg_dis;
 ..\Source\App\src\App_AnalysisCMD.c(67): warning:  #177-D: variable "chg_angle"  was declared but never referenced
   	int16_t chg_angle;
-..\Source\App\src\App_AnalysisCMD.c(337): warning:  #177-D: variable "tmpYaw"  was declared but never referenced
+..\Source\App\src\App_AnalysisCMD.c(369): warning:  #177-D: variable "tmpYaw"  was declared but never referenced
   	int16_t tmpYaw;
-..\Source\App\src\App_AnalysisCMD.c(338): warning:  #177-D: variable "tmpAngular_Rate"  was declared but never referenced
+..\Source\App\src\App_AnalysisCMD.c(370): warning:  #177-D: variable "tmpAngular_Rate"  was declared but never referenced
   	int16_t tmpAngular_Rate;
-..\Source\App\src\App_AnalysisCMD.c(388): warning:  #177-D: variable "level"  was declared but never referenced
+..\Source\App\src\App_AnalysisCMD.c(420): warning:  #177-D: variable "level"  was declared but never referenced
   	int16_t level;
-..\Source\App\src\App_AnalysisCMD.c(389): warning:  #177-D: variable "pitch"  was declared but never referenced
+..\Source\App\src\App_AnalysisCMD.c(421): warning:  #177-D: variable "pitch"  was declared but never referenced
   	int16_t pitch;
-..\Source\App\src\App_AnalysisCMD.c(523): warning:  #177-D: variable "tmpTemp"  was declared but never referenced
+..\Source\App\src\App_AnalysisCMD.c(554): warning:  #177-D: variable "tmpTemp"  was declared but never referenced
   	int16_t tmpTemp;
-..\Source\App\src\App_AnalysisCMD.c(524): warning:  #177-D: variable "tmpHum"  was declared but never referenced
+..\Source\App\src\App_AnalysisCMD.c(555): warning:  #177-D: variable "tmpHum"  was declared but never referenced
   	int16_t tmpHum;
-..\Source\App\src\App_AnalysisCMD.c(611): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Source\App\src\App_AnalysisCMD.c(642): warning:  #186-D: pointless comparison of unsigned integer with zero
   	if(Pms.Moto_Cur<0){
 ..\Source\App\src\App_AnalysisCMD.c: 31 warnings, 0 errors
+compiling App_Environmental.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_Environmental.c(88): warning:  #177-D: variable "i"  was declared but never referenced
+  	uint16_t i;
+..\Source\App\src\App_Environmental.c(145): warning:  #177-D: variable "i"  was declared but never referenced
+  	uint8_t i;
+..\Source\App\src\App_Environmental.c(301): warning:  #1-D: last line of file ends without a newline
+  }
+..\Source\App\src\App_Environmental.c: 7 warnings, 0 errors
+compiling App_Exti.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_Exti.c(60): warning:  #177-D: variable "err"  was declared but never referenced
+  	OS_ERR err;	
+..\Source\App\src\App_Exti.c(204): warning:  #177-D: variable "err"  was declared but never referenced
+  	OS_ERR err;	
+..\Source\App\src\App_Exti.c(341): warning:  #177-D: variable "err"  was declared but never referenced
+  	OS_ERR err;	
+..\Source\App\src\App_Exti.c(371): warning:  #177-D: variable "err"  was declared but never referenced
+    OS_ERR err;	
+..\Source\App\src\App_Exti.c(372): warning:  #177-D: variable "tmp"  was declared but never referenced
+  	uint16_t tmp;
+..\Source\App\src\App_Exti.c(373): warning:  #177-D: variable "ultra3_val1"  was declared but never referenced
+    static uint16_t ultra3_val1 = 0;
+..\Source\App\src\App_Exti.c(374): warning:  #177-D: variable "ultra3_val2"  was declared but never referenced
+  	static uint16_t ultra3_val2 = 0;
+..\Source\App\src\App_Exti.c(403): warning:  #177-D: variable "err"  was declared but never referenced
+  	OS_ERR err;	
+..\Source\App\src\App_Exti.c(585): warning:  #177-D: variable "err"  was declared but never referenced
+  	OS_ERR err;	
+..\Source\App\src\App_Exti.c(590): warning:  #177-D: variable "ultra5_val1"  was declared but never referenced
+  	static uint16_t ultra5_val1 = 0;
+..\Source\App\src\App_Exti.c(591): warning:  #177-D: variable "ultra5_val2"  was declared but never referenced
+  	static uint16_t ultra5_val2 = 0;
+..\Source\App\src\App_Exti.c(592): warning:  #177-D: variable "ultra6_val1"  was declared but never referenced
+  	static uint16_t ultra6_val1 = 0;
+..\Source\App\src\App_Exti.c(593): warning:  #177-D: variable "ultra6_val2"  was declared but never referenced
+  	static uint16_t ultra6_val2 = 0;
+..\Source\App\src\App_Exti.c: 17 warnings, 0 errors
+compiling App_Head_Done.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_Head_Done.c(58): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				Head_Status.PSC_UD_Pos += 0.5;
+..\Source\App\src\App_Head_Done.c(69): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				Head_Status.PSC_UD_Pos -= 0.5;
+..\Source\App\src\App_Head_Done.c(97): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if(Head_Status.PSC_Level_Pos >= Head_Status.PSC_Level_MIN_Pos + 0.5)
+..\Source\App\src\App_Head_Done.c(99): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				Head_Status.PSC_Level_Pos -= 0.5;
+..\Source\App\src\App_Head_Done.c(110): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if(Head_Status.PSC_Level_Pos <= Head_Status.PSC_Level_MAX_Pos - 0.5)
+..\Source\App\src\App_Head_Done.c(112): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				Head_Status.PSC_Level_Pos += 0.5;
+..\Source\App\src\App_Head_Done.c(140): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if(Head_Status.PSC_UD_Pos < Head_Status.PSC_UD_Goal_Pos - 0.5)
+..\Source\App\src\App_Head_Done.c(146): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	else if(Head_Status.PSC_UD_Pos > Head_Status.PSC_UD_Goal_Pos + 0.5)
+..\Source\App\src\App_Head_Done.c(173): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if(Head_Status.PSC_Level_Pos > Head_Status.PSC_Level_Goal_Pos + 0.5)
+..\Source\App\src\App_Head_Done.c(179): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	else if(Head_Status.PSC_Level_Pos < Head_Status.PSC_Level_Goal_Pos - 0.5)
+..\Source\App\src\App_Head_Done.c(260): warning:  #177-D: variable "err"  was declared but never referenced
+  	OS_ERR err;
+..\Source\App\src\App_Head_Done.c: 15 warnings, 0 errors
+compiling App_LiftMoto.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_LiftMoto.c(95): warning:  #177-D: variable "down_limit_sta"  was declared but never referenced
+  	static uint8_t down_limit_sta = 0;
+..\Source\App\src\App_LiftMoto.c: 5 warnings, 0 errors
+compiling App_PID.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_PID.c: 4 warnings, 0 errors
+compiling App_Pms.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_Pms.c(90): warning:  #177-D: variable "min_cnt"  was declared but never referenced
+  	static uint8_t  min_cnt = 0;
+..\Source\App\src\App_Pms.c: 5 warnings, 0 errors
+compiling App_MotoDrv.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_MotoDrv.c(119): warning:  #550-D: variable "l_rpm"  was set but never used
+  						  int16_t l_rpm, r_rpm;
+..\Source\App\src\App_MotoDrv.c(119): warning:  #550-D: variable "r_rpm"  was set but never used
+  						  int16_t l_rpm, r_rpm;
+..\Source\App\src\App_MotoDrv.c(51): warning:  #177-D: variable "i"  was declared but never referenced
+  	uint8_t i;
+..\Source\App\src\App_MotoDrv.c(209): warning:  #550-D: variable "last_l_pulse"  was set but never used
+  	static int16_t last_l_pulse = 0, last_r_pulse = 0;
+..\Source\App\src\App_MotoDrv.c(209): warning:  #550-D: variable "last_r_pulse"  was set but never used
+  	static int16_t last_l_pulse = 0, last_r_pulse = 0;
+..\Source\App\src\App_MotoDrv.c(338): warning:  #177-D: variable "i"  was declared but never referenced
+  	uint8_t i;
+..\Source\App\src\App_MotoDrv.c(489): warning:  #1-D: last line of file ends without a newline
+  }
+..\Source\App\src\App_MotoDrv.c: 11 warnings, 0 errors
+compiling App_System.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_System.c: 4 warnings, 0 errors
 compiling App_Task.c...
 ..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
   	 
@@ -122,43 +412,70 @@ compiling App_Task.c...
   	 
 ..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
   #endif /*__BSP_SYSTICK_CFG_H */
-..\Source\App\inc\App_MotoDrv.h(83): warning:  #1-D: last line of file ends without a newline
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
   	 
-..\Source\App\src\App_Task.c(811): warning:  #177-D: variable "last_left_set"  was declared but never referenced
+..\Source\App\src\App_Task.c(884): warning:  #177-D: variable "last_left_set"  was declared but never referenced
   	static uint16_t last_left_set = 0;
-..\Source\App\src\App_Task.c(812): warning:  #177-D: variable "last_right_set"  was declared but never referenced
+..\Source\App\src\App_Task.c(885): warning:  #177-D: variable "last_right_set"  was declared but never referenced
   	static uint16_t last_right_set = 0;		
-..\Source\App\src\App_Task.c(813): warning:  #177-D: variable "lear_tmp"  was declared but never referenced
+..\Source\App\src\App_Task.c(886): warning:  #177-D: variable "lear_tmp"  was declared but never referenced
   	int16_t lear_tmp;
-..\Source\App\src\App_Task.c(814): warning:  #177-D: variable "angular_tmp"  was declared but never referenced
+..\Source\App\src\App_Task.c(887): warning:  #177-D: variable "angular_tmp"  was declared but never referenced
   	int16_t angular_tmp;
-..\Source\App\src\App_Task.c(815): warning:  #177-D: variable "real_lear"  was declared but never referenced
+..\Source\App\src\App_Task.c(888): warning:  #177-D: variable "real_lear"  was declared but never referenced
   	int16_t real_lear;
-..\Source\App\src\App_Task.c(816): warning:  #177-D: variable "real_angle"  was declared but never referenced
+..\Source\App\src\App_Task.c(889): warning:  #177-D: variable "real_angle"  was declared but never referenced
   	int16_t real_angle;
-..\Source\App\src\App_Task.c(864): warning:  #177-D: variable "i"  was declared but never referenced
+..\Source\App\src\App_Task.c(940): warning:  #177-D: variable "i"  was declared but never referenced
   	uint8_t i;
-..\Source\App\src\App_Task.c(865): warning:  #177-D: variable "cnt"  was declared but never referenced
+..\Source\App\src\App_Task.c(941): warning:  #177-D: variable "cnt"  was declared but never referenced
   	static uint8_t cnt = 0;
-..\Source\App\src\App_Task.c(900): warning:  #177-D: variable "i"  was declared but never referenced
+..\Source\App\src\App_Task.c(979): warning:  #177-D: variable "i"  was declared but never referenced
   	uint8_t i;
-..\Source\App\src\App_Task.c(922): warning:  #177-D: variable "last_flag"  was declared but never referenced
+..\Source\App\src\App_Task.c(1001): warning:  #177-D: variable "last_flag"  was declared but never referenced
   	static uint8_t last_flag = 0;
-..\Source\App\src\App_Task.c(923): warning:  #177-D: variable "cnt"  was declared but never referenced
+..\Source\App\src\App_Task.c(1002): warning:  #177-D: variable "cnt"  was declared but never referenced
   	static uint16_t cnt = 0;
-..\Source\App\src\App_Task.c(924): warning:  #177-D: variable "last_Mergency_Stop"  was declared but never referenced
+..\Source\App\src\App_Task.c(1003): warning:  #177-D: variable "last_Mergency_Stop"  was declared but never referenced
   	static uint8_t last_Mergency_Stop = false;
-..\Source\App\src\App_Task.c(948): warning:  #177-D: variable "i"  was declared but never referenced
+..\Source\App\src\App_Task.c(1027): warning:  #177-D: variable "i"  was declared but never referenced
   	uint8_t i;
-..\Source\App\src\App_Task.c(949): warning:  #177-D: variable "cnt"  was declared but never referenced
+..\Source\App\src\App_Task.c(1028): warning:  #177-D: variable "cnt"  was declared but never referenced
   	static uint8_t cnt;
-..\Source\App\src\App_Task.c(1014): warning:  #177-D: variable "task_cnt"  was declared but never referenced
+..\Source\App\src\App_Task.c(1095): warning:  #177-D: variable "task_cnt"  was declared but never referenced
   	static uint16_t task_cnt = 0;
-..\Source\App\src\App_Task.c(1242): warning:  #177-D: variable "code_cnt"  was declared but never referenced
+..\Source\App\src\App_Task.c(1341): warning:  #177-D: variable "code_cnt"  was declared but never referenced
   	static uint8_t code_cnt = 0;
-..\Source\App\src\App_Task.c(1244): warning:  #177-D: variable "i"  was declared but never referenced
+..\Source\App\src\App_Task.c(1343): warning:  #177-D: variable "i"  was declared but never referenced
   	uint8_t i;
 ..\Source\App\src\App_Task.c: 21 warnings, 0 errors
+compiling App_Test.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_Test.c(329): warning:  #1-D: last line of file ends without a newline
+  }
+..\Source\App\src\App_Test.c: 5 warnings, 0 errors
+compiling dma.c...
+compiling App_Ultrasonic.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_Ultrasonic.c(156): warning:  #177-D: variable "front_cnt"  was declared but never referenced
+  	static uint8_t front_cnt = 0;
+..\Source\App\src\App_Ultrasonic.c(159): warning:  #177-D: variable "back_cnt"  was declared but never referenced
+  	static uint8_t back_cnt = 0;
+..\Source\App\src\App_Ultrasonic.c: 6 warnings, 0 errors
 compiling App_TIM.c...
 ..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
   	 
@@ -166,17 +483,75 @@ compiling App_TIM.c...
   	 
 ..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
   #endif /*__BSP_SYSTICK_CFG_H */
-..\Source\App\inc\App_MotoDrv.h(83): warning:  #1-D: last line of file ends without a newline
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
   	 
 ..\Source\App\src\App_TIM.c(164): warning:  #177-D: variable "tim10us"  was declared but never referenced
   	static uint16_t tim10us = 0;
 ..\Source\App\src\App_TIM.c(165): warning:  #177-D: variable "tim500ms"  was declared but never referenced
   	static uint16_t tim500ms = 0;
 ..\Source\App\src\App_TIM.c: 6 warnings, 0 errors
+compiling App_USART.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_USART.c(189): warning:  #177-D: variable "bTemp"  was declared but never referenced
+  	static unsigned char bTemp;
+..\Source\App\src\App_USART.c(191): warning:  #177-D: variable "res"  was declared but never referenced
+  	static unsigned char res;
+..\Source\App\src\App_USART.c(192): warning:  #177-D: variable "rfid_flag"  was declared but never referenced
+  	static unsigned char rfid_flag = 0;
+..\Source\App\src\App_USART.c(193): warning:  #177-D: variable "checksum"  was declared but never referenced
+  	uint8_t checksum = 0;
+..\Source\App\src\App_USART.c(194): warning:  #177-D: variable "distance"  was declared but never referenced
+  	static uint16_t distance = 0;
+..\Source\App\src\App_USART.c(302): warning:  #177-D: variable "err"  was declared but never referenced
+  	OS_ERR err;	
+..\Source\App\src\App_USART.c: 10 warnings, 0 errors
+compiling delay.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\SYSTEM\delay.c: 4 warnings, 0 errors
+compiling malloc.c...
+compiling sys.c...
+compiling stm32f4xx_it.c...
+compiling system_stm32f4xx.c...
+compiling main.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\User\main.c(20): warning:  #177-D: variable "i"  was declared but never referenced
+  	uint16_t i = 0;
+..\Source\User\main.c: 5 warnings, 0 errors
+compiling usart.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(76): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\SYSTEM\usart.c: 4 warnings, 0 errors
 linking...
 Program Size: Code=58996 RO-data=1304 RW-data=548 ZI-data=1185852  
 FromELF: creating hex file...
-".\Output\MR9.axf" - 0 Error(s), 69 Warning(s).
+".\Output\MR9.axf" - 0 Error(s), 205 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -189,7 +564,7 @@ Package Vendor: Keil
   C:/Users/wangs/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.16.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:06
+Build Time Elapsed:  00:00:07
 </pre>
 </body>
 </html>
