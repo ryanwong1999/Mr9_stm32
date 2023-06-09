@@ -36,12 +36,12 @@ void TIM2_IRQHandler(void)
 	static uint16_t lift_cnt = 0;
 	static uint16_t errom_cnt = 0;
 	#if SYSTEM_SUPPORT_OS  //使用UCOS操作系统
-		OSIntEnter();    
+	OSIntEnter();    
 	#endif
 	
-	if((TIM_GetITStatus( TIM2, TIM_IT_Update) == SET ))
+	if((TIM_GetITStatus(TIM2, TIM_IT_Update) == SET ))
 	{
-		TIM_ClearITPendingBit(TIM2 , TIM_IT_Update);  
+		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);  
 		
 		Charge_Tim1ms();
 		//Robot_Moto.Locked_Flag = Wheel_Locded_Check();
@@ -54,25 +54,27 @@ void TIM2_IRQHandler(void)
 		if(errom_cnt > 1000)		//1秒
 		{
 			errom_cnt = 0;
-
-			if(last_ultra_en != Robot_Sys.Ultra_Disable_Flag){
-				AT24CXX_WriteOneByte(8,Robot_Sys.Ultra_Disable_Flag);
+			if(last_ultra_en != Robot_Sys.Ultra_Disable_Flag)
+			{
+				AT24CXX_WriteOneByte(8, Robot_Sys.Ultra_Disable_Flag);
 				last_ultra_en = AT24CXX_ReadOneByte(8);
 			}
 			if(last_lever_offset != Head_Status.Level_Offset)
 			{
-				AT24CXX_WriteOneByte(6,Head_Status.Level_Offset);   //当前容量
+				AT24CXX_WriteOneByte(6, Head_Status.Level_Offset);   //当前容量
 				last_lever_offset = AT24CXX_ReadOneByte(6);
 			}
 			if(last_pitch_offset != Head_Status.Pitch_Offset)
 			{
-				AT24CXX_WriteOneByte(7,Head_Status.Pitch_Offset);
+				AT24CXX_WriteOneByte(7, Head_Status.Pitch_Offset);
 				last_pitch_offset = AT24CXX_ReadOneByte(7);
 			}
 		}
-	 if((UsartToEnviro.Rx_Sta & 0x01) != 0){
+	  if((UsartToEnviro.Rx_Sta & 0x01) != 0)
+		{
 		  UsartToEnviro.Comm_TimeOut ++;
-		  if( UsartToEnviro.Comm_TimeOut > 10){
+		  if( UsartToEnviro.Comm_TimeOut > 10)
+			{
 				UsartToEnviro.Comm_TimeOut = 0;
 			  UsartToEnviro.Usart_Rx_OK = true;
 		    UsartToEnviro.Rx_Sta = 0;
@@ -83,7 +85,7 @@ void TIM2_IRQHandler(void)
 		{
 			tim1ms_cnt = 0;
 		}
-   #ifdef LIFTMOTO_TASK_OS
+    #ifdef LIFTMOTO_TASK_OS
 		lift_cnt ++;
 		if(lift_cnt >= 10){
 		  lift_cnt = 0;
@@ -157,16 +159,16 @@ void TIM2_IRQHandler(void)
 *  输   出：
 *  说   明：TIM1中断处理函数，10us定时
 */
-void TIM1_UP_TIM10_IRQHandler (void)
+void TIM1_UP_TIM10_IRQHandler(void)
 {
 	static uint16_t tim10us = 0;
 	static uint16_t tim500ms = 0;
 	
 	#if SYSTEM_SUPPORT_OS  //使用UCOS操作系统
-		OSIntEnter();    
+	OSIntEnter();    
 	#endif
 	
-	if( (TIM_GetITStatus(TIM1, TIM_IT_Update) == SET))
+	if((TIM_GetITStatus(TIM1, TIM_IT_Update) == SET))
 	{
 		TIM_ClearITPendingBit(TIM1, TIM_IT_Update);  
 	  IR_Code_Delay10us();
@@ -174,7 +176,7 @@ void TIM1_UP_TIM10_IRQHandler (void)
   }
 
 	#if SYSTEM_SUPPORT_OS  //使用UCOS操作系统
-		OSIntExit();    
+	OSIntExit();    
   #endif
 }
 
@@ -192,20 +194,20 @@ void TIM7_IRQHandler(void)
 { 	
 	OS_ERR err;
 	#if SYSTEM_SUPPORT_OS  //使用UCOS操作系统
-		OSIntEnter();    
+	OSIntEnter();    
 	#endif
 	if(TIM_GetITStatus(TIM7, TIM_IT_Update) != RESET)//是更新中断
 	{	 			   
 		UsartToDrv.Usart_Rx_OK = true;
     #ifdef SYSTEM_SUPPORT_OS	 
-			OSSemPost(&UsartToDrv_SEM, OS_OPT_POST_1, &err);//????? 
+		OSSemPost(&UsartToDrv_SEM, OS_OPT_POST_1, &err);//????? 
     #endif	
    
 		TIM_ClearITPendingBit(TIM7, TIM_IT_Update);  //清除TIM7更新中断标志    
 		TIM_Cmd(TIM7, DISABLE);  //关闭TIM7 
 		
 		#if SYSTEM_SUPPORT_OS  //使用UCOS操作系统
-			OSIntExit();    
+		OSIntExit();    
 		#endif
 	}	    
 }

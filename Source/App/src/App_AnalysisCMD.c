@@ -19,7 +19,7 @@ Moto_Typedef  	Robot_Moto;
 
 void Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool stop_key);
 void Send_PowerDataUpdata(uint8_t index, uint8_t addr, Power_Type mPower);
-void Send_LiftMoto_Mess(uint8_t index, uint8_t addr,LiftMoto_Type *_liftmoto);
+void Send_LiftMoto_Mess(uint8_t index, uint8_t addr, LiftMoto_Type *_liftmoto);
 
 uint8_t gUpdateCnt = 0;
 uint8_t gPscCnt = 0;
@@ -51,7 +51,7 @@ void AnalysisCMD(void)
 	static uint16_t right_inc_pwm = 0;
 	static uint16_t peroid_tmp = 0;
 	static uint8_t period_set_sta = 0;
-	float  period_inc_tmp;
+	float period_inc_tmp;
 	uint16_t addr1;
 	uint16_t addr2;
 	uint8_t charge_tmp = 0;
@@ -339,8 +339,8 @@ void Send_OdomUpdata(uint8_t index, uint8_t addr, Odom_Data_type odom_dat)
 	static uint8_t ultra[4];
 	
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);	//申请20字节
+	uint8_t sramx=0;						//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请20字节
 	
 	ultra[0] = Ultra1.Distance/10;
 	ultra[1] = Ultra2.Distance/10;
@@ -370,7 +370,7 @@ void Send_OdomUpdata(uint8_t index, uint8_t addr, Odom_Data_type odom_dat)
 	buf[18]	= 0x0A;
 	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
-	myfree(sramx,buf);
+	myfree(sramx, buf);
 }
 
 
@@ -388,8 +388,8 @@ void  Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool
 	int16_t level;
 	int16_t pitch;
 	uint8_t *buf;
-	uint8_t sramx=0;				//默认为内部sram
-  buf = mymalloc(sramx,20);	//申请20字节
+	uint8_t sramx=0;						//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -430,8 +430,8 @@ void  Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool
 void Send_LiftMoto_Mess(uint8_t index, uint8_t addr,LiftMoto_Type *_liftmoto)
 {
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);	//申请20字节
+	uint8_t sramx=0;						//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -454,6 +454,7 @@ void Send_LiftMoto_Mess(uint8_t index, uint8_t addr,LiftMoto_Type *_liftmoto)
 	buf[16]	= CRC8_Table(buf, 16);
 	buf[17]	= 0x0D;
 	buf[18]	= 0x0A;
+	
 	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
 	myfree(sramx, buf);
 }
@@ -474,8 +475,8 @@ void Send_PowerDataUpdata(uint8_t index, uint8_t addr, Power_Type mPower)
 	uint32_t tmpPower;
 	
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);	//申请2K字节
+	uint8_t sramx=0;						//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请2K字节
 	
   buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -523,8 +524,8 @@ void Send_HeadCtrlCmd(uint8_t index, uint8_t addr, uint8_t cmd_dat)
 	int16_t tmpHum;
 	
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);	//申请20字节
+	uint8_t sramx=0;						//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -560,8 +561,8 @@ void Send_HeadCtrlCmd(uint8_t index, uint8_t addr, uint8_t cmd_dat)
 void Send_Obs_EN_Mess(uint8_t index, uint8_t addr)
 {
 	uint8_t *buf;
-	uint8_t sramx = 0;				//默认为内部sram
-  buf = mymalloc(sramx,20);	//申请20字节
+	uint8_t sramx = 0;					//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -601,11 +602,11 @@ void Send_Obs_EN_Mess(uint8_t index, uint8_t addr)
 void Send_Obstacle_Sta(uint8_t index, uint8_t paddr, uint8_t obs_sta, uint8_t crach_sta)
 {
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-	int zf_flag = 0;					//判断正负
+	uint8_t sramx=0;						//默认为内部sram
+	int zf_flag = 0;						//判断正负
 	
 	int32_t Moto_Current_Send = Pms.Moto_Cur;
-  buf = mymalloc(sramx,20);	//申请20字节
+  buf = mymalloc(sramx, 20);	//申请20字节
 	
 	if(Pms.Moto_Cur<0){
 		Moto_Current_Send = Moto_Current_Send * -1;
@@ -653,8 +654,8 @@ void Send_Obstacle_Sta(uint8_t index, uint8_t paddr, uint8_t obs_sta, uint8_t cr
 void Send_Speed_reply(uint8_t index, uint8_t paddr, uint16_t linear, uint16_t angular){
 
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);//申请20字节
+	uint8_t sramx=0;						//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -695,8 +696,8 @@ void Send_Speed_reply(uint8_t index, uint8_t paddr, uint16_t linear, uint16_t an
 void Send_Autocharge_reply(uint8_t index, uint8_t paddr, uint8_t dat){
 
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);	//申请20字节
+	uint8_t sramx=0;						//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -737,8 +738,8 @@ void Send_Autocharge_reply(uint8_t index, uint8_t paddr, uint8_t dat){
 void Send_HeadAngle_reply(uint8_t index, uint8_t paddr, uint16_t set_level, uint16_t set_pitch){
 
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);	//申请20字节
+	uint8_t sramx=0;						//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -779,8 +780,8 @@ void Send_HeadAngle_reply(uint8_t index, uint8_t paddr, uint16_t set_level, uint
 void Send_HeadCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
 
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);	//申请20字节
+	uint8_t sramx=0;						//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -821,8 +822,8 @@ void Send_HeadCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
 void Send_SetLift_reply(uint8_t index, uint8_t paddr, uint16_t heitht){
 
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);	//申请20字节
+	uint8_t sramx=0;						//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -863,8 +864,8 @@ void Send_SetLift_reply(uint8_t index, uint8_t paddr, uint16_t heitht){
 void Send_LiftCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
 
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);	//申请20字节
+	uint8_t sramx=0;						//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -905,8 +906,8 @@ void Send_LiftCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
 void Send_ultra_en_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
 
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);	//申请20字节
+	uint8_t sramx=0;						//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
@@ -947,8 +948,8 @@ void Send_angle_offset_reply(uint8_t index, uint8_t paddr, int8_t level_offset, 
 {
 
 	uint8_t *buf;
-	uint8_t sramx=0;					//默认为内部sram
-  buf = mymalloc(sramx,20);	//申请20字节
+	uint8_t sramx=0;						//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;

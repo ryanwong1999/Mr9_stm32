@@ -230,7 +230,7 @@ void Get_odom_pulse(int16_t l_pos, int16_t r_pos, int16_t *l_pulse, int16_t *r_p
 	}
 	r_pulse_temp = pulse_tmp + r_pos - last_r_pos;
 	r_pulse_temp = r_pulse_temp/4;
-	
+	//判断急停松开后的第一个脉冲数有跳变，滤掉
 	if(Moto_Odom.Clean_Flag == 1){
 		*l_pulse = 0;
 		*r_pulse = 0;
@@ -277,7 +277,7 @@ void Send_code_disk_query(void)
 */
 void Send_mdrv_en_set(int16_t l_en, int16_t r_en)
 {
-	Send_write_mdrv_cmd(0x2100, 0x3100,l_en,r_en);
+	Send_write_mdrv_cmd(0x2100, 0x3100, l_en, r_en);
 }
 
 /*=============================================================================
@@ -330,7 +330,7 @@ void Send_speed_set(int16_t set_lear, int16_t set_angle)
 	
 	buf[0] = 0x01;
 	buf[1] = 0xEA;
-	buf[2] = set_lear ;
+	buf[2] = set_lear;
 	buf[3] = set_lear>>8;
 	buf[4] = set_angle;
 	buf[5] = set_angle>>8;
@@ -360,7 +360,7 @@ void Send_read_mdrv_cmd(uint16_t addr1, uint16_t addr2)
 	
 	buf[0] = 0x01;
 	buf[1] = 0x43;
-	buf[2] = addr1>>8 ;
+	buf[2] = addr1>>8;
 	buf[3] = addr1;
 	buf[4] = addr2>>8;
 	buf[5] = addr2;
@@ -391,20 +391,20 @@ void Send_wr_all_mdrv_cmd(uint16_t addr1, uint16_t addr2,int16_t set_l,int16_t s
 	
 	buf[0] = 0x01;
 	buf[1] = 0x45;
-	buf[2] = addr1>>8 ;
+	buf[2] = addr1>>8;
 	buf[3] = addr1;
 	buf[4] = addr2>>8;
 	buf[5] = addr2;
-	buf[6] = set_l>>8 ;
+	buf[6] = set_l>>8;
 	buf[7] = set_l;
 	buf[8] = set_a>>8;
 	buf[9] = set_a;
-	buf[10] = l_pwm>>8 ;
+	buf[10] = l_pwm>>8;
 	buf[11] = l_pwm;
 	buf[12] = r_pwm>>8;
 	buf[13] = r_pwm;
 	
-	crc16_data = ModBusCRC16(buf,14);
+	crc16_data = ModBusCRC16(buf, 14);
 	buf[14] = crc16_data >> 8;
 	buf[15] = crc16_data;
 	
@@ -432,15 +432,15 @@ void Send_write_mdrv_cmd(uint16_t addr1, uint16_t addr2, int16_t dat1, int16_t d
 	
 	buf[0] = 0x01;
 	buf[1] = 0x44;
-	buf[2] = addr1>>8 ;
+	buf[2] = addr1>>8;
 	buf[3] = addr1;
 	buf[4] = addr2>>8;
 	buf[5] = addr2;
-	buf[6] = dat1>>8 ;
+	buf[6] = dat1>>8;
 	buf[7] = dat1;
 	buf[8] = dat2>>8;
 	buf[9] = dat2;
-	crc16_data = ModBusCRC16(buf,10);
+	crc16_data = ModBusCRC16(buf, 10);
 	buf[10] = crc16_data >> 8;
 	buf[11] = crc16_data;
 	

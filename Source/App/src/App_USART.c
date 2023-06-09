@@ -342,11 +342,10 @@ void UART5_IRQHandler(void)
 	OSIntEnter();                                     
   #endif
 	
-	if(USART_GetITStatus(UART5, USART_IT_RXNE) != RESET)    //?????????
+	if(USART_GetITStatus(UART5, USART_IT_RXNE) != RESET)
   {  	
 		USART_ClearITPendingBit(UART5, USART_IT_RXNE);       
-		dat = USART_ReceiveData(UART5);           // ??UART4?????????
-	
+		dat = USART_ReceiveData(UART5);
 //    USARTx_SendOneByte(USART1, dat);
 		UsartToEnviro.Comm_TimeOut = 0;
 		if(UsartToEnviro.Usart_Rx_OK == false){
@@ -385,7 +384,6 @@ void UART5_IRQHandler(void)
 			}		
 		}
 	}
-	
 	#ifdef SYSTEM_SUPPORT_OS	 	
 	OSIntExit();    
   #endif

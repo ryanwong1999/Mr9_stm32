@@ -51,10 +51,132 @@ compiling App_MotoDrv.c...
 ..\Source\App\src\App_MotoDrv.c(476): warning:  #1-D: last line of file ends without a newline
   }
 ..\Source\App\src\App_MotoDrv.c: 11 warnings, 0 errors
+compiling App_AnalysisCMD.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(83): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_AnalysisCMD.c(300): warning:  #188-D: enumerated type mixed with another type
+  					Lift_Moto.Cmd = UsartToPC.Rx_Buf[8];
+..\Source\App\src\App_AnalysisCMD.c(41): warning:  #177-D: variable "i"  was declared but never referenced
+  	uint8_t i=0;
+..\Source\App\src\App_AnalysisCMD.c(44): warning:  #177-D: variable "real_lear"  was declared but never referenced
+  	int16_t real_lear;
+..\Source\App\src\App_AnalysisCMD.c(45): warning:  #177-D: variable "real_angle"  was declared but never referenced
+  	int16_t real_angle;
+..\Source\App\src\App_AnalysisCMD.c(46): warning:  #177-D: variable "pulse_width_r"  was declared but never referenced
+  	float pulse_width_r;
+..\Source\App\src\App_AnalysisCMD.c(47): warning:  #177-D: variable "pulse_width_l"  was declared but never referenced
+  	float pulse_width_l;
+..\Source\App\src\App_AnalysisCMD.c(48): warning:  #177-D: variable "left_speed_tmp"  was declared but never referenced
+  	static float left_speed_tmp = 0;
+..\Source\App\src\App_AnalysisCMD.c(49): warning:  #177-D: variable "right_speed_tmp"  was declared but never referenced
+  	static float right_speed_tmp = 0;
+..\Source\App\src\App_AnalysisCMD.c(50): warning:  #177-D: variable "left_inc_pwm"  was declared but never referenced
+  	static uint16_t left_inc_pwm = 0;
+..\Source\App\src\App_AnalysisCMD.c(51): warning:  #177-D: variable "right_inc_pwm"  was declared but never referenced
+  	static uint16_t right_inc_pwm = 0;
+..\Source\App\src\App_AnalysisCMD.c(52): warning:  #177-D: variable "peroid_tmp"  was declared but never referenced
+  	static uint16_t peroid_tmp = 0;
+..\Source\App\src\App_AnalysisCMD.c(53): warning:  #177-D: variable "period_set_sta"  was declared but never referenced
+  	static uint8_t period_set_sta = 0;
+..\Source\App\src\App_AnalysisCMD.c(54): warning:  #177-D: variable "period_inc_tmp"  was declared but never referenced
+  	float period_inc_tmp;
+..\Source\App\src\App_AnalysisCMD.c(55): warning:  #177-D: variable "addr1"  was declared but never referenced
+  	uint16_t addr1;
+..\Source\App\src\App_AnalysisCMD.c(56): warning:  #177-D: variable "addr2"  was declared but never referenced
+  	uint16_t addr2;
+..\Source\App\src\App_AnalysisCMD.c(61): warning:  #177-D: variable "l_speed"  was declared but never referenced
+  	float l_speed;
+..\Source\App\src\App_AnalysisCMD.c(62): warning:  #177-D: variable "r_speed"  was declared but never referenced
+  	float r_speed;
+..\Source\App\src\App_AnalysisCMD.c(63): warning:  #177-D: variable "angle_div"  was declared but never referenced
+  	float angle_div;
+..\Source\App\src\App_AnalysisCMD.c(66): warning:  #177-D: variable "chg_dis"  was declared but never referenced
+  	int16_t chg_dis;
+..\Source\App\src\App_AnalysisCMD.c(67): warning:  #177-D: variable "chg_angle"  was declared but never referenced
+  	int16_t chg_angle;
+..\Source\App\src\App_AnalysisCMD.c(337): warning:  #177-D: variable "tmpYaw"  was declared but never referenced
+  	int16_t tmpYaw;
+..\Source\App\src\App_AnalysisCMD.c(338): warning:  #177-D: variable "tmpAngular_Rate"  was declared but never referenced
+  	int16_t tmpAngular_Rate;
+..\Source\App\src\App_AnalysisCMD.c(388): warning:  #177-D: variable "level"  was declared but never referenced
+  	int16_t level;
+..\Source\App\src\App_AnalysisCMD.c(389): warning:  #177-D: variable "pitch"  was declared but never referenced
+  	int16_t pitch;
+..\Source\App\src\App_AnalysisCMD.c(523): warning:  #177-D: variable "tmpTemp"  was declared but never referenced
+  	int16_t tmpTemp;
+..\Source\App\src\App_AnalysisCMD.c(524): warning:  #177-D: variable "tmpHum"  was declared but never referenced
+  	int16_t tmpHum;
+..\Source\App\src\App_AnalysisCMD.c(611): warning:  #186-D: pointless comparison of unsigned integer with zero
+  	if(Pms.Moto_Cur<0){
+..\Source\App\src\App_AnalysisCMD.c: 31 warnings, 0 errors
+compiling App_Task.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(83): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_Task.c(811): warning:  #177-D: variable "last_left_set"  was declared but never referenced
+  	static uint16_t last_left_set = 0;
+..\Source\App\src\App_Task.c(812): warning:  #177-D: variable "last_right_set"  was declared but never referenced
+  	static uint16_t last_right_set = 0;		
+..\Source\App\src\App_Task.c(813): warning:  #177-D: variable "lear_tmp"  was declared but never referenced
+  	int16_t lear_tmp;
+..\Source\App\src\App_Task.c(814): warning:  #177-D: variable "angular_tmp"  was declared but never referenced
+  	int16_t angular_tmp;
+..\Source\App\src\App_Task.c(815): warning:  #177-D: variable "real_lear"  was declared but never referenced
+  	int16_t real_lear;
+..\Source\App\src\App_Task.c(816): warning:  #177-D: variable "real_angle"  was declared but never referenced
+  	int16_t real_angle;
+..\Source\App\src\App_Task.c(864): warning:  #177-D: variable "i"  was declared but never referenced
+  	uint8_t i;
+..\Source\App\src\App_Task.c(865): warning:  #177-D: variable "cnt"  was declared but never referenced
+  	static uint8_t cnt = 0;
+..\Source\App\src\App_Task.c(900): warning:  #177-D: variable "i"  was declared but never referenced
+  	uint8_t i;
+..\Source\App\src\App_Task.c(922): warning:  #177-D: variable "last_flag"  was declared but never referenced
+  	static uint8_t last_flag = 0;
+..\Source\App\src\App_Task.c(923): warning:  #177-D: variable "cnt"  was declared but never referenced
+  	static uint16_t cnt = 0;
+..\Source\App\src\App_Task.c(924): warning:  #177-D: variable "last_Mergency_Stop"  was declared but never referenced
+  	static uint8_t last_Mergency_Stop = false;
+..\Source\App\src\App_Task.c(948): warning:  #177-D: variable "i"  was declared but never referenced
+  	uint8_t i;
+..\Source\App\src\App_Task.c(949): warning:  #177-D: variable "cnt"  was declared but never referenced
+  	static uint8_t cnt;
+..\Source\App\src\App_Task.c(1014): warning:  #177-D: variable "task_cnt"  was declared but never referenced
+  	static uint16_t task_cnt = 0;
+..\Source\App\src\App_Task.c(1242): warning:  #177-D: variable "code_cnt"  was declared but never referenced
+  	static uint8_t code_cnt = 0;
+..\Source\App\src\App_Task.c(1244): warning:  #177-D: variable "i"  was declared but never referenced
+  	uint8_t i;
+..\Source\App\src\App_Task.c: 21 warnings, 0 errors
+compiling App_TIM.c...
+..\Source\App\inc\App_Cap.h(62): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_LiftMoto.h(80): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\inc\App_Test.h(45): warning:  #1-D: last line of file ends without a newline
+  #endif /*__BSP_SYSTICK_CFG_H */
+..\Source\App\inc\App_MotoDrv.h(83): warning:  #1-D: last line of file ends without a newline
+  	 
+..\Source\App\src\App_TIM.c(164): warning:  #177-D: variable "tim10us"  was declared but never referenced
+  	static uint16_t tim10us = 0;
+..\Source\App\src\App_TIM.c(165): warning:  #177-D: variable "tim500ms"  was declared but never referenced
+  	static uint16_t tim500ms = 0;
+..\Source\App\src\App_TIM.c: 6 warnings, 0 errors
 linking...
 Program Size: Code=58996 RO-data=1304 RW-data=548 ZI-data=1185852  
 FromELF: creating hex file...
-".\Output\MR9.axf" - 0 Error(s), 11 Warning(s).
+".\Output\MR9.axf" - 0 Error(s), 69 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -67,7 +189,7 @@ Package Vendor: Keil
   C:/Users/wangs/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.16.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:06
 </pre>
 </body>
 </html>

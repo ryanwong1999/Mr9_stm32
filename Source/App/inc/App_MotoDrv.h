@@ -27,36 +27,29 @@
 #define MDRV_READ  			0x43
 #define MDRV_WRITE			0x44
 #define MDRV_ALL   			0x45	 
-typedef struct {
-	
+
+typedef struct
+{
 	int16_t set_lear;
 	int16_t set_angle;
 	int16_t set_left_rpm;
 	int16_t set_right_rpm;
 	int16_t set_left_pwm;
 	int16_t set_right_pwm;
-	
 	int16_t lear;
 	int16_t angle;
 	int16_t left_rpm;
 	int16_t right_rpm;
-
 	uint16_t left_pos;
 	uint16_t right_pos;
-	
 	int16_t left_pwm;
 	int16_t right_pwm;
-	
 	uint8_t en_sta;
-	//uint8_t en_set; 
-	
 	uint8_t stop_sta;
 	uint8_t vcc_sta;
-	
 	uint16_t cmd_addr1;
 	uint16_t cmd_addr2;
-	
-	bool  over_cur_flag;
+	bool over_cur_flag;
 }Moto_Drv;	
 
 

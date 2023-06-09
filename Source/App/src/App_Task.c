@@ -492,49 +492,69 @@ void Err_Handle_task(void *p_arg)
 	p_arg = p_arg;
 	while(1)
 	{
-		 IWDG_Feed();//喂狗
+		 IWDG_Feed();		//喂狗
 		
-//		printf("Disconnect_flag : %d , %d,  %d\r\n",UsartToPC.Disconnect_flag,UsartToDrv.Disconnect_flag,Robot_Sys.Comm_break_flag);
-//    printf("timeout:  %d, %d\r\n",Robot_Sys.Speed_Timeout_cnt,Robot_Sys.Odom_Timeout_cnt);
+//		printf("Disconnect_flag : %d , %d,  %d\r\n", UsartToPC.Disconnect_flag, UsartToDrv.Disconnect_flag, Robot_Sys.Comm_break_flag);
+//    printf("timeout:  %d, %d\r\n", Robot_Sys.Speed_Timeout_cnt, Robot_Sys.Odom_Timeout_cnt);
 //		printf("\r\n");
 		
-		if(UsartToPC.Comm_TimeOut >= 1000){    	//和工控机通信0.5S没在收到命令则停止
+		//和工控机通信0.5S没在收到命令则停止
+		if(UsartToPC.Comm_TimeOut >= 1000)    	
+		{
 			UsartToPC.Comm_TimeOut = 1000;
 			UsartToPC.Disconnect_flag = 1;
 		}
-		
-		if(UsartToDrv.Comm_TimeOut >= 1000){		//和驱动器通信0.5S没在收到命令则停止
+		//和驱动器通信0.5S没在收到命令则停止
+		if(UsartToDrv.Comm_TimeOut >= 1000)			
+		{
 			UsartToDrv.Comm_TimeOut = 1000;
 			UsartToDrv.Disconnect_flag = 1;
 		}
 		
-		if(Robot_Sys.Speed_Timeout_cnt >= 5000 || Robot_Sys.Odom_Timeout_cnt >= 5000){
+		if(Robot_Sys.Speed_Timeout_cnt >= 5000 || Robot_Sys.Odom_Timeout_cnt >= 5000)
+		{
 			Robot_Sys.Speed_Timeout_cnt = 5000;
 			Robot_Sys.Odom_Timeout_cnt = 5000;
 			Robot_Sys.Comm_break_flag = 1;
-		}else if(Robot_Sys.Speed_Timeout_cnt <= 1000 && Robot_Sys.Odom_Timeout_cnt <= 1000){
+		}
+		else if(Robot_Sys.Speed_Timeout_cnt <= 1000 && Robot_Sys.Odom_Timeout_cnt <= 1000)
+		{
 			Robot_Sys.Comm_break_flag = 0;
 		}
-			
-		if(UsartToPC.Disconnect_flag == 1 || Robot_Sys.Comm_break_flag == 1){		//无法通讯不让车走
-			if(Robot_Sys.Mergency_Stop_flag == true){		//急停状态操作
-				if(Moto.en_sta == 0){
+		//无法通讯不让车走
+		if(UsartToPC.Disconnect_flag == 1 || Robot_Sys.Comm_break_flag == 1)		
+		{
+			//急停状态操作
+			if(Robot_Sys.Mergency_Stop_flag == true)		
+			{
+				if(Moto.en_sta == 0)
+				{
 					Send_mdrv_en_set(1,1);
-				}else{
+				}
+				else
+				{
 					Moto.set_lear = 0;
 					Moto.set_angle = 0;
 					Send_speed_set(Moto.set_lear, Moto.set_angle);
 				}
-			}else{
-				if(Moto.stop_sta == 1){
-					if(Moto.en_sta == 1){
+			}
+			else
+			{
+				if(Moto.stop_sta == 1)
+				{
+					if(Moto.en_sta == 1)
+					{
 						Send_mdrv_en_set(0,0);	 
-					}else{
+					}
+					else
+					{
 						Moto.set_lear = 0;
 						Moto.set_angle = 0;
 						Send_speed_set(Moto.set_lear, Moto.set_angle);
 					}
-				}else{
+				}
+				else
+				{
 					Moto.set_lear = 0;
 					Moto.set_angle = 0;
 					Send_speed_set(Moto.set_lear, Moto.set_angle);
@@ -542,35 +562,40 @@ void Err_Handle_task(void *p_arg)
 			}
 		}
 		
-		if(drv_flag == 0){
-			if(UsartToDrv.Disconnect_flag == 1){
+		if(drv_flag == 0)
+		{
+			if(UsartToDrv.Disconnect_flag == 1)
+			{
 				EN_MDRV_DISABLE;
 				drv_flag = 1;
 				drv_cnt = 0;
 			}
-		}else{
+		}
+		else
+		{
 			drv_cnt ++;
-			if(drv_cnt > 100){
+			if(drv_cnt > 100)
+			{
 				drv_cnt = 0;
 				EN_MDRV_ENABLE;
 				Moto.en_sta = 0;
 			}
-			if(UsartToDrv.Disconnect_flag == 0){
-				drv_flag = 0;
-			}
+			if(UsartToDrv.Disconnect_flag == 0) drv_flag = 0;
 		}
 		
-		if(Moto.over_cur_flag == true){		//过流处理
-			if(Pms.Moto_Cur > 15000){
+		if(Moto.over_cur_flag == true)		//过流处理
+		{
+			if(Pms.Moto_Cur > 15000)
+			{
 				oc_cnt ++;
-				if(oc_cnt > 10){
+				if(oc_cnt > 10)
+				{
 					oc_cnt = 0;
 					EN_MDRV_DISABLE;
 				}
 			}
-		}else{
-		  oc_cnt = 0;
 		}
+		else oc_cnt = 0;
 
 		OSTimeDlyHMSM(0, 0, 0, 100, OS_OPT_TIME_HMSM_STRICT, &err); //延时300ms
 	}
@@ -595,23 +620,32 @@ void Poweroff_task(void *p_arg)
   
 	while(1)
 	{
-		if(Robot_Sys.PowerOff_flag == 0){
-			if(POWERKEY_IN == 1){		//长按关机
+		if(Robot_Sys.PowerOff_flag == 0)
+		{
+			if(POWERKEY_IN == 1)		//长按关机
+			{
 				key_cnt ++;
-				if(key_cnt > 15){
+				if(key_cnt > 15)
+				{
 					key_cnt = 0;
 					Robot_Sys.PowerOff_flag =1;
 					Robot_Sys.mBeepStatus.BeepMode = 3;
 				}
-			}else{
+			}
+			else
+			{
 				key_cnt = 0;
 				Robot_Sys.PowerOff_flag =0;
 			}
-		}else{
+		}
+		else
+		{
 			key_cnt ++;
-			if((key_cnt > 50 && Pms.Bat_Current > -1000) || key_cnt > 200) {
+			if((key_cnt > 50 && Pms.Bat_Current > -1000) || key_cnt > 200)
+			{
 			  poweroff_cnt ++;
-				if(poweroff_cnt > 10){
+				if(poweroff_cnt > 10)
+				{
 					poweroff_cnt = 0;
 					EN24_DISABLE;
 					EN_MDRV_DISABLE;

@@ -142,7 +142,7 @@ typedef struct
 	uint8_t	Recv_BUF[MAX_RX_LEN];
 	uint8_t	RX_STA;
 	uint8_t	Recv_Length;
-	bool		Recv_OK;
+	bool Recv_OK;
 }PC_COM_type;	
 	 
 
@@ -158,9 +158,9 @@ typedef struct
 
 extern Odom_Data_type  Moto_Odom; 
 
-void Send_OdomUpdata( uint8_t index, uint8_t paddr, Odom_Data_type odom_dat );
-void Send_HeadCtrlCmd( uint8_t index, uint8_t addr, uint8_t cmd_dat );
-void Send_HeadCtrlAngle(uint8_t index, uint8_t addr , uint8_t level,uint8_t );
+void Send_OdomUpdata( uint8_t index, uint8_t paddr, Odom_Data_type odom_dat);
+void Send_HeadCtrlCmd( uint8_t index, uint8_t addr, uint8_t cmd_dat);
+void Send_HeadCtrlAngle(uint8_t index, uint8_t addr, uint8_t level,uint8_t);
 void Send_Obs_EN_Mess(uint8_t index,uint8_t addr);
 unsigned char CRC8_Table(unsigned char *p, char counter);
 uint8_t CRC8(uint8_t *pDate, uint8_t length);
@@ -176,6 +176,7 @@ void Send_SetLift_reply(uint8_t index,uint8_t paddr,uint16_t heitht);
 void Send_LiftCtrl_reply(uint8_t index,uint8_t paddr,uint8_t cmd);
 void Send_ultra_en_reply(uint8_t index,uint8_t paddr,uint8_t cmd);
 void Send_angle_offset_reply(uint8_t index,uint8_t paddr,int8_t level_offset, int8_t pitch_offset);
+
 #ifdef __cplusplus
 }
 #endif
