@@ -68,7 +68,7 @@ void Moto_mdrv_analysis(void)
 		  rx_crc = (uint16_t)UsartToDrv.Rx_Buf[UsartToDrv.Rx_Len - 2]<<8 | UsartToDrv.Rx_Buf[UsartToDrv.Rx_Len - 1];
 			cal_crc = ModBusCRC16(UsartToDrv.Rx_Buf, UsartToDrv.Rx_Len - 2);
 			cal_crc = rx_crc;	
-//			printf("drv_cmd : %02x\r\n",UsartToDrv.Rx_Buf[1]);
+//			printf("drv_cmd : %02x\r\n", UsartToDrv.Rx_Buf[1]);
 			if(cal_crc == rx_crc)
 			{
 				cmd = UsartToDrv.Rx_Buf[1];
@@ -252,14 +252,11 @@ void Get_odom_pulse(int16_t l_pos, int16_t r_pos, int16_t *l_pulse, int16_t *r_p
 		*l_pulse = l_pulse_temp;
 		*r_pulse = r_pulse_temp;
 	}
-	
 //	printf("last_l_pos : %d, last_r_pos : %d, last_l_pulse : %d, last_r_pulse : %d\r\n",last_l_pos, last_r_pos, last_l_pulse, last_r_pulse);
-	
 	last_l_pulse = l_pulse_temp;
 	last_r_pulse = r_pulse_temp;
 	last_l_pos = l_pos;
 	last_r_pos = r_pos;
-	
 //	printf("l_pos : %d, r_pos : %d, *l_pulse : %d, *r_pulse : %d ----------------------------------\r\n", l_pos, r_pos, *l_pulse, *r_pulse);
 }
 
@@ -395,7 +392,7 @@ void Send_read_mdrv_cmd(uint16_t addr1, uint16_t addr2)
 *  输   出：
 *  说   明：写命令,只适用于M100自己开发的直流电机驱动器
 */
-void Send_wr_all_mdrv_cmd(uint16_t addr1, uint16_t addr2,int16_t set_l,int16_t set_a, int16_t l_pwm, int16_t r_pwm)
+void Send_wr_all_mdrv_cmd(uint16_t addr1, uint16_t addr2,int16_t set_l, int16_t set_a, int16_t l_pwm, int16_t r_pwm)
 {
   uint16_t crc16_data;
 	uint8_t *buf;
@@ -461,6 +458,7 @@ void Send_write_mdrv_cmd(uint16_t addr1, uint16_t addr2, int16_t dat1, int16_t d
 	myfree(sramx, buf);
 }
 
+
 /*=============================================================================
 *  函数名 ：ModBusCRC16
 *  作   者：hrx
@@ -476,10 +474,10 @@ unsigned short ModBusCRC16(const void *s, int n)
 	unsigned short c = 0xffff, b;
 	char i;
 	int k;
-	for(k=0; k<n; k++) 
+	for(k = 0; k < n; k++) 
 	{  
 		b=(((u8 *)s)[k]); 
-		for(i=0; i<8; i++) 
+		for(i = 0; i < 8; i++) 
 		{  
 			c = ((b^c)&1) ? (c>>1)^0xA001 : (c>>1); 
 			b>>=1; 

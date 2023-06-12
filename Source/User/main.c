@@ -67,11 +67,6 @@ int main(void)
 			}
 		}
 	}
-	
-//	//直接给开机信号
-//	PC_Power_Cfg_Init(PC_STARTUP_ON);
-//	delay_ms(300);
-//	PC_Power_Cfg_Init(PC_STARTUP_OFF);
   
 	Robot_Moto.Left_Real_Dir = 0;
 	Robot_Moto.Right_Real_Dir = 0;
