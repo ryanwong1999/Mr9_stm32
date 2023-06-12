@@ -14,17 +14,17 @@
 #include <stdlib.h>
 #include "includes.h"
 
-#define ENCODER_RESOLUTION 1    /*编码器一圈的物理脉冲数*/
-#define ENCODER_MULTIPLE 4      /*编码器倍频，通过定时器的编码器模式设置*/
+#define ENCODER_RESOLUTION 		1 /*编码器一圈的物理脉冲数*/
+#define ENCODER_MULTIPLE 			4	/*编码器倍频，通过定时器的编码器模式设置*/
 #define MOTOR_REDUCTION_RATIO 1 /*电机的减速比*/
 /*电机转一圈总的脉冲数(定时器能读到的脉冲数) = 编码器物理脉冲数*编码器倍频*电机减速比 */
 #define TOTAL_RESOLUTION ( ENCODER_RESOLUTION*ENCODER_MULTIPLE*MOTOR_REDUCTION_RATIO ) 
 
 #define TIM_PERIOD 65535
 
-#define ENCODER_TIM_PSC  0          /*计数器分频*/
-#define ENCODER_TIM_PERIOD  65535   /*计数器最大值*/
-#define CNT_INIT 1000                  /*计数器初值*/
+#define ENCODER_TIM_PSC  		0			/*计数器分频*/
+#define ENCODER_TIM_PERIOD  65535	/*计数器最大值*/
+#define CNT_INIT 						1000	/*计数器初值*/
 
 /*=============================================================================
 *  函数名 ：TIM_ICP_Cfg_Init
@@ -39,17 +39,17 @@
 void TIM_ICP_Cfg_Init(uint16_t iArr, uint16_t iPsc)
 {	
 	GPIO_InitTypeDef GPIO_InitStructure;
-	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-	TIM_ICInitTypeDef   ICP_ICInitStructure;
+	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
+	TIM_ICInitTypeDef ICP_ICInitStructure;
 	
-	RCC_AHB1PeriphClockCmd( CAP_PORT_CLK, ENABLE); 	        				//使能PORT时钟	
-	RCC_APB2PeriphClockCmd( CAP_TIM_CLK, ENABLE);										//TIM时钟使能    
+	RCC_AHB1PeriphClockCmd(CAP_PORT_CLK, ENABLE); 	        				//使能PORT时钟	
+	RCC_APB2PeriphClockCmd(CAP_TIM_CLK, ENABLE);										//TIM时钟使能    
 	
-	GPIO_InitStructure.GPIO_Pin = CAP_LEFT_PIN| CAP_RIGHT_PIN | CAP2_LEFT_PIN | CAP2_RIGHT_PIN;	//GPIO
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;            				//复用功能
+	GPIO_InitStructure.GPIO_Pin 	= CAP_LEFT_PIN| CAP_RIGHT_PIN | CAP2_LEFT_PIN | CAP2_RIGHT_PIN;	//GPIO
+	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_AF;            				//复用功能
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	    				//速度100MHz
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;          				//推挽复用输出
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;          				//下拉
+	GPIO_InitStructure.GPIO_PuPd 	= GPIO_PuPd_DOWN;          				//下拉
 	GPIO_Init(CAP_PORT, &GPIO_InitStructure);              					//初始化PORT
 	
 	GPIO_PinAFConfig(CAP_PORT, GPIO_PinSource6, GPIO_AF_TIM8);  		//PB0复用位定时器3
@@ -64,32 +64,32 @@ void TIM_ICP_Cfg_Init(uint16_t iArr, uint16_t iPsc)
 	TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up;	      //计数方式
 	TIM_TimeBaseInit( CAP_TIM, &TIM_TimeBaseStructure);	            //初始化定时器TIMx, x[1,8]	
 	//初始化TIM5输入捕获参数
-	ICP_ICInitStructure.TIM_Channel = TIM_Channel_1;                //CC1S=01 	选择输入端 IC1映射到TI1上
-	ICP_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	  	//上升沿捕获
+	ICP_ICInitStructure.TIM_Channel 		= TIM_Channel_1;            //CC1S=01 	选择输入端 IC1映射到TI1上
+	ICP_ICInitStructure.TIM_ICPolarity 	= TIM_ICPolarity_Rising;	  //上升沿捕获
 	ICP_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; //映射到TI1上
 	ICP_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	          //配置输入分频,不分频 
-	ICP_ICInitStructure.TIM_ICFilter = 0x00;                        //IC1F=0000 配置输入滤波器 不滤波
+	ICP_ICInitStructure.TIM_ICFilter 		= 0x00;                     //IC1F=0000 配置输入滤波器 不滤波
 	TIM_ICInit( CAP_TIM, &ICP_ICInitStructure);
 	
-	ICP_ICInitStructure.TIM_Channel = TIM_Channel_2;                //CC1S=01 	选择输入端 IC1映射到TI1上
-	ICP_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	  	//上升沿捕获
+	ICP_ICInitStructure.TIM_Channel 		= TIM_Channel_2;            //CC1S=01 	选择输入端 IC1映射到TI1上
+	ICP_ICInitStructure.TIM_ICPolarity 	= TIM_ICPolarity_Rising;	  //上升沿捕获
 	ICP_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; //映射到TI1上
 	ICP_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	          //配置输入分频,不分频 
-	ICP_ICInitStructure.TIM_ICFilter = 0x00;                        //IC1F=0000 配置输入滤波器 不滤波
+	ICP_ICInitStructure.TIM_ICFilter 		= 0x00;                     //IC1F=0000 配置输入滤波器 不滤波
 	TIM_ICInit( CAP_TIM, &ICP_ICInitStructure);	
 	//初始化TIM5输入捕获参数
-	ICP_ICInitStructure.TIM_Channel = TIM_Channel_3;                //CC1S=01 	选择输入端 IC1映射到TI1上
-	ICP_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	  	//上升沿捕获
+	ICP_ICInitStructure.TIM_Channel 		= TIM_Channel_3;            //CC1S=01 	选择输入端 IC1映射到TI1上
+	ICP_ICInitStructure.TIM_ICPolarity 	= TIM_ICPolarity_Rising;	  //上升沿捕获
 	ICP_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; //映射到TI1上
 	ICP_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	          //配置输入分频,不分频 
-	ICP_ICInitStructure.TIM_ICFilter = 0x00;                        //IC1F=0000 配置输入滤波器 不滤波
+	ICP_ICInitStructure.TIM_ICFilter 		= 0x00;                     //IC1F=0000 配置输入滤波器 不滤波
 	TIM_ICInit( CAP_TIM, &ICP_ICInitStructure);
 	
-	ICP_ICInitStructure.TIM_Channel = TIM_Channel_4;                //CC1S=01 	选择输入端 IC1映射到TI1上
-	ICP_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	  	//上升沿捕获
+	ICP_ICInitStructure.TIM_Channel 		= TIM_Channel_4;            //CC1S=01 	选择输入端 IC1映射到TI1上
+	ICP_ICInitStructure.TIM_ICPolarity 	= TIM_ICPolarity_Rising;	  //上升沿捕获
 	ICP_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; //映射到TI1上
 	ICP_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	          //配置输入分频,不分频 
-	ICP_ICInitStructure.TIM_ICFilter = 0x00;                        //IC1F=0000 配置输入滤波器 不滤波
+	ICP_ICInitStructure.TIM_ICFilter 		= 0x00;                     //IC1F=0000 配置输入滤波器 不滤波
 	TIM_ICInit( CAP_TIM, &ICP_ICInitStructure);	 
 	
 	TIM_ITConfig(CAP_TIM, TIM_IT_CC1, ENABLE);											//允许更新中断 ,允许CC1IE捕获中断	
@@ -162,11 +162,11 @@ void TIM8_Configuration(void)
     /* GPIO初始化 */
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
 
-    GPIO_InitStruct.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;
-    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
-    GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;
-    GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    GPIO_InitStruct.GPIO_Pin 		= GPIO_Pin_6 | GPIO_Pin_7;
+    GPIO_InitStruct.GPIO_Mode 	= GPIO_Mode_AF;
+    GPIO_InitStruct.GPIO_Speed 	= GPIO_Speed_100MHz;
+    GPIO_InitStruct.GPIO_OType 	= GPIO_OType_PP;
+    GPIO_InitStruct.GPIO_PuPd 	= GPIO_PuPd_NOPULL;
     GPIO_Init(GPIOC, &GPIO_InitStruct);
 
     GPIO_PinAFConfig(GPIOC, GPIO_PinSource6, GPIO_AF_TIM8);
@@ -175,10 +175,10 @@ void TIM8_Configuration(void)
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM8, ENABLE);
     TIM_DeInit(TIM8);
     TIM_TimeBaseStructInit(&TIM_TimeBaseStruct);
-    TIM_TimeBaseStruct.TIM_Prescaler = ENCODER_TIM_PSC;
-    TIM_TimeBaseStruct.TIM_Period = ENCODER_TIM_PERIOD;
-    TIM_TimeBaseStruct.TIM_ClockDivision = TIM_CKD_DIV1;
-    TIM_TimeBaseStruct.TIM_CounterMode = TIM_CounterMode_Up;
+    TIM_TimeBaseStruct.TIM_Prescaler			= ENCODER_TIM_PSC;
+    TIM_TimeBaseStruct.TIM_Period 				= ENCODER_TIM_PERIOD;
+    TIM_TimeBaseStruct.TIM_ClockDivision 	= TIM_CKD_DIV1;
+    TIM_TimeBaseStruct.TIM_CounterMode 		= TIM_CounterMode_Up;
     TIM_TimeBaseInit(TIM8, &TIM_TimeBaseStruct);
     /* 编码器模式配置：同时捕获通道1与通道2(即4倍频)，极性均为Rising */
     TIM_EncoderInterfaceConfig(TIM8, TIM_EncoderMode_TI12, TIM_ICPolarity_Rising, TIM_ICPolarity_Rising);
@@ -199,7 +199,6 @@ int hight = 0, hight_read = 0, hight_mm = 0, reset_cnt = 0;
 static int read_encoder(void)
 {
 	encoderNum = TIM_GetCounter(TIM8);	
-	
 	if(encoderNum == encoderOld)
 	{
 		if(Lift_Moto.Set_Height == 0)

@@ -57,7 +57,7 @@
 ".\output\bsp_tim_cfg.o"
 ".\output\bsp_usart_cfg.o"
 ".\output\inet.o"
-".\output\bst_iwdg.o"
+".\output\bsp_iwdg.o"
 ".\output\app_24cxx.o"
 ".\output\app_autocharge.o"
 ".\output\app_analysiscmd.o"

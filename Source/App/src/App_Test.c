@@ -41,7 +41,6 @@ void Test_Cmd_Analysis(void)
 		rx_cmd = UsartToTest.Rx_Buf[4];
 		switch(rx_cmd)
 		{
-			
 			case QUERY_FLASH :
 				Send_Test_Flash();
 				break;

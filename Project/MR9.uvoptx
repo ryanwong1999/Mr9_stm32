@@ -1137,8 +1137,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Source\Bsp\src\Bst_iwdg.c</PathWithFileName>
-      <FilenameWithoutPath>Bst_iwdg.c</FilenameWithoutPath>
+      <PathWithFileName>..\Source\Bsp\src\Bsp_iwdg.c</PathWithFileName>
+      <FilenameWithoutPath>Bsp_iwdg.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

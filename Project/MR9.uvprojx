@@ -725,9 +725,9 @@
               <FilePath>..\Source\Bsp\src\inet.c</FilePath>
             </File>
             <File>
-              <FileName>Bst_iwdg.c</FileName>
+              <FileName>Bsp_iwdg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Source\Bsp\src\Bst_iwdg.c</FilePath>
+              <FilePath>..\Source\Bsp\src\Bsp_iwdg.c</FilePath>
             </File>
           </Files>
         </Group>

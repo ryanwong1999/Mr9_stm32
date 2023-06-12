@@ -348,33 +348,43 @@ void UART5_IRQHandler(void)
 		dat = USART_ReceiveData(UART5);
 //    USARTx_SendOneByte(USART1, dat);
 		UsartToEnviro.Comm_TimeOut = 0;
-		if(UsartToEnviro.Usart_Rx_OK == false){
-
-			if((UsartToEnviro.Rx_Sta & 0x01) == 0){
-				if(dat == 0x01){              //head
+		if(UsartToEnviro.Usart_Rx_OK == false)
+		{
+			if((UsartToEnviro.Rx_Sta & 0x01) == 0)
+			{
+				if(dat == 0x01)              //head
+				{
 					UsartToEnviro.Rx_Len = 0;
 					UsartToEnviro.Rx_Sta = 0;
 					UsartToEnviro.Rx_Sta |= 0x01;		
 					UsartToEnviro.Rx_Buf[UsartToEnviro.Rx_Len++] = dat;
-				}else{
+				}
+				else
+				{
 					UsartToEnviro.Rx_Sta = 0;
 					UsartToEnviro.Rx_Len = 0;
 				}
-			}else{
-				if((UsartToEnviro.Rx_Sta & 0x02) == 0){
-					if(dat == 0x03){
-
+			}
+			else
+			{
+				if((UsartToEnviro.Rx_Sta & 0x02) == 0)
+				{
+					if(dat == 0x03)
+					{
 				   	UsartToEnviro.Rx_Sta |= 0x02;
-					 
 					 	UsartToEnviro.Rx_Buf[UsartToEnviro.Rx_Len++] = dat;
-					
-					}else{
+					}
+					else
+					{
 						UsartToEnviro.Rx_Sta = 0;
 						UsartToEnviro.Rx_Len = 0;	
 					}
-				}else{
-				UsartToEnviro.Rx_Buf[UsartToEnviro.Rx_Len++] = dat;
-					if(UsartToEnviro.Rx_Len >= UsartToEnviro.Rx_Buf[2] + 5){
+				}
+				else
+				{
+					UsartToEnviro.Rx_Buf[UsartToEnviro.Rx_Len++] = dat;
+					if(UsartToEnviro.Rx_Len >= UsartToEnviro.Rx_Buf[2] + 5)
+					{
 						UsartToEnviro.Usart_Rx_OK = true;
 						#ifdef SYSTEM_SUPPORT_OS					
 						OSSemPost(&UsartEnviron_SEM, OS_OPT_POST_1, &err);//∑¢ÀÕ–≈∫≈¡ø 

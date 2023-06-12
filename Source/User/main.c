@@ -22,9 +22,7 @@ int main(void)
 	CPU_SR_ALLOC();
 	
 	System_Board_Init();  	//初始化系统硬件资源
-
 	NVIC_Configuration();  	//中断优先级配置
-
 	delay_ms(200);
 	EN_OUT_ENABLE;					//硬开软关使能VCC-OUT
 	System_StartTips();			//系统启动蜂鸣器提示
@@ -38,23 +36,28 @@ int main(void)
 	Head_Status.PSC_Level_Pos = PSC_LEVEL_DEFAULT;           //80   当前位置
 	Head_Status.PSC_Level_MAX_Pos = PSC_LEVEL_MAX;           //125	max_pos=80+45
 	Head_Status.PSC_Level_MIN_Pos = PSC_LEVEL_MIN;           //35		min_pos=80-45
-	
 
 	//开机通过电流判断工控机是否已经起来
 	pc_test = false;
-	while(pc_test != true){
+	while(pc_test != true)
+	{
 	  printf("-----------%d\r\n", ADC_Filter_Value[3]);
 		delay_ms(20);
-		if(ADC_Filter_Value[3] < 1970){			//-562.5
+		if(ADC_Filter_Value[3] < 1970)			//-562.5
+		{
 			test_cnt ++;
-			if(test_cnt > 5){
+			if(test_cnt > 5)
+			{
 				pc_test = true;
 			}
 			delay_ms(10);
-		}else{
+		}
+		else
+		{
 			test_cnt = 0;
 			delay_ms(100);
-			if(ADC_Filter_Value[3] >= 1950){		//-937.5
+			if(ADC_Filter_Value[3] >= 1950)		//-937.5
+			{
 				PC_Power_Cfg_Init(PC_STARTUP_ON);
 				BEEP_ON;
 				delay_ms(300);
@@ -79,9 +82,12 @@ int main(void)
 //	Pms.Capacity_mah = 10000;
 //	AT24CXX_WriteOneByte(4,(Pms.Capacity_mah>>8) & 0x00ff);	//当前容量
 //	AT24CXX_WriteOneByte(5,Pms.Capacity_mah& 0x00ff);
-	if(AT24xx_Check() == 0){
+	if(AT24xx_Check() == 0)
+	{
 		Read_PowerOn_AT24xx();		//开机读取存储数据
-	}else{
+	}
+	else
+	{
 		printf("Read AT24xx false!\r\n");
 		Robot_Sys.mBeepStatus.BeepMode = 3;		//读取失败蜂鸣器响
 	}

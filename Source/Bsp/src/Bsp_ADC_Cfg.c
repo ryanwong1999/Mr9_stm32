@@ -14,9 +14,7 @@
 #include "Bsp_ADC_Cfg.h"
 #include "includes.h"
 
-
 uint16_t ADC_Filter_Value[CHAN_NUM];      //´æ·Å´¦ÀíºóµÄÊý
-
 uint16_t AD_Value[SAMPLE_NUM][CHAN_NUM]; //ÓÃÀ´´æ·ÅADC×ª»»½á¹û£¬Ò²ÊÇDMAµÄÄ¿±êµØÖ·
 
 
@@ -30,26 +28,23 @@ uint16_t AD_Value[SAMPLE_NUM][CHAN_NUM]; //ÓÃÀ´´æ·ÅADC×ª»»½á¹û£¬Ò²ÊÇDMAµÄÄ¿±êµØÖ
 *  Êä   ³ö£º
 *  Ëµ   Ã÷£ºADC GPIO³õÊ¼»¯ÅäÖÃ
 */
-
 static void  ADC_GOIO_Cfg_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStructure;
-	
   // ??ADC ???
 	RCC_AHB1PeriphClockCmd( ADC_PORT_CLK , ENABLE);
 	
   GPIO_InitStructure.GPIO_Pin = VIN_PIN | VBAT_PIN  | STOPSW_PIN | IDRV_PIN;	 
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;	                      //ADCÄ£Ê½±ØÐëÊÇÄ£ÄâÊäÈë
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;                   //²»´øÉÏÏÂÀ­
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;				//ADCÄ£Ê½±ØÐëÊÇÄ£ÄâÊäÈë
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;		//²»´øÉÏÏÂÀ­
 	GPIO_Init(ADC_PORT, &GPIO_InitStructure);  
 	
-	RCC_AHB1PeriphClockCmd( ADC1_PORT_CLK , ENABLE);
+	RCC_AHB1PeriphClockCmd( ADC1_PORT_CLK, ENABLE);
 	
   GPIO_InitStructure.GPIO_Pin = IBAT_PIN | ILIFT_PIN;	
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;	                     
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;                  
 	GPIO_Init(ADC1_PORT, &GPIO_InitStructure);  
-	
 }
 
 
@@ -63,14 +58,11 @@ static void  ADC_GOIO_Cfg_Init(void)
 *  Êä   ³ö£º
 *  Ëµ   Ã÷£ºADC DMA³õÊ¼»¯ÅäÖÃ
 */
-
-void  ADC_DMA_Cfg_Init(void)
+void ADC_DMA_Cfg_Init(void)
 {
 	DMA_InitTypeDef DMA_InitStructure;
-
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2,ENABLE);    //DMA2Ê±ÖÓÊ¹ÄÜ
-		
-	while(DMA_GetCmdStatus(DMA2_Stream0)!=DISABLE){;}       //µÈ´ýDMA¿ÉÒÔÅäÖÃ
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2,ENABLE);		//DMA2Ê±ÖÓÊ¹ÄÜ
+	while(DMA_GetCmdStatus(DMA2_Stream0)!=DISABLE){;}			//µÈ´ýDMA¿ÉÒÔÅäÖÃ
 
   DMA_InitStructure.DMA_Channel = DMA_Channel_0;                              	//DMAÍ¨µÀ0 
 	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&ADC1->DR;            	 	//ÍâÉèµØÖ·
@@ -106,12 +98,10 @@ void  ADC_DMA_Cfg_Init(void)
 *  Êä   ³ö£º
 *  Ëµ   Ã÷£ºADC³õÊ¼»¯ÅäÖÃ
 */
-
-void  ADC_Cfg_Init(void)
+void ADC_Cfg_Init(void)
 {
 	ADC_CommonInitTypeDef ADC_CommonInitStructure;
-	ADC_InitTypeDef       ADC_InitStructure;
-
+	ADC_InitTypeDef ADC_InitStructure;
 	RCC_APB2PeriphClockCmd(ADC_CLK, ENABLE);  
 	
 	ADC_GOIO_Cfg_Init();            // ÅäÖÃADC_GPIO
@@ -120,33 +110,32 @@ void  ADC_Cfg_Init(void)
 	RCC_APB2PeriphResetCmd(RCC_APB2Periph_ADC1,ENABLE);	   
 	RCC_APB2PeriphResetCmd(RCC_APB2Periph_ADC1,DISABLE);		 
 	
-	ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled;        	// DMAÊ§ÄÜ
-	ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;              					// ¶ÀÁ¢Ä£Ê½
-	ADC_CommonInitStructure.ADC_Prescaler = ADC_Prescaler_Div4;               			// APB2µÄ4·ÖÆµ ¼´84/4=21M
-	ADC_CommonInitStructure.ADC_TwoSamplingDelay = ADC_TwoSamplingDelay_5Cycles;  	// Á½¸ö²ÉÑù½×¶ÎµÄÑÓÊ±5¸öÊ±ÖÓ
-	ADC_CommonInit(&ADC_CommonInitStructure);                                      	// ³õÊ¼»¯
+	ADC_CommonInitStructure.ADC_DMAAccessMode 		= ADC_DMAAccessMode_Disabled;		// DMAÊ§ÄÜ
+	ADC_CommonInitStructure.ADC_Mode 							= ADC_Mode_Independent;					// ¶ÀÁ¢Ä£Ê½
+	ADC_CommonInitStructure.ADC_Prescaler 				= ADC_Prescaler_Div4;						// APB2µÄ4·ÖÆµ ¼´84/4=21M
+	ADC_CommonInitStructure.ADC_TwoSamplingDelay 	= ADC_TwoSamplingDelay_5Cycles;	// Á½¸ö²ÉÑù½×¶ÎµÄÑÓÊ±5¸öÊ±ÖÓ
+	ADC_CommonInit(&ADC_CommonInitStructure);                                     // ³õÊ¼»¯
 
-	ADC_InitStructure.ADC_Resolution  = ADC_Resolution_12b;                       	// 12Î»Ä£Ê½
-	ADC_InitStructure.ADC_ScanConvMode = ENABLE;                                  	// É¨ÃèÄ£Ê½
-	ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;                            	// Á¬Ðø×ª»»
-	ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;   	// ½ûÖ¹´¥·¢¼ì²â Ê¹ÓÃÈí¼þ´¥·¢
-	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;                      		// ÓÒ¶ÔÆë
-	ADC_InitStructure.ADC_NbrOfConversion = CHAN_NUM;                               // 2Í¨µÀ 1
-	ADC_Init(ADC1,&ADC_InitStructure);                                            	// ³õÊ¼»¯
+	ADC_InitStructure.ADC_Resolution  					= ADC_Resolution_12b;							// 12Î»Ä£Ê½
+	ADC_InitStructure.ADC_ScanConvMode 					= ENABLE;													// É¨ÃèÄ£Ê½
+	ADC_InitStructure.ADC_ContinuousConvMode 		= ENABLE;													// Á¬Ðø×ª»»
+	ADC_InitStructure.ADC_ExternalTrigConvEdge 	= ADC_ExternalTrigConvEdge_None;	// ½ûÖ¹´¥·¢¼ì²â Ê¹ÓÃÈí¼þ´¥·¢
+	ADC_InitStructure.ADC_DataAlign 						= ADC_DataAlign_Right;						// ÓÒ¶ÔÆë
+	ADC_InitStructure.ADC_NbrOfConversion 			= CHAN_NUM;												// 2Í¨µÀ 1
+	ADC_Init(ADC1,&ADC_InitStructure);                                            // ³õÊ¼»¯
  
   ADC_Cmd(ADC1, ENABLE);   //Ê¹ÄÜADC´«Êä
 	 
-	ADC_RegularChannelConfig(ADC1, VBAT_CH , 1, ADC_SampleTime_144Cycles);
-	ADC_RegularChannelConfig(ADC1, STOPSW_CH, 2, ADC_SampleTime_144Cycles);
-	ADC_RegularChannelConfig(ADC1, VIN_CH , 3, ADC_SampleTime_144Cycles);
-	ADC_RegularChannelConfig(ADC1, IBAT_CH , 4, ADC_SampleTime_144Cycles);
-	ADC_RegularChannelConfig(ADC1, ILIFT_CH, 5, ADC_SampleTime_144Cycles);
-	ADC_RegularChannelConfig(ADC1, IDRV_CH, 6, ADC_SampleTime_144Cycles);
+	ADC_RegularChannelConfig(ADC1, VBAT_CH, 	1, ADC_SampleTime_144Cycles);
+	ADC_RegularChannelConfig(ADC1, STOPSW_CH,	2, ADC_SampleTime_144Cycles);
+	ADC_RegularChannelConfig(ADC1, VIN_CH, 		3, ADC_SampleTime_144Cycles);
+	ADC_RegularChannelConfig(ADC1, IBAT_CH, 	4, ADC_SampleTime_144Cycles);
+	ADC_RegularChannelConfig(ADC1, ILIFT_CH, 	5, ADC_SampleTime_144Cycles);
+	ADC_RegularChannelConfig(ADC1, IDRV_CH, 	6, ADC_SampleTime_144Cycles);
 	
-	ADC_SoftwareStartConv(ADC1);    //Æô¶¯Èí¼þ×ª»»
-	ADC_DMARequestAfterLastTransferCmd(ADC1,ENABLE); //Ô´Êý¾Ý±ä»¯Ê±¿ªÆôDMA´«Êä
-  ADC_DMACmd(ADC1, ENABLE);   //Ê¹ÄÜADC DMA´«Êä
-	
+	ADC_SoftwareStartConv(ADC1);    									//Æô¶¯Èí¼þ×ª»»
+	ADC_DMARequestAfterLastTransferCmd(ADC1,ENABLE); 	//Ô´Êý¾Ý±ä»¯Ê±¿ªÆôDMA´«Êä
+  ADC_DMACmd(ADC1, ENABLE);   											//Ê¹ÄÜADC DMA´«Êä
 }
 
 
@@ -166,17 +155,15 @@ void filter(void)
   u8 ch_num = 0;    		// Í¨µÀÊý
   u8 ave_num;        		// ²ÉÑùÆ½¾ùÊý
 	
-	for(ch_num=0;ch_num<CHAN_NUM;ch_num++)
+	for(ch_num=0; ch_num<CHAN_NUM; ch_num++)
 	{
-		for (ave_num=0;ave_num<SAMPLE_NUM;ave_num++)
+		for(ave_num=0; ave_num<SAMPLE_NUM; ave_num++)
     {
       sum += AD_Value[ave_num][ch_num];
     }
-
 		ADC_Filter_Value[ch_num]=sum/SAMPLE_NUM;   
     sum=0;
 	}
-
 }
 
 
@@ -202,7 +189,7 @@ void DMA2_Stream0_IRQHandler(void)
      DMA_ClearITPendingBit(DMA2_Stream0, DMA_IT_TCIF0);
      filter();
   } 
- #if SYSTEM_SUPPORT_OS  
+  #if SYSTEM_SUPPORT_OS  
 	OSIntExit();    	
 	#endif
 }
