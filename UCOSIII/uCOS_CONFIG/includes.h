@@ -36,8 +36,6 @@
 *                                         STANDARD LIBRARIES
 *********************************************************************************************************
 */
-
-
 #include  <stdio.h>
 #include  <string.h>
 #include  <ctype.h>
@@ -51,7 +49,6 @@
 *                                                 OS
 *********************************************************************************************************
 */
-
 #include  <os.h>
 
 
@@ -60,7 +57,6 @@
 *                                              LIBRARIES
 *********************************************************************************************************
 */
-
 #include  <cpu.h>
 #include  <lib_def.h>
 #include  <lib_ascii.h>
@@ -68,15 +64,16 @@
 #include  <lib_mem.h>
 #include  <lib_str.h>
 
+
 /*
 *********************************************************************************************************
 *                                            UCOSIII  APP / BSP
 *********************************************************************************************************
 */
-
 #include  <app_cfg.h>
 #include  <bsp.h>
 //#include  <bsp_int.h>
+
 
 /*
 *********************************************************************************************************
@@ -87,6 +84,8 @@
 #include "sys.h"
 #include "usart.h"	
 #include "malloc.h"	 
+
+
 /*
 *********************************************************************************************************
 *                                            STM32  BSP
@@ -104,47 +103,40 @@
 #include "Bsp_iwdg.h"
 //#include "Bsp_esp8266.h"
 
+
 /*
 *********************************************************************************************************
 *                                            STM32  APP
 *********************************************************************************************************
 */
-
-
 #include "App_Task.h"
 #include "App_TIM.h"
 #include "App_Pms.h"
-
-
-#include  "App_System.h"
-#include  "App_MotoCtrl.h"
-#include  "App_AnalysisCMD.h"
-//#include  "App_HeadCtrl.h"
-//#include  "App_Rs485Bus.h"
-#include  "App_Ultrasonic.h"
-//#include  "Speed_Governing.h"
-
-#include  "App_Exti.h"
-#include  "App_AutoCharge.h"
-#include  "App_Pms.h"
-
-//#include  "App_Key.h"
-//#include "App_Obs.h"
+#include "App_System.h"
+#include "App_MotoCtrl.h"
+#include "App_AnalysisCMD.h"
+#include "App_Ultrasonic.h"
+#include "App_Exti.h"
+#include "App_AutoCharge.h"
+#include "App_Pms.h"
 #include "App_Head_Done.h"
 #include "App_MotoCtrl.h"
 #include "App_USART.h"
-//#include  "App_ReadGyro.h"
 #include "App_Cap.h"
-
 #include "App_LiftMoto.h"
 #include "App_Environmental.h"
 #include "App_24cxx.h" 
-//#include "App_w25qxx.h" 
 #include "App_PID.h"
 #include "App_Test.h"
-
 #include "App_MotoDrv.h"
-
+//#include "App_HeadCtrl.h"
+//#include "App_Rs485Bus.h"
+//#include "Speed_Governing.h"
+//#include "App_Key.h"
+//#include "App_Obs.h"
+//#include "App_ReadGyro.h"
+//#include "App_w25qxx.h" 
 //#include "App_esp8266.h"
+
 
 #endif

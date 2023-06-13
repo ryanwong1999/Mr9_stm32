@@ -73,15 +73,15 @@ void Test_Cmd_Analysis(void)
 void Send_Test_Flash(void)
 {
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
-  buf = mymalloc(sramx, 20);	//申请2K字节
+	uint8_t sramx=0;						// 默认为内部sram
+  buf = mymalloc(sramx, 20);	// 申请2K字节
 	
-	buf[0] = 0x55;  	//head
-	buf[1] = 0xAA;  	//head
-	buf[2] = 0x01;  	//id
-	buf[3] = 0x11;  	//len
-	buf[4] = 0x10;		//cmd
-	buf[5] = 0x08;		//data len
+	buf[0] = 0x55;  	// head
+	buf[1] = 0xAA;  	// head
+	buf[2] = 0x01;  	// id
+	buf[3] = 0x11;  	// len
+	buf[4] = 0x10;		// cmd
+	buf[5] = 0x08;		// data len
 	buf[6] = (Pms.Capacity_Set >> 8) & 0x00ff;
 	buf[7] = Pms.Capacity_Set & 0x00ff;  
 	
@@ -93,9 +93,9 @@ void Send_Test_Flash(void)
 	buf[12] = Head_Status.Level_Offset;
 	buf[13] = Head_Status.Pitch_Offset;
 	
-	buf[14] = CRC8_Table(buf, 14);   //check
-	buf[15] = 0x0D;		//end
-	buf[16] = 0x0A;		//end
+	buf[14] = CRC8_Table(buf, 14);   // check
+	buf[15] = 0x0D;		// end
+	buf[16] = 0x0A;		// end
 	
 	USARTx_SendMultibyte(USART1, buf, buf[3]);
 	myfree(sramx, buf);
@@ -105,15 +105,15 @@ void Send_Test_Flash(void)
 void Send_Test_PMS(void)
 {
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
-  buf = mymalloc(sramx, 24);	//申请2K字节
+	uint8_t sramx=0;						// 默认为内部sram
+  buf = mymalloc(sramx, 24);	// 申请2K字节
 	
-	buf[0] = 0x55;    //head
-	buf[1] = 0xAA;    //head
-	buf[2] = 0x01;    //id
-	buf[3] = 0x15;    //len
-	buf[4] = 0x11;   	//cmd
-	buf[5] = 0x0C;		//data len
+	buf[0] = 0x55;    // head
+	buf[1] = 0xAA;    // head
+	buf[2] = 0x01;    // id
+	buf[3] = 0x15;    // len
+	buf[4] = 0x11;   	// cmd
+	buf[5] = 0x0C;		// data len
 	buf[6] = (Pms.Bat_Voltage >> 8) & 0x00ff;
 	buf[7] = Pms.Bat_Voltage & 0x00ff;
 	
@@ -131,9 +131,9 @@ void Send_Test_PMS(void)
 	buf[16]	= Pms.Capacity;
 	buf[17]	= Pms.Bat_Sta;
 
-	buf[18]	= CRC8_Table(buf, 18);   //check
-	buf[19]	= 0x0D;   //end
-	buf[20]	= 0x0A;		//end
+	buf[18]	= CRC8_Table(buf, 18);   // check
+	buf[19]	= 0x0D;   // end
+	buf[20]	= 0x0A;		// end
 	
 	USARTx_SendMultibyte(USART1, buf, buf[3]);
   myfree(sramx, buf);
@@ -144,20 +144,20 @@ void Send_Test_OBS(void)
 {
 	static uint8_t ultra[4];
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
-  buf = mymalloc(sramx, 20);	//申请2K字节
+	uint8_t sramx=0;						// 默认为内部sram
+  buf = mymalloc(sramx, 20);	// 申请2K字节
 	
 	ultra[0] = Ultra1.Distance/10;
 	ultra[1] = Ultra2.Distance/10;
 	ultra[2] = Ultra3.Distance/10;
 	ultra[3] = Ultra4.Distance/10;
 
-	buf[0] = 0x55;		//head
-	buf[1] = 0xAA;		//head
-	buf[2] = 0x01;		//id
-	buf[3] = 0x13;		//len
-	buf[4] = 0x12;		//cmd
-	buf[5] = 0x0c;		//data len
+	buf[0] = 0x55;		// head
+	buf[1] = 0xAA;		// head
+	buf[2] = 0x01;		// id
+	buf[3] = 0x13;		// len
+	buf[4] = 0x12;		// cmd
+	buf[5] = 0x0c;		// data len
 	
 	buf[6] = ultra[0];
 	buf[7] = ultra[1];
@@ -174,9 +174,9 @@ void Send_Test_OBS(void)
 	buf[14] = 0;
 	buf[15] = 0;
 
-	buf[16] = CRC8_Table(buf, 18);   //check
-	buf[17] = 0x0D;   //end
-	buf[18] = 0x0A;		//end
+	buf[16] = CRC8_Table(buf, 18);   // check
+	buf[17] = 0x0D;   // end
+	buf[18] = 0x0A;		// end
 	
 	USARTx_SendMultibyte(USART1, buf, buf[3]);
 	myfree(sramx, buf);
@@ -188,18 +188,18 @@ void Send_Test_Odom(void)
 	int16_t lear_set;
 	int16_t angle_set;
 	uint8_t *buf;
-	uint8_t sramx = 0;					//默认为内部sram
-  buf = mymalloc(sramx, 30);	//申请2K字节
+	uint8_t sramx = 0;					// 默认为内部sram
+  buf = mymalloc(sramx, 30);	// 申请2K字节
 	
 	lear_set = 	Robot_Moto.Lear * 1000;
 	angle_set = Robot_Moto.Angular * 1000;
 	
-	buf[0] = 0x55;		//head
-	buf[1] = 0xAA;		//head
-	buf[2] = 0x01;		//id
-	buf[3] = 0x1D;		//len
-	buf[4] = 0x13;   	//cmd
-	buf[5] = 0x14;		//data len
+	buf[0] = 0x55;		// head
+	buf[1] = 0xAA;		// head
+	buf[2] = 0x01;		// id
+	buf[3] = 0x1D;		// len
+	buf[4] = 0x13;   	// cmd
+	buf[5] = 0x14;		// data len
 	
 	buf[6] = (lear_set>> 8) & 0x00ff;
 	buf[7] = lear_set & 0x00ff;
@@ -228,9 +228,9 @@ void Send_Test_Odom(void)
 	buf[24] = (Moto_Odom.Right_Value>> 8) & 0x00ff;
 	buf[25] = Moto_Odom.Right_Value & 0x00ff;
 	
-	buf[26] = CRC8_Table(buf, 22);   //check
-	buf[27] = 0x0D;		//end
-	buf[28] = 0x0A;   //end
+	buf[26] = CRC8_Table(buf, 22);   // check
+	buf[27] = 0x0D;		// end
+	buf[28] = 0x0A;   // end
 	
 	USARTx_SendMultibyte(USART1, buf, buf[3]);
   myfree(sramx, buf);
@@ -240,15 +240,15 @@ void Send_Test_Odom(void)
 void Send_Test_Enviro(void)
 {
 	uint8_t *buf;
-	uint8_t sramx = 0;					//默认为内部sram
-  buf = mymalloc(sramx, 30);	//申请2K字节
+	uint8_t sramx = 0;					// 默认为内部sram
+  buf = mymalloc(sramx, 30);	// 申请2K字节
 	
-	buf[0] = 0x55;		//head
-	buf[1] = 0xAA;		//head
-	buf[2] = 0x01;		//id
-	buf[3] = 0x1B;		//len
-	buf[4] = 0x14;   	//cmd
-	buf[5] = 0x12;		//data len
+	buf[0] = 0x55;		// head
+	buf[1] = 0xAA;		// head
+	buf[2] = 0x01;		// id
+	buf[3] = 0x1B;		// len
+	buf[4] = 0x14;   	// cmd
+	buf[5] = 0x12;		// data len
 	buf[6] = (Environ.CO2>> 8) & 0x00ff;
 	buf[7] = Environ.CO2 & 0x00ff;
 	
@@ -272,9 +272,9 @@ void Send_Test_Enviro(void)
 	buf[21] = Environ.state & 0x00ff;
 	buf[22] = (Environ.voice>> 8) & 0x00ff;
 	buf[23] = Environ.voice & 0x00ff;
-	buf[24] = CRC8_Table(buf, 24);   //check
-	buf[25] = 0x0D;   //end
-	buf[26] = 0x0A;   //end
+	buf[24] = CRC8_Table(buf, 24);   // check
+	buf[25] = 0x0D;   // end
+	buf[26] = 0x0A;   // end
 	
 	USARTx_SendMultibyte(USART1, buf, buf[3]);
   myfree(sramx,buf);
@@ -286,18 +286,18 @@ void Send_Test_Head(void)
 	int16_t level_tmp;
 	int16_t pitch_tmp;
 	uint8_t *buf;
-	uint8_t sramx = 0;					//默认为内部sram
-  buf = mymalloc(sramx, 20);	//申请2K字节
+	uint8_t sramx = 0;					// 默认为内部sram
+  buf = mymalloc(sramx, 20);	// 申请2K字节
 	
 	level_tmp = Head_Status.PSC_Level_Pos * 10;
 	pitch_tmp = Head_Status.PSC_UD_Pos * 10;
 	
-	buf[0] = 0x55;		//head
-	buf[1] = 0xAA;		//head
-	buf[2] = 0x01;		//id
-	buf[3] = 0x0F;		//len
-	buf[4] = 0x11;   	//cmd
-	buf[5] = 0x04;		//data len
+	buf[0] = 0x55;		// head
+	buf[1] = 0xAA;		// head
+	buf[2] = 0x01;		// id
+	buf[3] = 0x0F;		// len
+	buf[4] = 0x11;   	// cmd
+	buf[5] = 0x04;		// data len
 	buf[6] = (level_tmp>> 8) & 0x00ff;
 	buf[7] = 	level_tmp & 0x00ff;
 	
@@ -307,9 +307,9 @@ void Send_Test_Head(void)
 	buf[10] = Head_Status.PSC_Limit_Flag;
 	buf[11] = Head_Status.PSC_Pitch_OK_Flag; 
 	
-	buf[12] = CRC8_Table(buf, 14);   //check
-	buf[13] = 0x0D;   //end
-	buf[14] = 0x0A;   //end
+	buf[12] = CRC8_Table(buf, 14);   // check
+	buf[13] = 0x0D;   // end
+	buf[14] = 0x0A;   // end
 	
 	USARTx_SendMultibyte(USART1, buf, buf[3]);
 	myfree(sramx, buf);

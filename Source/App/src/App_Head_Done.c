@@ -172,13 +172,13 @@ void Head_Level_To_SomeWhere(float pos)
 	Head_Status.PSC_Level_Goal_Pos = pos;
 	if(Head_Status.PSC_Level_Pos > Head_Status.PSC_Level_Goal_Pos + 0.5)
 	{
-		//left
+		/* left */
 		Head_Status.PSC_Dir |= 1<<(5-1);
 		Head_Status.PSC_Dir &= ~(1<<(7-1));
 	}
 	else if(Head_Status.PSC_Level_Pos < Head_Status.PSC_Level_Goal_Pos - 0.5)
 	{
-		//right
+		/* right */
 		Head_Status.PSC_Dir |= 1<<(7-1);
 		Head_Status.PSC_Dir &= ~(1<<(5-1));
 	}
@@ -202,9 +202,9 @@ void Head_Level_To_SomeWhere(float pos)
 */
 void Head_Back()
 {
-	//俯仰
+	/* 俯仰 */
 	Head_UD_To_SomeWhere(Head_Status.PSC_UD_Default_Pos);
-	//水平  
+	/* 水平 */
 	Head_Level_To_SomeWhere(Head_Status.PSC_Level_Default_Pos);
 	
 }
@@ -221,23 +221,23 @@ void Head_Back()
 */
 void Check_Assign_Ok()
 {
-	//水平目标值
+	/* 水平目标值 */
 	if(Head_Status.PSC_Level_Goal_Pos > 0)
 	{
 		if(fabs(Head_Status.PSC_Level_Pos - Head_Status.PSC_Level_Goal_Pos) < 0.5)
 		{
-			//左右停止
+			/* 左右停止 */
 			Head_Status.PSC_Dir &= ~((1 << (5-1)) | (1<<(7-1)));
 			Head_Status.PSC_Level_Goal_Pos = 0;
 			
 		}
 	}
-	//垂直目标值
+	/* 垂直目标值 */
 	if(Head_Status.PSC_UD_Goal_Pos > 0)
 	{
 		if(fabs(Head_Status.PSC_UD_Pos - Head_Status.PSC_UD_Goal_Pos) < 0.5)
 		{
-			//俯仰停止
+			/* 俯仰停止 */
 			Head_Status.PSC_Dir &= ~((1 << (6-1)) | (1<<(8-1)));
 			Head_Status.PSC_UD_Goal_Pos = 0;			
 		}
@@ -263,28 +263,28 @@ void Head_Control_Done()
 	}
 	else if((Head_Status.PSC_Dir & (1<<(5-1))) != 0)
 	{
-		//5  左
+		/* 5  左 */
 		Moto_Level(PSC_MOVE_LEFT);  
 	}
 	else if((Head_Status.PSC_Dir & (1<<(7-1))) != 0)
 	{
-		//7  右   为 0
+		/* 7  右   为 0 */
 		Moto_Level(PSC_MOVE_RIGHT);
 	}
 
 	if((Head_Status.PSC_Dir & (1<<(6-1))) != 0)
 	{
-		//这个是 上
+		/* 这个是 上 */
 		Moto_Pit(PSC_MOVE_UP);
 	}
 	else if((Head_Status.PSC_Dir & (1<<(8-1))) != 0)
 	{
-		//这个是 下 
+		/* 这个是 下 */
 		Moto_Pit(PSC_MOVE_DOWN);
 	}
 	else if(Head_Status.PSC_Dir == 9)
 	{
-		//回中
+		/* 回中 */
 		Head_Back();
 	}
 

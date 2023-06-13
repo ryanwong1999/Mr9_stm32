@@ -14,8 +14,8 @@
 #include "Bsp_ADC_Cfg.h"
 #include "includes.h"
 
-uint16_t ADC_Filter_Value[CHAN_NUM];      //´æ·Å´¦ÀíºóµÄÊý
-uint16_t AD_Value[SAMPLE_NUM][CHAN_NUM]; //ÓÃÀ´´æ·ÅADC×ª»»½á¹û£¬Ò²ÊÇDMAµÄÄ¿±êµØÖ·
+uint16_t ADC_Filter_Value[CHAN_NUM];      // ´æ·Å´¦ÀíºóµÄÊý
+uint16_t AD_Value[SAMPLE_NUM][CHAN_NUM]; 	// ÓÃÀ´´æ·ÅADC×ª»»½á¹û£¬Ò²ÊÇDMAµÄÄ¿±êµØÖ·
 
 
 /*=============================================================================
@@ -31,17 +31,16 @@ uint16_t AD_Value[SAMPLE_NUM][CHAN_NUM]; //ÓÃÀ´´æ·ÅADC×ª»»½á¹û£¬Ò²ÊÇDMAµÄÄ¿±êµØÖ
 static void  ADC_GOIO_Cfg_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStructure;
-  // ??ADC ???
-	RCC_AHB1PeriphClockCmd( ADC_PORT_CLK , ENABLE);
+	RCC_AHB1PeriphClockCmd(ADC_PORT_CLK, ENABLE);
 	
-  GPIO_InitStructure.GPIO_Pin = VIN_PIN | VBAT_PIN  | STOPSW_PIN | IDRV_PIN;	 
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;				//ADCÄ£Ê½±ØÐëÊÇÄ£ÄâÊäÈë
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;		//²»´øÉÏÏÂÀ­
+  GPIO_InitStructure.GPIO_Pin		= VIN_PIN | VBAT_PIN | STOPSW_PIN | IDRV_PIN;	 
+  GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_AIN;				// ADCÄ£Ê½±ØÐëÊÇÄ£ÄâÊäÈë
+  GPIO_InitStructure.GPIO_PuPd 	= GPIO_PuPd_NOPULL;			// ²»´øÉÏÏÂÀ­
 	GPIO_Init(ADC_PORT, &GPIO_InitStructure);  
 	
 	RCC_AHB1PeriphClockCmd( ADC1_PORT_CLK, ENABLE);
 	
-  GPIO_InitStructure.GPIO_Pin = IBAT_PIN | ILIFT_PIN;	
+  GPIO_InitStructure.GPIO_Pin	 = IBAT_PIN | ILIFT_PIN;	
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;	                     
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;                  
 	GPIO_Init(ADC1_PORT, &GPIO_InitStructure);  
@@ -61,30 +60,29 @@ static void  ADC_GOIO_Cfg_Init(void)
 void ADC_DMA_Cfg_Init(void)
 {
 	DMA_InitTypeDef DMA_InitStructure;
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2,ENABLE);		//DMA2Ê±ÖÓÊ¹ÄÜ
-	while(DMA_GetCmdStatus(DMA2_Stream0)!=DISABLE){;}			//µÈ´ýDMA¿ÉÒÔÅäÖÃ
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);	// DMA2Ê±ÖÓÊ¹ÄÜ
+	while(DMA_GetCmdStatus(DMA2_Stream0)!=DISABLE){;}			// µÈ´ýDMA¿ÉÒÔÅäÖÃ
 
-  DMA_InitStructure.DMA_Channel = DMA_Channel_0;                              	//DMAÍ¨µÀ0 
-	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&ADC1->DR;            	 	//ÍâÉèµØÖ·
-	DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)&AD_Value;            			//´æÈ¡Æ÷µØÖ·  
-  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;               				//·½Ïò´ÓÍâÉèµ½ÄÚ´æ     
-  DMA_InitStructure.DMA_BufferSize = SAMPLE_NUM*CHAN_NUM;   										//Êý¾Ý´«ÊäµÄÊýÁ¿
-  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;   						//µØÖ·²»Ôö¼Ó
-  DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;                     	//µØÖ·Ôö¼Ó
-  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;  	//ÍâÉèÊý¾Ý³¤¶È°ë×Ö,16Î»
-  DMA_InitStructure.DMA_MemoryDataSize = DMA_PeripheralDataSize_HalfWord;      	//´æ´¢³¤¶È°ë×Ö 16Î»
-  DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;  															//ÈôÓÃÖÐ¶Ï,ÔòÓÃÒ»°ãÄ£Ê½,Èô²»ÓÃÖÐ¶Ï,ÔòÑ­»·Ä£Ê½
-	
-  DMA_InitStructure.DMA_Priority = DMA_Priority_High; 									//ÓÅÏÈ¼¶
-  DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;    						//½ûÖ¹FIFO    
-  DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_HalfFull;    	//FIFOµÄÖµ
-  DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;   				//µ¥´Î´«Êä
-  DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single; 	//µ¥´Î´«Êä
+  DMA_InitStructure.DMA_Channel 						= DMA_Channel_0;                    // DMAÍ¨µÀ0 
+	DMA_InitStructure.DMA_PeripheralBaseAddr 	= (uint32_t)&ADC1->DR;            	// ÍâÉèµØÖ·
+	DMA_InitStructure.DMA_Memory0BaseAddr 		= (uint32_t)&AD_Value;            	// ´æÈ¡Æ÷µØÖ·  
+  DMA_InitStructure.DMA_DIR 								= DMA_DIR_PeripheralToMemory;       // ·½Ïò´ÓÍâÉèµ½ÄÚ´æ     
+  DMA_InitStructure.DMA_BufferSize 					= SAMPLE_NUM*CHAN_NUM;   						// Êý¾Ý´«ÊäµÄÊýÁ¿
+  DMA_InitStructure.DMA_PeripheralInc 			= DMA_PeripheralInc_Disable;   			// µØÖ·²»Ôö¼Ó
+  DMA_InitStructure.DMA_MemoryInc 					= DMA_MemoryInc_Enable;             // µØÖ·Ôö¼Ó
+  DMA_InitStructure.DMA_PeripheralDataSize 	= DMA_PeripheralDataSize_HalfWord;	// ÍâÉèÊý¾Ý³¤¶È°ë×Ö,16Î»
+  DMA_InitStructure.DMA_MemoryDataSize 			= DMA_PeripheralDataSize_HalfWord;	// ´æ´¢³¤¶È°ë×Ö 16Î»
+  DMA_InitStructure.DMA_Mode 								= DMA_Mode_Circular;								// ÈôÓÃÖÐ¶Ï,ÔòÓÃÒ»°ãÄ£Ê½,Èô²»ÓÃÖÐ¶Ï,ÔòÑ­»·Ä£Ê½
+  DMA_InitStructure.DMA_Priority 						= DMA_Priority_High; 								// ÓÅÏÈ¼¶
+  DMA_InitStructure.DMA_FIFOMode 						= DMA_FIFOMode_Disable;    					// ½ûÖ¹FIFO    
+  DMA_InitStructure.DMA_FIFOThreshold 			= DMA_FIFOThreshold_HalfFull;    		// FIFOµÄÖµ
+  DMA_InitStructure.DMA_MemoryBurst 				= DMA_MemoryBurst_Single;   				// µ¥´Î´«Êä
+  DMA_InitStructure.DMA_PeripheralBurst 		= DMA_PeripheralBurst_Single; 			// µ¥´Î´«Êä
   DMA_Init(DMA2_Stream0, &DMA_InitStructure); 
 	
-  DMA_Cmd(DMA2_Stream0, ENABLE); 								//DMA2_Stream0 enable 
-  DMA_ClearFlag(DMA2_Stream0,DMA_IT_TC);    		//ÇåÖÐ¶Ï±êÖ¾Î»
-  DMA_ITConfig(DMA2_Stream0,DMA_IT_TC,ENABLE); 	//Ê¹ÄÜÖÐ¶Ï
+  DMA_Cmd(DMA2_Stream0, ENABLE); 									// DMA2_Stream0 enable 
+  DMA_ClearFlag(DMA2_Stream0, DMA_IT_TC);    			// ÇåÖÐ¶Ï±êÖ¾Î»
+  DMA_ITConfig(DMA2_Stream0, DMA_IT_TC, ENABLE); 	// Ê¹ÄÜÖÐ¶Ï
 }
 
 
@@ -124,7 +122,7 @@ void ADC_Cfg_Init(void)
 	ADC_InitStructure.ADC_NbrOfConversion 			= CHAN_NUM;												// 2Í¨µÀ 1
 	ADC_Init(ADC1,&ADC_InitStructure);                                            // ³õÊ¼»¯
  
-  ADC_Cmd(ADC1, ENABLE);   //Ê¹ÄÜADC´«Êä
+  ADC_Cmd(ADC1, ENABLE);   // Ê¹ÄÜADC´«Êä
 	 
 	ADC_RegularChannelConfig(ADC1, VBAT_CH, 	1, ADC_SampleTime_144Cycles);
 	ADC_RegularChannelConfig(ADC1, STOPSW_CH,	2, ADC_SampleTime_144Cycles);
@@ -133,9 +131,9 @@ void ADC_Cfg_Init(void)
 	ADC_RegularChannelConfig(ADC1, ILIFT_CH, 	5, ADC_SampleTime_144Cycles);
 	ADC_RegularChannelConfig(ADC1, IDRV_CH, 	6, ADC_SampleTime_144Cycles);
 	
-	ADC_SoftwareStartConv(ADC1);    									//Æô¶¯Èí¼þ×ª»»
-	ADC_DMARequestAfterLastTransferCmd(ADC1,ENABLE); 	//Ô´Êý¾Ý±ä»¯Ê±¿ªÆôDMA´«Êä
-  ADC_DMACmd(ADC1, ENABLE);   											//Ê¹ÄÜADC DMA´«Êä
+	ADC_SoftwareStartConv(ADC1);    									// Æô¶¯Èí¼þ×ª»»
+	ADC_DMARequestAfterLastTransferCmd(ADC1, ENABLE);	// Ô´Êý¾Ý±ä»¯Ê±¿ªÆôDMA´«Êä
+  ADC_DMACmd(ADC1, ENABLE);   											// Ê¹ÄÜADC DMA´«Êä
 }
 
 
@@ -155,13 +153,13 @@ void filter(void)
   u8 ch_num = 0;    		// Í¨µÀÊý
   u8 ave_num;        		// ²ÉÑùÆ½¾ùÊý
 	
-	for(ch_num=0; ch_num<CHAN_NUM; ch_num++)
+	for(ch_num = 0; ch_num < CHAN_NUM; ch_num++)
 	{
-		for(ave_num=0; ave_num<SAMPLE_NUM; ave_num++)
+		for(ave_num = 0; ave_num < SAMPLE_NUM; ave_num++)
     {
       sum += AD_Value[ave_num][ch_num];
     }
-		ADC_Filter_Value[ch_num]=sum/SAMPLE_NUM;   
+		ADC_Filter_Value[ch_num] = sum/SAMPLE_NUM;   
     sum=0;
 	}
 }
@@ -180,7 +178,7 @@ void filter(void)
 void DMA2_Stream0_IRQHandler(void) 
 {
 
-	#if SYSTEM_SUPPORT_OS  //Ê¹ÓÃUCOS²Ù×÷ÏµÍ³
+	#if SYSTEM_SUPPORT_OS  // Ê¹ÓÃUCOS²Ù×÷ÏµÍ³
 	OSIntEnter();    
 	#endif
 	
@@ -189,6 +187,7 @@ void DMA2_Stream0_IRQHandler(void)
      DMA_ClearITPendingBit(DMA2_Stream0, DMA_IT_TCIF0);
      filter();
   } 
+	
   #if SYSTEM_SUPPORT_OS  
 	OSIntExit();    	
 	#endif

@@ -34,7 +34,7 @@ void Get_Lift_time(uint8_t _cmd)
 {
 	switch(_cmd)
 	{
-		//moto up
+		/* moto up */
 		case LIFT_UP:
 		  if((Lift_Moto.Limit_Switch_Flag & 0x01) != 0 || (Lift_Moto.OverCurrent_Flag & 0x01) != 0)
 			{
@@ -47,7 +47,7 @@ void Get_Lift_time(uint8_t _cmd)
 			}
 			break;
 			
-		//moto down
+		/* moto down */
 		case LIFT_DOWN:
 			if((Lift_Moto.Limit_Switch_Flag & 0x02) != 0 || (Lift_Moto.OverCurrent_Flag & 0x02) != 0)
 			{
@@ -95,7 +95,7 @@ void LiftMoto_Set(uint8_t _cmd)
 	static uint8_t down_limit_sta = 0;
 	switch(_cmd)
 	{
-		//moto up
+		/* moto up */
 		case LIFT_UP:
 			Lift_Moto.Init_OK_Flag = 0;
 			if((Lift_Moto.Limit_Switch_Flag & 0x01) != 0 || (Lift_Moto.OverCurrent_Flag & 0x01) != 0)
@@ -113,7 +113,7 @@ void LiftMoto_Set(uint8_t _cmd)
 			}
 			break;
 			
-		//moto down
+		/* moto down */
 		case LIFT_DOWN:
 			if(Lift_Moto.Init_OK_Flag == 1)
 			{
@@ -186,7 +186,7 @@ uint8_t Get_OverCurFlag(uint8_t _cmd, uint16_t _cur)
 	
 	switch(_cmd)
 	{
-		//moto up
+		/* moto up */
 		case LIFT_UP:
 			overcur_flag &= 0xfd;
 			if(_cur > 1000)
@@ -204,7 +204,7 @@ uint8_t Get_OverCurFlag(uint8_t _cmd, uint16_t _cur)
 			}
 			break;
 			
-		//moto down
+		/* moto down */
 		case LIFT_DOWN:
 			overcur_flag &= 0xfe;
 			if(_cur > 1000)
@@ -262,7 +262,7 @@ void LiftMoto_GoTO_SetHeiht(uint16_t *_set_height)
 	#ifdef LiftMoto_1
 	if(*_set_height == MAX_HEIGHT)
 	{
-		//上限位
+		/* 上限位 */
 		//if((Lift_Moto.Limit_Switch_Flag & 0x01) != 0 || (Lift_Moto.OverCurrent_Flag & 0x01) != 0){
 		if(Lift_Moto.Limit_Switch_Flag == 0x01)
 		{
@@ -275,7 +275,7 @@ void LiftMoto_GoTO_SetHeiht(uint16_t *_set_height)
 	}
 	else if(*_set_height == 0)
 	{
-		//下限位
+		/* 下限位 */
 		//if((Lift_Moto.Limit_Switch_Flag & 0x02) != 0 || (Lift_Moto.OverCurrent_Flag & 0x02) != 0 )
 		if(Lift_Moto.Limit_Switch_Flag == 0x02)
 		{
@@ -313,13 +313,13 @@ void LiftMoto_GoTO_SetHeiht(uint16_t *_set_height)
 	#elif LiftMoto_2
 	if(*_set_height == MAX_HEIGHT_2)
 	{
-		//上限位
+		/* 上限位 */
 		if(Lift_Moto.Height >= 79) Lift_Moto.Lift_OK_flag = true;
 		else Lift_Moto.Cmd = LIFT_UP;
 	}
 	else if(*_set_height == 0)
 	{
-		//下限位
+		/* 下限位 */
 		if(Lift_Moto.Height <= 1) Lift_Moto.Lift_OK_flag = true;
 		else Lift_Moto.Cmd = LIFT_DOWN;
 	}
@@ -390,7 +390,6 @@ void LiftMoto_Process(void)
 	}
 	LiftMoto_Set(Lift_Moto.Cmd);
 	#endif
-	
 }
 
 /*=============================================================================
@@ -424,7 +423,7 @@ void LiftMoto_Init(void)
 		Lift_Moto.Init_OK_Flag = 1;
 		printf("limit bit lift OK\r\n");
 	}
-	//2.8A
+	/* 2.8A */
 	else if(ADC_Filter_Value[4] > 500)
 	{
 		cnt++;

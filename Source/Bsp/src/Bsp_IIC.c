@@ -14,7 +14,7 @@
 //All rights reserved									  
 ////////////////////////////////////////////////////////////////////////////////// 	
 
-// 初始化IIC
+/* 初始化IIC */
 void IIC_Init(void)
 {			
   GPIO_InitTypeDef  GPIO_InitStructure;
@@ -31,7 +31,7 @@ void IIC_Init(void)
 	IIC_SDA=1;
 }
 
-// 产生IIC起始信号
+/* 产生IIC起始信号 */
 void IIC_Start(void)
 {
 	SDA_OUT();			// sda线输出
@@ -43,7 +43,7 @@ void IIC_Start(void)
 	IIC_SCL = 0;		// 钳住I2C总线，准备发送或接收数据 
 }	  
 
-// 产生IIC停止信号
+/* 产生IIC停止信号 */
 void IIC_Stop(void)
 {
   SDA_OUT();			// sda线输出
@@ -74,11 +74,11 @@ u8 IIC_Wait_Ack(void)
 			return 1;
 		}
 	}
-	IIC_SCL = 0;//时钟输出0 	   
+	IIC_SCL = 0;	//时钟输出0 	   
 	return 0;  
 }  
 
-//产生ACK应答
+/* 产生ACK应答 */
 void IIC_Ack(void)
 {
 	SDA_OUT();
@@ -91,7 +91,7 @@ void IIC_Ack(void)
 	IIC_SDA = 1;
 }
 
-// 不产生ACK应答		    
+/* 不产生ACK应答 */		    
 void IIC_NAck(void)
 {
 	SDA_OUT();
@@ -116,7 +116,7 @@ void IIC_Send_Byte(u8 txd)
 	{
 		IIC_SDA = (txd&0x80)>>7;
 		txd <<= 1; 	  
-		delay_us(2);		// 对TEA5767这三个延时都是必须的
+		delay_us(2);			// 对TEA5767这三个延时都是必须的
 		IIC_SCL = 1;
 		delay_us(2); 
 		IIC_SCL = 0;	
@@ -128,11 +128,11 @@ void IIC_Send_Byte(u8 txd)
 	}	 
 } 	    
 
-// 读1个字节，ack=1时，发送ACK，ack=0，发送nACK   
+/* 读1个字节，ack=1时，发送ACK，ack=0，发送nACK */
 u8 IIC_Read_Byte(unsigned char ack)
 {
 	unsigned char i, receive=0;
-	SDA_IN();						// SDA设置为输入
+	SDA_IN();				// SDA设置为输入
   for(i=0; i<8; i++ )
 	{
 		receive <<= 1;

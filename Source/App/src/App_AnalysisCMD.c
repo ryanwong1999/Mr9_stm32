@@ -68,17 +68,17 @@ void AnalysisCMD(void)
 		
 	if(UsartToPC.Usart_Rx_OK == true)
 	{
-		UsartToPC.Usart_Rx_OK = false;					//清空等待下一次接收完成
+		UsartToPC.Usart_Rx_OK = false;					// 清空等待下一次接收完成
 		UsartToPC.Comm_TimeOut = 0;
 		UsartToPC.Disconnect_flag = 0;	
-		Sdev_tmp = UsartToPC.Rx_Buf[S_ID_REG];	//取源地址
-		Pdev_tmp = UsartToPC.Rx_Buf[P_ID_REG];  //取目的地址,与本地地址匹配
+		Sdev_tmp = UsartToPC.Rx_Buf[S_ID_REG];	// 取源地址
+		Pdev_tmp = UsartToPC.Rx_Buf[P_ID_REG];  // 取目的地址,与本地地址匹配
 			
 		if(Pdev_tmp == DEV_ID){
 			cmd_tmp = UsartToPC.Rx_Buf[CMD_REG];
 			switch(cmd_tmp)
 			{
-				//查询ODOM
+				/* 查询ODOM */
 				case CMD_QUERY_ODOM:   
 					Robot_Sys.Odom_Timeout_cnt = 0;
 					if(Robot_Sys.Mergency_Stop_flag == true)
@@ -94,7 +94,7 @@ void AnalysisCMD(void)
 					}
 					break;
 					
-				//设置速度	
+				/* 设置速度 */	
         case CMD_SET_SPEED:   
 					Robot_Sys.Speed_Timeout_cnt = 0;
 				  memcpy(&lear_tmp, &UsartToPC.Rx_Buf[SPEED1_REG1], sizeof(int16_t));
@@ -156,13 +156,13 @@ void AnalysisCMD(void)
 						}
 						
 						#ifdef MOTO_LOCK	 	
-						//电机不动时可以用手推动，适用于室外
+						/* 电机不动时可以用手推动，适用于室外 */
 						if(Moto.en_sta == 0)
 							 Send_mdrv_en_set(1, 1);
 						else
 							 Send_speed_set(Moto.set_lear, Moto.set_angle);
 						#else
-						//电机不动时可以用手推动，适用于室内
+						/* 电机不动时可以用手推动，适用于室内 */
 						if(Moto.set_lear == 0 && Moto.set_angle == 0 && (Pms.Bat_Sta & 0x01) == 0)
 						{
 							if(Moto.stop_sta == 1 && Moto.en_sta == 1)
@@ -181,20 +181,20 @@ void AnalysisCMD(void)
 					}
 					break;
 				
-				//查询电量及充电状态
+				/* 查询电量及充电状态 */
 				case CMD_QUERY_POWER:		
 					Robot_Sys.mSysPower.charger = Pms.Bat_Sta | AutoCharge.chg_fail;
 				  Robot_Sys.mSysPower.power = Pms.Capacity;
 					Send_PowerDataUpdata(gPscCnt++, Sdev_tmp, Robot_Sys.mSysPower);
 					break;
 				
-				//障碍状态
+				/* 障碍状态 */
 				case CMD_Ultrasonic:    
 					Send_Obstacle_Sta(gUpdateCnt, Sdev_tmp, Robot_Sys.Ultra_sta, Robot_Sys.Crash_Flag);
 					Robot_Sys.StopDisable_flag = UsartToPC.Rx_Buf[9];		//解除过流停止
 					break;
 				
-				//自动充电
+				/* 自动充电 */
 				case CMD_AUTOCHARGE:		
 					if((Pms.Bat_Sta & 0x01) == 0)
 					{				
@@ -213,7 +213,7 @@ void AnalysisCMD(void)
 					#endif
 					break;
 								
-				//查询头部角度
+				/* 查询头部角度 */
 				case CMD_HEAD_POSE:     
 					//delay_ms(2);
 					Robot_Sys.mHeadPose.Level = Head_Status.PSC_Level_Pos * 10;
@@ -221,7 +221,7 @@ void AnalysisCMD(void)
 				  Send_Head_Pose(gPscCnt ++, Sdev_tmp, Robot_Sys.mHeadPose, 0);
 					break;
 				
-				//设置头部角度
+				/* 设置头部角度 */
 				case CMD_HEAD_ANGLE:    
 					level = ((UsartToPC.Rx_Buf[8] & 0xFF) << 8) + (UsartToPC.Rx_Buf[9] & 0xFF);
 					pitch = ((UsartToPC.Rx_Buf[10] & 0xFF) << 8) + (UsartToPC.Rx_Buf[11] & 0xFF);
@@ -231,7 +231,7 @@ void AnalysisCMD(void)
 					#endif
 					break;
 				
-				//控制头部电机
+				/* 控制头部电机 */
 				case CMD_HEAD:  				
 					//55 AA 11 13 FF 01 06 00 05 00 00 00 00 00 00 00 3A 0D 0A		左
 					//55 AA 11 13 FF 01 06 00 07 00 00 00 00 00 00 00 3A 0D 0A		右
@@ -268,29 +268,29 @@ void AnalysisCMD(void)
           #endif					
 					break;
 					
-				//查询升降高度
+				/* 查询升降高度 */
 				case CMD_QUERY_LIFT:			
 					Robot_Sys.Out_en_flag = UsartToPC.Rx_Buf[8];
 					Robot_Sys.Beep_en_flag = UsartToPC.Rx_Buf[9];
 					Send_LiftMoto_Mess(gUpdateCnt++, Sdev_tmp, &Lift_Moto);
 					break;
 				
-				//查询温湿度,CO2
+				/* 查询温湿度,CO2 */
 				case CMD_QUERY_TEMP:			
 					Send_TempHumMess(gUpdateCnt++, Sdev_tmp, &Environ);
 					break;
 				
-				//查询PM值
+				/* 查询PM值 */
 				case CMD_QUERY_ENVIRON:		
 					Send_EnvironMess(gUpdateCnt++, Sdev_tmp, &Environ);
 					break;	
 				
-				//障碍传感器使能
+				/* 障碍传感器使能 */
         case CMD_QUERY_OBS_EN:		
 					Send_Obs_EN_Mess(gUpdateCnt++, Sdev_tmp);
 					break;
 				
-				//设置升降高度	
+				/* 设置升降高度 */	
 				case CMD_SET_LIFT:				
 					Lift_Moto.Set_Height = (uint16_t)UsartToPC.Rx_Buf[8]<<8 | UsartToPC.Rx_Buf[9];
 					Lift_Moto.Lift_OK_flag = false;
@@ -299,7 +299,7 @@ void AnalysisCMD(void)
 					#endif
 					break;
 	
-				//设置头部偏差角度
+				/* 设置头部偏差角度 */
 				case CMD_SET_HEAD_OFFSET:	
 					Head_Status.Pitch_Offset = Head_Status.Pitch_Offset +  Head_Status.PSC_UD_Pos - 90;
 					Head_Status.Level_Offset = Head_Status.Level_Offset + 90 - Head_Status.PSC_Level_Pos;
@@ -307,25 +307,25 @@ void AnalysisCMD(void)
 				  Head_Status.PSC_Level_Pos = PSC_LEVEL_DEFAULT;
 					SetHeadLevelPosition(PSC_LEVEL_DEFAULT, Head_Status.Level_Offset);
 					SetHeadPitchPosition(PSC_UD_DEFAULT, Head_Status.Pitch_Offset);
-					//当前容量
+					/* 当前容量 */
 		      //AT24CXX_WriteOneByte(6, Head_Status.Level_Offset);   
 		      //AT24CXX_WriteOneByte(7, Head_Status.Pitch_Offset);
 					Send_angle_offset_reply(gUpdateCnt++, Sdev_tmp, Head_Status.Level_Offset, Head_Status.Pitch_Offset);
 					break;
 				
-				//设置传感器使能
+				/* 设置传感器使能 */
 				case CMD_SET_SENSOR_EN:		
-					//超声使能标志位
+					/* 超声使能标志位 */
 					Robot_Sys.Ultra_Disable_Flag = UsartToPC.Rx_Buf[8];
 				  //AT24CXX_WriteOneByte(8,Robot_Sys.Ultra_Disable_Flag);
-					//红外使能标志位
+					/* 红外使能标志位 */
 					Robot_Sys.IR_Front_Disable_Flag = UsartToPC.Rx_Buf[9];
 					Robot_Sys.IR_Bottom_Disable_Flag = UsartToPC.Rx_Buf[10];
 				  Send_ultra_en_reply(gUpdateCnt++, Sdev_tmp, Robot_Sys.Ultra_Disable_Flag);
 					Robot_Sys.CarLight_flag = UsartToPC.Rx_Buf[11];
 					break;
 				
-				//升降控制命令
+				/* 升降控制命令 */
 				case CMD_LIFT_CON:				
 					Lift_Moto.Cmd = UsartToPC.Rx_Buf[8];
 					Lift_Moto.Set_Height = 0xffff;
@@ -343,7 +343,7 @@ void AnalysisCMD(void)
 					#endif
 					break;
 					
-				//控制运动状态	
+				/* 控制运动状态 */	
 				case CMD_CON_MOVE:					
 					break;  
 				
@@ -1049,13 +1049,14 @@ const char CRC8Table[]={
 */ 
 unsigned char CRC8_Table(unsigned char *p, char counter)
 {
-    unsigned char crc8 = 0;
+	unsigned char crc8 = 0;
 
-    for( ; counter > 0; counter--){
-        crc8 = CRC8Table[crc8^*p];
-        p++;
-    }
-    return(crc8);
+	for( ; counter > 0; counter--)
+	{
+			crc8 = CRC8Table[crc8^*p];
+			p++;
+	}
+	return(crc8);
 }
 
 
@@ -1083,7 +1084,7 @@ uint8_t CRC8(uint8_t *pDate, uint8_t length)
 			}else crc >>= 1;
 		}
 	}
-    return crc;	
+  return crc;	
 }
 
 

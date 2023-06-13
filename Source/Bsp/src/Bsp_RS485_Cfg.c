@@ -28,7 +28,7 @@
 */
 void RS485_Cfg_Init(uint32_t lBaudrate)
 {
-	// GPIO端口设置
+	/* GPIO端口设置 */
   GPIO_InitTypeDef GPIO_InitStructure;
 	USART_InitTypeDef USART_InitStructure;
 	
@@ -45,17 +45,17 @@ void RS485_Cfg_Init(uint32_t lBaudrate)
 	
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE); 			// 使能GPIOA时钟
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_UART4, ENABLE);				// 使能USART1时钟
-	// USART1端口配置
+	/* USART1端口配置 */
 	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_10 | GPIO_Pin_11;	// GPIOA9与GPIOA10
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_AF;         			// 复用功能
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	    			// 速度50MHz
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;        			// 推挽复用输出
 	GPIO_InitStructure.GPIO_PuPd 	= GPIO_PuPd_UP;         			// 上拉
 	GPIO_Init(GPIOC,&GPIO_InitStructure);                 			// 初始化PA9，PA10
-	// 串口1对应引脚复用映射
+	/* 串口1对应引脚复用映射 */
 	GPIO_PinAFConfig(GPIOC, GPIO_PinSource10, GPIO_AF_UART4);		// GPIOA9复用为USART1
 	GPIO_PinAFConfig(GPIOC, GPIO_PinSource11, GPIO_AF_UART4);		// GPIOA10复用为USART1
-	// USART1 初始化设置
+	/* USART1 初始化设置 */
 	USART_InitStructure.USART_BaudRate 						= lBaudrate;                 			// 波特率设置
 	USART_InitStructure.USART_WordLength 					= USART_WordLength_8b;     				// 字长为8位数据格式
 	USART_InitStructure.USART_StopBits 						= USART_StopBits_1;          			// 一个停止位
@@ -90,14 +90,14 @@ void RS485_Cfg_Init(uint32_t lBaudrate)
 */
 void RS485_SendOneByte(USART_TypeDef* pUSARTx, uint8_t cDat)
 {
-	// 发送使能
+	/* 发送使能 */
 	// RS485_TX_ENABLE;
 	USART_GetFlagStatus(pUSARTx, USART_FLAG_TC);
 	USART_SendData(pUSARTx, (uint8_t) cDat);
 	/* Loop until the end of transmission */
 	while(USART_GetFlagStatus(pUSARTx, USART_FLAG_TXE) == RESET);	
 	// RS485_SendOneByte(pUSARTx, cDat);
-	// 关闭发送使能，等待接收
+	/* 关闭发送使能，等待接收 */
 	// RS485_RX_ENABLE;
 }
 
@@ -154,7 +154,7 @@ void RS485_SendMultibyte(USART_TypeDef* pUSARTx,uint8_t *pBuf, uint16_t lLength)
 	{
 		RS485_SendOneByte(pUSARTx, pBuf[i] );
 	}
-  while (USART_GetFlagStatus(pUSARTx, USART_FLAG_TC) == RESET);	//注意此句与RS232不同
+  while (USART_GetFlagStatus(pUSARTx, USART_FLAG_TC) == RESET);	// 注意此句与RS232不同
 	RS485_RX_ENABLE; 		// 485发送禁止，进入接收模式	
 }
 

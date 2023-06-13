@@ -10,7 +10,6 @@
 ==============================================================================*/
 
 /* Includes ------------------------------------------------------------------*/
-
 #include "includes.h"
 
 
@@ -32,7 +31,6 @@ Usart_TypeDef  UsartToDrv;
       接收命令: 55  AA  11  0e  10  00  00  00  00  00  00  00  0D  0A
                  head  adr len cmd voltage current cap tmp sta   ends    
 */
-
 void USART1_IRQHandler(void)  
 {
 	uint8_t dat;
@@ -40,14 +38,14 @@ void USART1_IRQHandler(void)
 	#ifdef SYSTEM_SUPPORT_OS	 	
 	OSIntEnter();    
   #endif
-	// 串口数据接收处理
-  if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)    //若接收数据寄存器满
+	/* 串口数据接收处理 */
+  if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)    // 若接收数据寄存器满
   {  	
 		USART_ClearITPendingBit(USART1,USART_IT_RXNE);       
-		dat = USART_ReceiveData(USART1);           // 先把UART4串口数据取出来暂存
+		dat = USART_ReceiveData(USART1);           		// 先把UART4串口数据取出来暂存
 //	  USARTx_SendOneByte(USART1,dat);
 		if(UsartToTest.Usart_Rx_OK == false){
-			if((UsartToTest.Rx_Sta & 0x02) != 0x02 )    //收到帧头
+			if((UsartToTest.Rx_Sta & 0x02) != 0x02 )    // 收到帧头
 			{
 				if((UsartToTest.Rx_Sta & 0x01) != 0x01)
 				{
@@ -105,9 +103,9 @@ void USART1_IRQHandler(void)
 						UsartToTest.Rx_Buf[UsartToTest.Rx_Len] = dat;
 						UsartToTest.Rx_Len = 0;
 						UsartToTest.Rx_Sta = 0;
-						UsartToTest.Usart_Rx_OK = true ;         //接收完成
+						UsartToTest.Usart_Rx_OK = true;         				// 接收完成
 						#ifdef SYSTEM_SUPPORT_OS	 	
-						OSSemPost(&UsartToTest_SEM,OS_OPT_POST_1,&err);//发送信号量 
+						OSSemPost(&UsartToTest_SEM,OS_OPT_POST_1,&err);	// 发送信号量 
 						#endif
 					}
 					else 
@@ -120,7 +118,6 @@ void USART1_IRQHandler(void)
 			}
 		}   
 	}
-	
 	#ifdef SYSTEM_SUPPORT_OS	 
 	OSIntExit();  											 
   #endif   
@@ -137,22 +134,21 @@ void USART1_IRQHandler(void)
 *  输   出：
 *  说   明：串口1 中断函数，噪声传感器获取   
 */
-
-void USART2_IRQHandler(void)				//串口1中断服务程序
+void USART2_IRQHandler(void)				// 串口1中断服务程序
 {
 	//u8 Res;
 	uint8_t dat;
 	OS_ERR err;	
 	
-	#if SYSTEM_SUPPORT_OS  //使用UCOS操作系统
+	#if SYSTEM_SUPPORT_OS  // 使用UCOS操作系统
 	OSIntEnter();    
 	#endif
 	
-	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)		//接收中断(接收到的数据必须是0x0d 0x0a结尾)
+	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)		// 接收中断(接收到的数据必须是0x0d 0x0a结尾)
 	{
 		USART_ClearITPendingBit(USART2,USART_IT_RXNE);
 		
-		dat =USART_ReceiveData(USART2);				//(USART1->DR);	//读取接收到的数据
+		dat =USART_ReceiveData(USART2);												// (USART1->DR);	// 读取接收到的数据
 //		USARTx_SendOneByte(USART1, dat);
 		
 		if(UsartToVoice.Usart_Rx_OK == false){
@@ -161,16 +157,15 @@ void USART2_IRQHandler(void)				//串口1中断服务程序
 				UsartToVoice.Usart_Rx_OK = true;
 				
 			#ifdef SYSTEM_SUPPORT_OS
-			OSSemPost(&UsartEnviron_SEM,OS_OPT_POST_1,&err);		//发送信号量 
+			OSSemPost(&UsartEnviron_SEM,OS_OPT_POST_1,&err);		// 发送信号量 
 			#endif
 			}
 		}
   } 
-	
+
 	#if SYSTEM_SUPPORT_OS  
-	OSIntExit();    	//退出中断
+	OSIntExit();    	// 退出中断
 	#endif
-	
 } 
 
 /*=============================================================================
@@ -196,15 +191,15 @@ void USART3_IRQHandler(void)
 	#ifdef SYSTEM_SUPPORT_OS	 	
 	OSIntEnter();    
   #endif
-	// 串口数据接收处理
-  if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)		//若接收数据寄存器满
+	/* 串口数据接收处理 */
+  if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)		// 若接收数据寄存器满
   {  	
 		USART_ClearITPendingBit(USART3,USART_IT_RXNE);
 		
-		dat = USART_ReceiveData(USART3);			//(USART1->DR);	//读取接收到的数据
+		dat = USART_ReceiveData(USART3);											// (USART1->DR);	// 读取接收到的数据
 //	  USARTx_SendOneByte(USART1, dat);
 		if(UsartToPC.Usart_Rx_OK == false){
-			if((UsartToPC.Rx_Sta & 0x02) != 0x02)    						//收到帧头
+			if((UsartToPC.Rx_Sta & 0x02) != 0x02)    						// 收到帧头
 			{
 				if((UsartToPC.Rx_Sta&0x01) != 0x01)
 				{
@@ -264,11 +259,11 @@ void USART3_IRQHandler(void)
 
 						UsartToPC.Rx_Len = 0;
 						UsartToPC.Rx_Sta = 0;
-						UsartToPC.Usart_Rx_OK = true;         //接收完成
+						UsartToPC.Usart_Rx_OK = true;         						// 接收完成
 						
 //						USARTx_SendMultibyte(USART1,UsartToPC.Rx_Buf, 19);
 						#ifdef SYSTEM_SUPPORT_OS	 	
-						OSSemPost(&UsartRxFromPC_SEM,OS_OPT_POST_1,&err);//发送信号量 
+						OSSemPost(&UsartRxFromPC_SEM,OS_OPT_POST_1,&err);	// 发送信号量 
 						#endif
 					}
 					else 
@@ -306,10 +301,10 @@ void UART4_IRQHandler(void)
 	OSIntEnter();                                     
   #endif
 	
-	if(USART_GetITStatus(UART4, USART_IT_RXNE) != RESET)    //若接收数据寄存器满
+	if(USART_GetITStatus(UART4, USART_IT_RXNE) != RESET)    // 若接收数据寄存器满
   {  	
 		USART_ClearITPendingBit(UART4, USART_IT_RXNE);       
-		dat = USART_ReceiveData(UART4);           // 先把UART4串口数据取出来暂存
+		dat = USART_ReceiveData(UART4);           						// 先把UART4串口数据取出来暂存
 //	  USARTx_SendOneByte(USART1, dat);
 		if(UsartToDrv.Usart_Rx_OK == false){
 			UsartToDrv.Rx_Buf[UsartToDrv.Rx_Len++] = dat;
@@ -352,7 +347,7 @@ void UART5_IRQHandler(void)
 		{
 			if((UsartToEnviro.Rx_Sta & 0x01) == 0)
 			{
-				if(dat == 0x01)              //head
+				if(dat == 0x01)              // head
 				{
 					UsartToEnviro.Rx_Len = 0;
 					UsartToEnviro.Rx_Sta = 0;
@@ -387,7 +382,7 @@ void UART5_IRQHandler(void)
 					{
 						UsartToEnviro.Usart_Rx_OK = true;
 						#ifdef SYSTEM_SUPPORT_OS					
-						OSSemPost(&UsartEnviron_SEM, OS_OPT_POST_1, &err);//发送信号量 
+						OSSemPost(&UsartEnviron_SEM, OS_OPT_POST_1, &err);	// 发送信号量 
 						#endif
 					}
 				}

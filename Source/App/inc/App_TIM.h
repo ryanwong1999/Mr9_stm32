@@ -9,13 +9,12 @@
 *
 ==============================================================================*/
 
-
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __APP_TIM_H
 #define __APP_TIM_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif 
 
 /* Includes ------------------------------------------------------------------*/

@@ -36,6 +36,7 @@ void Moto_mdrv_init(void)
 	Moto.vcc_sta = 0;
 }
 
+
 /*=============================================================================
 *  º¯ÊýÃû £ºMoto_mdrv_analysis
 *  ×÷   Õß£ºhrx
@@ -210,7 +211,7 @@ void Get_odom_pulse(int16_t l_pos, int16_t r_pos, int16_t *l_pulse, int16_t *r_p
 	static int16_t l_pulse_temp = 0, r_pulse_temp = 0;
 	int16_t pulse_tmp;
 
-	//¼ÆËã×óÂÖÂö³å
+	/* ¼ÆËã×óÂÖÂö³å */
 	if(l_pos > PULSE_CYCLE * 0.75 && last_l_pos < PULSE_CYCLE * 0.25)
 	{
 		pulse_tmp = PULSE_CYCLE;
@@ -225,7 +226,7 @@ void Get_odom_pulse(int16_t l_pos, int16_t r_pos, int16_t *l_pulse, int16_t *r_p
 	} 
 	l_pulse_temp = pulse_tmp + last_l_pos - l_pos;
 	l_pulse_temp = l_pulse_temp/4; 
-	//¼ÆËãÓÒÂÖÂö³å
+	/* ¼ÆËãÓÒÂÖÂö³å */
 	if(r_pos > PULSE_CYCLE * 0.75 && last_r_pos < PULSE_CYCLE * 0.25)
 	{
 		pulse_tmp = 0 - PULSE_CYCLE;
@@ -240,7 +241,7 @@ void Get_odom_pulse(int16_t l_pos, int16_t r_pos, int16_t *l_pulse, int16_t *r_p
 	}
 	r_pulse_temp = pulse_tmp + r_pos - last_r_pos;
 	r_pulse_temp = r_pulse_temp/4;
-	//ÅÐ¶Ï¼±Í£ËÉ¿ªºóµÄµÚÒ»¸öÂö³åÊýÓÐÌø±ä£¬ÂËµô
+	/* ÅÐ¶Ï¼±Í£ËÉ¿ªºóµÄµÚÒ»¸öÂö³åÊýÓÐÌø±ä£¬ÂËµô */
 	if(Moto_Odom.Clean_Flag == 1)
 	{
 		*l_pulse = 0;

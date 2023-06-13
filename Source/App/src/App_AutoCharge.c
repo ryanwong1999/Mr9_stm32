@@ -8,8 +8,6 @@
 *  说明：自动充电处理
 *
 ==============================================================================*/
-
-
 #include "includes.h"
 
 Charge_typedef AutoCharge;
@@ -110,8 +108,8 @@ void AutoCharge_Processing(void)
   static u8 Position_Cnt=0;
 
 	Get_Charger_Code();
-	
-	if((AutoCharge.Chg_Sta & 0x20) == 0)	// 首次进入充电程序 0010 0000
+	/* 首次进入充电程序 0010 0000 */
+	if((AutoCharge.Chg_Sta & 0x20) == 0)	
 	{
 		AutoCharge.Chg_Sta |= 0x20;        					
 		AutoCharge.Chg_Sta &= 0x20;
@@ -121,9 +119,9 @@ void AutoCharge_Processing(void)
 	{
 		if(AutoCharge.Position == POSITION_NULL)
 		{
-			AutoCharge.Chg_Sta &= 0xfe;		//1111 1110    									
+			AutoCharge.Chg_Sta &= 0xfe;		// 1111 1110    									
 //			if((AutoCharge.CH_IrDate[0] == 0) && (AutoCharge.CH_IrDate[1] == 0) && (AutoCharge.CH_IrDate[2] == 0))
-			//完全没收到信号
+			/* 完全没收到信号 */
 			if((AutoCharge.CH_IrDate[0] == 0) && (AutoCharge.CH_IrDate[2] == 0))
 			{
 				Position_Cnt = 0;
@@ -132,17 +130,18 @@ void AutoCharge_Processing(void)
 				AutoCharge.Move_Sta = CHG_MOVE_ZEROLEFT;
 				if(AutoCharge.OverTime > 60000)
 				{ 				
-					AutoCharge.Chg_Sta |= 0x40;		//0100 0000 				
-					AutoCharge.NotFind_Flag = true;		//找不到充电桩
+					AutoCharge.Chg_Sta |= 0x40;			// 0100 0000 				
+					AutoCharge.NotFind_Flag = true;	// 找不到充电桩
 				}
 			}
-			//有收到信号
+			/* 有收到信号 */
 			else
 			{
 				AutoCharge.Chg_Sta |= 0x01;    
 				Position_Cnt = 0;
-				AutoCharge.Position = POSITION_IR;		        
-				Chg_Position_Judge();		//机器人相对充电桩位置判断
+				AutoCharge.Position = POSITION_IR;
+				/* 机器人相对充电桩位置判断 */
+				Chg_Position_Judge();		
 				if((AutoCharge.CH_IrDate[4] != 0) && (AutoCharge.CH_IrDate[6] == 0))
 				{			
 					AutoCharge.Last_Position = POSITION_LEFT;
@@ -158,7 +157,7 @@ void AutoCharge_Processing(void)
 					AutoCharge.Last_Position = POSITION_MID;		
 					AutoCharge.Move_Sta = CHG_MOVE_FORWARD;
 				}
-				//两边都为0
+				/* 两边都为0 */
 				else
 				{		
 					AutoCharge.Last_Position = AutoCharge.Last_Position;
@@ -178,7 +177,7 @@ void AutoCharge_Processing(void)
 				Chg_Last_Position_Judge();
 			}
 //			if(AutoCharge.CH_IrDate[0] == 0 && AutoCharge.CH_IrDate[1] == 0 && AutoCharge.CH_IrDate[2] == 0)
-			//完全没收到信号
+			/* 完全没收到信号 */
 			if((AutoCharge.CH_IrDate[0] == 0) && (AutoCharge.CH_IrDate[2] == 0))
 			{
 				Position_Cnt++;
@@ -218,7 +217,6 @@ void AutoCharge_Processing(void)
 *  说   明：自动充电速度设置
 *
 ==============================================================================*/
-
 void AutoCharge_move(uint8_t Move_sta1)
 {	
 	static uint16_t left_period_set;
@@ -251,10 +249,10 @@ void AutoCharge_move(uint8_t Move_sta1)
 				Moto.cmd_addr1 = 0x2610;
 				Moto.cmd_addr2 = 0x3610;
 				#ifdef ROBOT_M100
-				AutoCharge.set_lear = -30;     //60,230
+				AutoCharge.set_lear = -30;     // 60,230
 				AutoCharge.set_angle = -110;
 				#else						
-				AutoCharge.set_lear = -40;     //60,230
+				AutoCharge.set_lear = -40;     // 60,230
 				AutoCharge.set_angle = -246;
 				#endif
 			}
@@ -344,10 +342,10 @@ void Charge_IRCode_Process(uint8_t _move_sta)
 			chg_move_left_process();
 			break;
 		case CHG_MOVE_ZERORIGHT:
-			chg_move_zeroright_process();		//原地右转
+			chg_move_zeroright_process();		// 原地右转
 			break;	
 		case CHG_MOVE_ZEROLEFT :
-			chg_move_zeroleft_process();		//原地左转
+			chg_move_zeroleft_process();		// 原地左转
 			break;
 		default :
 			break;
@@ -371,7 +369,7 @@ void Chg_Position_Judge(void)
 	static u8 Right_Cnt = 0;
 	static u8 mid_cnt = 0;
 	
-	if((AutoCharge.CH1_IrDa_Dat[0] == TXDAT_LEFT) && (AutoCharge.CH3_IrDa_Dat[2] == TXDAT_RIGHT))		//左、右
+	if((AutoCharge.CH1_IrDa_Dat[0] == TXDAT_LEFT) && (AutoCharge.CH3_IrDa_Dat[2] == TXDAT_RIGHT))					// 左、右
 	{
 		if(AutoCharge.Position == POSITION_IR)
 		{
@@ -388,7 +386,7 @@ void Chg_Position_Judge(void)
 				AutoCharge.Position = POSITION_MID;
 			}
 		}
-	}else if((AutoCharge.CH1_IrDa_Dat[0] == TXDAT_LEFT) && (AutoCharge.CH3_IrDa_Dat[0] == TXDAT_LEFT))		//左、左
+	}else if((AutoCharge.CH1_IrDa_Dat[0] == TXDAT_LEFT) && (AutoCharge.CH3_IrDa_Dat[0] == TXDAT_LEFT))		// 左、左
 	{
 		if(AutoCharge.Position == POSITION_IR)
 		{
@@ -406,7 +404,7 @@ void Chg_Position_Judge(void)
 				AutoCharge.Position = POSITION_LEFT;
 			}
 		}		
-	}else if((AutoCharge.CH1_IrDa_Dat[2] == TXDAT_RIGHT) && (AutoCharge.CH3_IrDa_Dat[2] == TXDAT_RIGHT))		//右、右
+	}else if((AutoCharge.CH1_IrDa_Dat[2] == TXDAT_RIGHT) && (AutoCharge.CH3_IrDa_Dat[2] == TXDAT_RIGHT))	//右、右
 	{
 		if(AutoCharge.Position == POSITION_IR)
 		{

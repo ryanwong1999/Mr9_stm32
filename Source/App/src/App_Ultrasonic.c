@@ -72,9 +72,8 @@ void Ultra_StartUp(void)
 		//}
 	}
 	
-	for(i = 0; i<3000; i++){
-		;
-	}
+	for(i = 0; i<3000; i++) { ; }
+	
 	TRIG1_OFF;
 	TRIG2_OFF;
 	TRIG3_OFF;
@@ -103,11 +102,8 @@ void Ultra_StartUp(void)
 void Ultra_OverTime_Process(void)
 {
 	if((Ultra1.Uswave_Sta&0x80) == 0) Ultra1.Distance = ULTRA_DEFAULT_DIS;
-	
 	if((Ultra2.Uswave_Sta&0x80) == 0) Ultra2.Distance = ULTRA_DEFAULT_DIS;
-	
 	if((Ultra3.Uswave_Sta&0x80) == 0) Ultra3.Distance = ULTRA_DEFAULT_DIS;
-	
 	if((Ultra4.Uswave_Sta&0x80) == 0) Ultra4.Distance = ULTRA_DEFAULT_DIS;
 }
 
@@ -156,7 +152,7 @@ void Ultra_Process(void)
 	{
 		if(Ultra1.Distance < stop_dis)
 		{
-			Robot_Sys.Ultra_sta |= 0x01;      //front obstacle
+			Robot_Sys.Ultra_sta |= 0x01;      	// front obstacle
 			front_reset_cnt1 = 0;
 		}
 		else
@@ -165,14 +161,14 @@ void Ultra_Process(void)
 			if(front_reset_cnt1 > 20)
 			{
 				front_reset_cnt1 = 0;
-				Robot_Sys.Ultra_sta &= 0xfe;      //front obstacle
+				Robot_Sys.Ultra_sta &= 0xfe;      // front obstacle
 			}
 		}
 	}
 	else
 	{
 		front_reset_cnt1 = 0;
-		Robot_Sys.Ultra_sta &= 0xfe;      //front obstacle
+		Robot_Sys.Ultra_sta &= 0xfe;      		// front obstacle
 	}
 				
 	if((Robot_Sys.Ultra_Disable_Flag & 0x02) == 0)
@@ -180,7 +176,7 @@ void Ultra_Process(void)
 		if(Ultra2.Distance < stop_dis)
 		{
 			front_reset_cnt2 = 0;
-			Robot_Sys.Ultra_sta |= 0x02;      //front obstacle
+			Robot_Sys.Ultra_sta |= 0x02;      	// front obstacle
 		}
 		else
 		{
@@ -188,14 +184,14 @@ void Ultra_Process(void)
 			if(front_reset_cnt2 > 20)
 			{
 				front_reset_cnt2 = 0;
-				Robot_Sys.Ultra_sta &= 0xfd;      //front obstacle
+				Robot_Sys.Ultra_sta &= 0xfd;      // front obstacle
 			}
 		}				
 	}
 	else
 	{
 		front_reset_cnt2 = 0;
-		Robot_Sys.Ultra_sta &= 0xfd;      //front obstacle
+		Robot_Sys.Ultra_sta &= 0xfd;      		// front obstacle
 	}
 
 
@@ -204,7 +200,7 @@ void Ultra_Process(void)
 		if(Ultra3.Distance < stop_dis)
 		{
 			back_reset_cnt1 = 0;
-			Robot_Sys.Ultra_sta |= 0x10;       //back obstacle
+			Robot_Sys.Ultra_sta |= 0x10;       	// back obstacle
 		}
 		else
 		{
@@ -212,14 +208,14 @@ void Ultra_Process(void)
 			if(back_reset_cnt1 > 20)
 			{
 				back_reset_cnt1 = 0;
-				Robot_Sys.Ultra_sta &= 0xef;      //front obstacle
+				Robot_Sys.Ultra_sta &= 0xef;      // front obstacle
 			}
 		}	
 	}
 	else
 	{
 		back_reset_cnt1 = 0;
-		Robot_Sys.Ultra_sta &= 0xef;      //front obstacle
+		Robot_Sys.Ultra_sta &= 0xef;      		// front obstacle
 	}
 					
 					
@@ -228,7 +224,7 @@ void Ultra_Process(void)
 		if(Ultra4.Distance < stop_dis)
 		{
 			back_reset_cnt2 = 0;
-			Robot_Sys.Ultra_sta |= 0x20;       //back obstacle
+			Robot_Sys.Ultra_sta |= 0x20;       // back obstacle
 		}
 		else
 		{
@@ -236,14 +232,14 @@ void Ultra_Process(void)
 			if(back_reset_cnt2 > 20)
 			{
 				back_reset_cnt2 = 0;
-				Robot_Sys.Ultra_sta &= 0xdf;      //front obstacle
+				Robot_Sys.Ultra_sta &= 0xdf;		// front obstacle
 			}
 		}	
 	}
 	else
 	{
 		back_reset_cnt2 = 0;
-		Robot_Sys.Ultra_sta &= 0xdf;      //front obstacle
+		Robot_Sys.Ultra_sta &= 0xdf;      	// front obstacle
 	}
 }
 
@@ -266,7 +262,7 @@ uint8_t Get_Crash_Status(void)
 	
 	if(CRASH_FRONT_READ == 0)
 	{
-		crash_sta |= 0x01;			//0000 0001
+		crash_sta |= 0x01;			// 0000 0001
 		crash_front_cnt = 0;
 	}
 	else
@@ -275,14 +271,14 @@ uint8_t Get_Crash_Status(void)
 		if(crash_front_cnt > 1)
 		{
 			crash_front_cnt = 0;
-			crash_sta &= 0xfe;		//1111 1110
+			crash_sta &= 0xfe;		// 1111 1110
 		}
 	}
 	
 	if(CRASH_BACK_READ == 0)
 	{
 		crash_back_cnt = 0;
-		crash_sta |= 0x02;			//0000 0010
+		crash_sta |= 0x02;			// 0000 0010
 	}
 	else
 	{
@@ -290,9 +286,8 @@ uint8_t Get_Crash_Status(void)
 		if(crash_back_cnt > 1)
 		{
 			crash_back_cnt = 0;
-			crash_sta &= 0xfd;		//1111 1101
+			crash_sta &= 0xfd;		// 1111 1101
 		}
 	}
-	
 	return crash_sta;
 }

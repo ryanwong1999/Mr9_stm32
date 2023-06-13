@@ -9,15 +9,13 @@
 *
 ==============================================================================*/
 
-
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __APP_SYSTEM_H
 #define __APP_SYSTEM_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif 
-
 	 
 /* Includes ------------------------------------------------------------------*/
 #include <stdio.h>
@@ -34,8 +32,7 @@ typedef struct
 {
 	uint32_t charger;      //充电
 	uint32_t power;        //电量
-}Power_Type ;
-
+}Power_Type;
 	 
 typedef struct
 {
@@ -51,12 +48,10 @@ typedef struct
 //	BEEP_TIPS4=0x04
 //};
 
-
 typedef struct
 {
 	uint8_t Sys_Dev_ID;         		//设备ID 号
-	uint16_t	Sys_Version;        	//系统版本
-	
+	uint16_t Sys_Version;        		//系统版本
 	uint8_t PC_Run_Flag;        		//PC机 运行标志
 	uint8_t Ultra_sta;          		//障碍标志
 	uint8_t Obs_IR_Front;

@@ -24,32 +24,28 @@ PID 结构体
 ********************************************************/
 typedef struct 
 {
- int16_t   SetPoint;         // 设定目标
- int16_t   SumErr;          // 积分误差
- float KP ;      // 比例常数
- float KI ;        // 积分常数
- float KD;       // 微分常数
-
- int16_t LocErr;           //位置差
- int16_t LastErr;          //上一次误差
- int16_t PrevErr;          // 微分误差
+ int16_t SetPoint;	// 设定目标
+ int16_t SumErr;		// 积分误差
+ float KP ;      		// 比例常数
+ float KI ;        	// 积分常数
+ float KD;       		// 微分常数
+ int16_t LocErr;		// 位置差
+ int16_t LastErr;		// 上一次误差
+ int16_t PrevErr;		// 微分误差
 }PID_typedef;
 	 
-extern PID_typedef LeftPID ;     // 左PID 调节
-extern PID_typedef RightPID ;    // 右PID 调节
+extern PID_typedef LeftPID;     // 左PID 调节
+extern PID_typedef RightPID;		// 右PID 调节
 extern PID_typedef PID_Stru;
 void IncPID_Init(void);
-int  IncPIDCalc(PID_typedef *pPid, uint16_t iNextPoint);
-int  LocPIDCalc(PID_typedef *pPid, uint16_t iNextPoint);
+int IncPIDCalc(PID_typedef *pPid, uint16_t iNextPoint);
+int LocPIDCalc(PID_typedef *pPid, uint16_t iNextPoint);
 void PID_Set(void);
 void INCPID_Init(void);
 void PID_SetPoint(PID_typedef *pPid, uint16_t iSetPointVal);
 int16_t Get_INCPID_PWM(PID_typedef *pPid,uint16_t set_point, uint16_t cur_point,int16_t pwm);
 int16_t Get_Chg_INCPID(PID_typedef *pPid,uint16_t set_point, uint16_t cur_point,int16_t pwm);
 
-
-
-	 
 #ifdef __cplusplus
 }
 #endif

@@ -23,9 +23,10 @@
 #include "stm32f4xx.h"
 #include "App_USART.h"
 
-	 
+
 #define USART_ENVIRON UART5
 #define USART_VOICE   USART2 
+
 typedef struct
 {	
 	uint16_t CO2;
@@ -38,7 +39,6 @@ typedef struct
 	uint16_t PM1_0;
 	uint16_t state;
 	uint16_t voice;
-	
 }Environmental_Typedef;
 
 extern Environmental_Typedef Environ;
@@ -46,12 +46,13 @@ extern Environmental_Typedef Environ;
 void Send_Environ_Query(void);
 void Send_Voice_Query(void);
 uint8_t CRC_Sum(uint8_t *buf,uint8_t num);
-unsigned int CRC_Compute ( unsigned char *arr_buff, unsigned char len);
+unsigned int CRC_Compute(unsigned char *arr_buff, unsigned char len);
 void Environmental_Process(void);
 void Voice_Process(void);
-void Send_TempHumMess(uint8_t index,uint8_t addr,Environmental_Typedef *_environ);
-void Send_EnvironMess(uint8_t index,uint8_t addr,Environmental_Typedef *_environ);
-unsigned int CRC_Compute ( unsigned char *arr_buff, unsigned char len);
+void Send_TempHumMess(uint8_t index,uint8_t addr, Environmental_Typedef *_environ);
+void Send_EnvironMess(uint8_t index,uint8_t addr, Environmental_Typedef *_environ);
+unsigned int CRC_Compute(unsigned char *arr_buff, unsigned char len);
+
 #ifdef __cplusplus
 }
 #endif

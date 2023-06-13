@@ -35,7 +35,7 @@ void TIM2_IRQHandler(void)
 	static uint16_t tim1ms_cnt = 0;
 	static uint16_t lift_cnt = 0;
 	static uint16_t errom_cnt = 0;
-	#if SYSTEM_SUPPORT_OS  //使用UCOS操作系统
+	#if SYSTEM_SUPPORT_OS  // 使用UCOS操作系统
 	OSIntEnter();    
 	#endif
 	
@@ -51,7 +51,7 @@ void TIM2_IRQHandler(void)
 	  Robot_Sys.Speed_Timeout_cnt++;
 		Robot_Sys.Odom_Timeout_cnt++;
 		errom_cnt++;
-		if(errom_cnt > 1000)		//1秒
+		if(errom_cnt > 1000)		// 1秒
 		{
 			errom_cnt = 0;
 			if(last_ultra_en != Robot_Sys.Ultra_Disable_Flag)
@@ -61,7 +61,7 @@ void TIM2_IRQHandler(void)
 			}
 			if(last_lever_offset != Head_Status.Level_Offset)
 			{
-				AT24CXX_WriteOneByte(6, Head_Status.Level_Offset);   //当前容量
+				AT24CXX_WriteOneByte(6, Head_Status.Level_Offset);   // 当前容量
 				last_lever_offset = AT24CXX_ReadOneByte(6);
 			}
 			if(last_pitch_offset != Head_Status.Pitch_Offset)
@@ -142,7 +142,7 @@ void TIM2_IRQHandler(void)
 		}
 		
 		
-	#if SYSTEM_SUPPORT_OS  //使用UCOS操作系统
+	#if SYSTEM_SUPPORT_OS  // 使用UCOS操作系统
 	OSIntExit();    
   #endif
 
@@ -164,7 +164,7 @@ void TIM1_UP_TIM10_IRQHandler(void)
 	static uint16_t tim10us = 0;
 	static uint16_t tim500ms = 0;
 	
-	#if SYSTEM_SUPPORT_OS  //使用UCOS操作系统
+	#if SYSTEM_SUPPORT_OS  // 使用UCOS操作系统
 	OSIntEnter();    
 	#endif
 	
@@ -175,7 +175,7 @@ void TIM1_UP_TIM10_IRQHandler(void)
 		Moto_Sample_Delay10us();
   }
 
-	#if SYSTEM_SUPPORT_OS  //使用UCOS操作系统
+	#if SYSTEM_SUPPORT_OS  // 使用UCOS操作系统
 	OSIntExit();    
   #endif
 }
@@ -193,20 +193,20 @@ void TIM1_UP_TIM10_IRQHandler(void)
 void TIM7_IRQHandler(void)
 { 	
 	OS_ERR err;
-	#if SYSTEM_SUPPORT_OS  //使用UCOS操作系统
+	#if SYSTEM_SUPPORT_OS  // 使用UCOS操作系统
 	OSIntEnter();    
 	#endif
-	if(TIM_GetITStatus(TIM7, TIM_IT_Update) != RESET)//是更新中断
+	if(TIM_GetITStatus(TIM7, TIM_IT_Update) != RESET)	// 是更新中断
 	{	 			   
 		UsartToDrv.Usart_Rx_OK = true;
     #ifdef SYSTEM_SUPPORT_OS	 
-		OSSemPost(&UsartToDrv_SEM, OS_OPT_POST_1, &err);//????? 
+		OSSemPost(&UsartToDrv_SEM, OS_OPT_POST_1, &err);
     #endif	
    
-		TIM_ClearITPendingBit(TIM7, TIM_IT_Update);  //清除TIM7更新中断标志    
-		TIM_Cmd(TIM7, DISABLE);  //关闭TIM7 
+		TIM_ClearITPendingBit(TIM7, TIM_IT_Update);  		// 清除TIM7更新中断标志    
+		TIM_Cmd(TIM7, DISABLE);  	//关闭TIM7 
 		
-		#if SYSTEM_SUPPORT_OS  //使用UCOS操作系统
+		#if SYSTEM_SUPPORT_OS  		//使用UCOS操作系统
 		OSIntExit();    
 		#endif
 	}	    

@@ -12,14 +12,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdbool.h>
-
-
 #include "includes.h"
 
-
 int position = 0;
-uint8_t SPEED_CAP_STA  = 0x00 ; 
-
+uint8_t SPEED_CAP_STA  = 0x00;
 
 /*=============================================================================
 *  º¯ÊýÃû £ºMoto_Sample_Delay10us

@@ -22,14 +22,12 @@
 #define TXDAT_RIGHT   0x02      //右边解码数据	0000 0010
 #define TXDAT_MIDR   	0x0A      //右边解码数据	0000 1010
 
-	/* 
+/* 
 #define TXDAT_LEFT    0x06      //左边解码数据0x50
 #define TXDAT_MIDL    0x01      //中间解码数据0x0C
 #define TXDAT_RIGHT   0x02      //右边解码数据0x02
 #define TXDAT_MIDR    0x03      //右边解码数据0x0A
-	 */
-
-
+*/
 
 
 /* 
@@ -63,7 +61,8 @@
 #define CHG_MOVE_BACKWARD   1
 #define CHG_MOVE_STOP       0
 
-typedef struct {
+typedef struct 
+{
   uint8_t CH1_IrDa_Dat[4];
   uint8_t CH2_IrDa_Dat[4];
 	uint8_t CH3_IrDa_Dat[4];
@@ -73,42 +72,30 @@ typedef struct {
 	bool AutoChg_Cmd;
 	bool NotFind_Flag;
 	bool StartUp_Flag;
-	
 	bool ReChg_flag;
+	
 	uint8_t Chg_Sta;
 	uint8_t Position;
 	uint8_t Last_Position;
-	
 	uint16_t Loop_Tim;
 	uint32_t OverTime;
-	
 	uint16_t Time_out;
-	
 	uint8_t Move_Sta;
-	 uint8_t No_Sigh_Flag;
-
+	uint8_t No_Sigh_Flag;
   int16_t set_lear;
   int16_t set_angle;
-	
 	uint8_t chg_flag;
-	
 	int16_t left_pulse;
 	int16_t right_pulse;
-	
 	uint8_t ultra_flag;
 	int16_t distance;
 	int16_t angle;
-	
 	uint8_t chg_fail;
 	uint8_t rechg_cnt;
 }Charge_typedef;
 
-
 extern Charge_typedef AutoCharge;
-
-
 //extern uint8_t Crash_Status;
-
 
 void Charge_Init(void);
 void Charge_Tim1ms(void);
@@ -127,7 +114,6 @@ void chg_move_zeroleft_process(void);
 //void Charge_IRDat_Pross(void);
 void Charge_OverTime_Process(void);
 void Charge_Crash_Pross(void);
-
 void Get_Charger_Code(void);
 
 #ifdef __cplusplus
