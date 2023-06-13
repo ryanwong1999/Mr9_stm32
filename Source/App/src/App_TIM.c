@@ -46,8 +46,8 @@ void TIM2_IRQHandler(void)
 		Charge_Tim1ms();
 		//Robot_Moto.Locked_Flag = Wheel_Locded_Check();
 	
-		UsartToPC.Comm_TimeOut++;
 		UsartToDrv.Comm_TimeOut++;
+		UsartToPC.Comm_TimeOut++;
 	  Robot_Sys.Speed_Timeout_cnt++;
 		Robot_Sys.Odom_Timeout_cnt++;
 		errom_cnt++;
@@ -73,7 +73,7 @@ void TIM2_IRQHandler(void)
 	  if((UsartToEnviro.Rx_Sta & 0x01) != 0)
 		{
 		  UsartToEnviro.Comm_TimeOut ++;
-		  if( UsartToEnviro.Comm_TimeOut > 10)
+		  if(UsartToEnviro.Comm_TimeOut > 10)
 			{
 				UsartToEnviro.Comm_TimeOut = 0;
 			  UsartToEnviro.Usart_Rx_OK = true;
@@ -87,7 +87,8 @@ void TIM2_IRQHandler(void)
 		}
     #ifdef LIFTMOTO_TASK_OS
 		lift_cnt ++;
-		if(lift_cnt >= 10){
+		if(lift_cnt >= 10)
+		{
 		  lift_cnt = 0;
 			Get_Lift_time(Lift_Moto.Cmd);
 		}

@@ -95,13 +95,13 @@ void NVIC_Configuration(void)
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 4;          // 子优先级为1
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;             // 使能中断 
 	NVIC_Init(&NVIC_InitStructure);	                            // 初始化配置NVIC 	
-	/* USART3 */
+	/* USART4 */
 	NVIC_InitStructure.NVIC_IRQChannel = UART4_IRQn;           	// 配置USART为中断源 
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;   // 抢占优先级为0
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 5;          // 子优先级为1
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;             // 使能中断 
 	NVIC_Init(&NVIC_InitStructure);	        
-	/* USART3 */
+	/* USART5 */
 	NVIC_InitStructure.NVIC_IRQChannel = UART5_IRQn;           	// 配置USART为中断源 
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;   // 抢占优先级为0
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;          // 子优先级为1

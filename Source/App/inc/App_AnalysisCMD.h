@@ -64,6 +64,7 @@ extern "C" {
 #define	CMD_QUERY_ODOM       	0x01	  //查询ODOM
 #define	CMD_QUERY_PWR        	0x02    //查询电量
 #define	CMD_QUERY_TEMPHUM			0x03    //查询温度，湿度
+#define	CMD_AUTO_CHARGE_SPEED 0x04	  //查询自动充电速度
 #define	CMD_SET_SPEED        	0x15	  //设置转速
 #define	CMD_STOP             	0x05	  //刹车
 #define	CMD_HEAD             	0x06    //头部运动控制
@@ -162,6 +163,7 @@ void Send_SetLift_reply(uint8_t index, uint8_t paddr, uint16_t heitht);
 void Send_LiftCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd);
 void Send_ultra_en_reply(uint8_t index, uint8_t paddr, uint8_t cmd);
 void Send_angle_offset_reply(uint8_t index, uint8_t paddr, int8_t level_offset, int8_t pitch_offset);
+void Send_Autocharge_speed(uint8_t index, uint8_t paddr, uint16_t linear, uint16_t angular);
 
 #ifdef __cplusplus
 }

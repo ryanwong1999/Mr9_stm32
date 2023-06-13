@@ -40,18 +40,18 @@
 #define CHG_MOVE_STOP       0
 */
 /*
-#define MOVE_STOP    0
-#define MOVE_FRONT   1
-#define MOVE_BACK    5
-#define MOVE_RIGHT	 3
-#define MOVE_LEFT    7
+#define MOVE_STOP    				0
+#define MOVE_FRONT   				1
+#define MOVE_BACK    				5
+#define MOVE_RIGHT	 				3
+#define MOVE_LEFT    				7
 */
 
-#define POSITION_NULL   0 	
-#define POSITION_MID    1
-#define POSITION_LEFT   2
-#define POSITION_RIGHT  3	 
-#define POSITION_IR     4
+#define POSITION_NULL   		0 	
+#define POSITION_MID    		1
+#define POSITION_LEFT   		2
+#define POSITION_RIGHT  		3	 
+#define POSITION_IR     		4
 
 #define CHG_MOVE_FORWARD    5
 #define CHG_MOVE_LEFT       7	 
@@ -103,7 +103,7 @@ void Charge_Tim1ms(void);
 //void PMS_Process(void);
 void AutoCharge_Processing(void);
 void Charge_IRCode_Process(uint8_t _move_sta);
-void AutoCharge_move( uint8_t Move_sta); 
+void AutoCharge_move(uint8_t Move_sta); 
 void Chg_Position_Judge(void);
 void Chg_Last_Position_Judge(void);
 void chg_move_forward_Process(void);

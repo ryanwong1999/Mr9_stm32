@@ -334,19 +334,24 @@ void Charge_IRCode_Process(uint8_t _move_sta)
 	{
 		case CHG_MOVE_FORWARD :
 			chg_move_forward_Process();
-			break;		
+			break;
+		
 		case CHG_MOVE_RIGHT :
 			chg_move_right_process();
-			break;		
+			break;
+		
 		case CHG_MOVE_LEFT :
 			chg_move_left_process();
 			break;
+		
 		case CHG_MOVE_ZERORIGHT:
 			chg_move_zeroright_process();		// 原地右转
-			break;	
+			break;
+		
 		case CHG_MOVE_ZEROLEFT :
 			chg_move_zeroleft_process();		// 原地左转
 			break;
+		
 		default :
 			break;
 	}

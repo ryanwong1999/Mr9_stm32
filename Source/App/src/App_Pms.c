@@ -73,7 +73,7 @@ void Read_PMUData(void)
 *  输   出：电池容量
 *  说   明：计算电池容量
 */
-uint8_t Get_Batt_Capacity(int16_t _bat_cur,uint16_t _bat_vol)
+uint8_t Get_Batt_Capacity(int16_t _bat_cur, uint16_t _bat_vol)
 {
 	static uint32_t voltage_sum = 0;
 	static int32_t current_sum = 0;

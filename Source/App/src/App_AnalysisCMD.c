@@ -65,7 +65,7 @@ void AnalysisCMD(void)
 	int16_t rx_lear;
 	int16_t chg_dis;
 	int16_t chg_angle;
-		
+	
 	if(UsartToPC.Usart_Rx_OK == true)
 	{
 		UsartToPC.Usart_Rx_OK = false;					// 清空等待下一次接收完成
@@ -76,10 +76,11 @@ void AnalysisCMD(void)
 			
 		if(Pdev_tmp == DEV_ID){
 			cmd_tmp = UsartToPC.Rx_Buf[CMD_REG];
+			printf("cmd_tmp: %d\r\n",cmd_tmp);
 			switch(cmd_tmp)
 			{
 				/* 查询ODOM */
-				case CMD_QUERY_ODOM:   
+				case CMD_QUERY_ODOM:
 					Robot_Sys.Odom_Timeout_cnt = 0;
 					if(Robot_Sys.Mergency_Stop_flag == true)
 					{
@@ -115,7 +116,7 @@ void AnalysisCMD(void)
 						AutoCharge.chg_flag = 0;
 						AutoCharge.chg_fail = 0;
 					}
-					
+					/* 急停按键按下 */
 					if(Robot_Sys.Mergency_Stop_flag == true || Moto.over_cur_flag == true)
 					{
 						if(Moto.en_sta == 1)
@@ -149,6 +150,7 @@ void AnalysisCMD(void)
 								Moto.set_angle = rx_angle;
 							}
 						}
+						/* 自动充电任务 */
 						else
 						{
 							Moto.set_lear = AutoCharge.set_lear;
@@ -180,12 +182,18 @@ void AnalysisCMD(void)
 						#endif
 					}
 					break;
+					
+				/* 查询自动充电速度 */
+				case CMD_AUTO_CHARGE_SPEED:
+					Send_Autocharge_speed(gUpdateCnt, Sdev_tmp, AutoCharge.set_lear, AutoCharge.set_angle);
+					break;
 				
 				/* 查询电量及充电状态 */
 				case CMD_QUERY_POWER:		
 					Robot_Sys.mSysPower.charger = Pms.Bat_Sta | AutoCharge.chg_fail;
 				  Robot_Sys.mSysPower.power = Pms.Capacity;
 					Send_PowerDataUpdata(gPscCnt++, Sdev_tmp, Robot_Sys.mSysPower);
+					printf("CMD_QUERY_POWER-------\r\n");
 					break;
 				
 				/* 障碍状态 */
@@ -199,7 +207,7 @@ void AnalysisCMD(void)
 					if((Pms.Bat_Sta & 0x01) == 0)
 					{				
 						charge_tmp = UsartToPC.Rx_Buf[8];
-						if(	Robot_Sys.Last_Task != CHG_TASK)
+						if(Robot_Sys.Last_Task != CHG_TASK)
 						{
 							Robot_Sys.Last_Task = CHG_TASK;
 							Robot_Sys.mBeepStatus.BeepMode = 0x01;
@@ -369,9 +377,8 @@ void Send_OdomUpdata(uint8_t index, uint8_t addr, Odom_Data_type odom_dat)
 	int16_t tmpYaw;
 	int16_t tmpAngular_Rate;
 	static uint8_t ultra[4];
-	
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
+	uint8_t sramx = 0;					//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请20字节
 	
 	ultra[0] = Ultra1.Distance/10;
@@ -396,7 +403,6 @@ void Send_OdomUpdata(uint8_t index, uint8_t addr, Odom_Data_type odom_dat)
 	buf[13]	= ultra[1];
 	buf[14]	= ultra[2];
 	buf[15]	= ultra[3];
-	
 	buf[16]	= CRC8_Table(buf, 16);
 	buf[17]	= 0x0D;
 	buf[18]	= 0x0A;
@@ -415,12 +421,12 @@ void Send_OdomUpdata(uint8_t index, uint8_t addr, Odom_Data_type odom_dat)
 *  输   出：
 *  说   明：发送头部状态信息
 */ 
-void  Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool stop_key)
+void Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool stop_key)
 {
 	int16_t level;
 	int16_t pitch;
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
+	uint8_t sramx = 0;					//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
@@ -462,7 +468,7 @@ void  Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool
 void Send_LiftMoto_Mess(uint8_t index, uint8_t addr,LiftMoto_Type *_liftmoto)
 {
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
+	uint8_t sramx = 0;					//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
@@ -505,9 +511,8 @@ void Send_PowerDataUpdata(uint8_t index, uint8_t addr, Power_Type mPower)
 {
 	uint32_t tmpCharger;
 	uint32_t tmpPower;
-	
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
+	uint8_t sramx = 0;					//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请2K字节
 	
   buf[0] = 0x55;
@@ -553,9 +558,8 @@ void Send_HeadCtrlCmd(uint8_t index, uint8_t addr, uint8_t cmd_dat)
 {
 	int16_t tmpTemp;
 	int16_t tmpHum;
-	
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
+	uint8_t sramx = 0;					//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
@@ -633,16 +637,19 @@ void Send_Obs_EN_Mess(uint8_t index, uint8_t addr)
 void Send_Obstacle_Sta(uint8_t index, uint8_t paddr, uint8_t obs_sta, uint8_t crach_sta)
 {
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
+	uint8_t sramx = 0;					//默认为内部sram
 	int zf_flag = 0;						//判断正负
 	
 	int32_t Moto_Current_Send = Pms.Moto_Cur;
   buf = mymalloc(sramx, 20);	//申请20字节
 	
-	if(Pms.Moto_Cur<0){
+	if(Pms.Moto_Cur<0)
+	{
 		Moto_Current_Send = Moto_Current_Send * -1;
 		zf_flag = 1;
-	}else{
+	}
+	else
+	{
 		zf_flag = 0;
 	}
 	
@@ -662,7 +669,7 @@ void Send_Obstacle_Sta(uint8_t index, uint8_t paddr, uint8_t obs_sta, uint8_t cr
 	buf[12] = Moto_Current_Send  & 0x00ff;	
 	buf[13] = Robot_Sys.Stop_flag;
 	buf[14] = (Pms.Bat_Voltage >> 8) & 0x00ff;  		//把电池电压发上去
-	buf[15] = Pms.Bat_Voltage  & 0x00ff;	
+	buf[15] = Pms.Bat_Voltage & 0x00ff;	
 		
 	buf[16]	= CRC8_Table(buf, 16);
 	buf[17]	= 0x0D;
@@ -682,10 +689,10 @@ void Send_Obstacle_Sta(uint8_t index, uint8_t paddr, uint8_t obs_sta, uint8_t cr
 *  输   出：
 *  说   明：发送设置速度应答
 */ 
-void Send_Speed_reply(uint8_t index, uint8_t paddr, uint16_t linear, uint16_t angular){
-
+void Send_Speed_reply(uint8_t index, uint8_t paddr, uint16_t linear, uint16_t angular)
+{
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
+	uint8_t sramx = 0;					//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
@@ -694,7 +701,7 @@ void Send_Speed_reply(uint8_t index, uint8_t paddr, uint16_t linear, uint16_t an
 	buf[3] = 0x13;
 	buf[4] = 0x01;	//本机ID
 	buf[5] = paddr;	//目的ID6
-	buf[6] = 0x15;
+	buf[6] = 0x15;	//功能码
 	buf[7] = 0x08;	//数据包个数
 
 	buf[8] = linear>>8;
@@ -724,10 +731,10 @@ void Send_Speed_reply(uint8_t index, uint8_t paddr, uint16_t linear, uint16_t an
 *  输   出：
 *  说   明：发送自动充电命令应答
 */ 
-void Send_Autocharge_reply(uint8_t index, uint8_t paddr, uint8_t dat){
-
+void Send_Autocharge_reply(uint8_t index, uint8_t paddr, uint8_t dat)
+{
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
+	uint8_t sramx = 0;					//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
@@ -758,6 +765,48 @@ void Send_Autocharge_reply(uint8_t index, uint8_t paddr, uint8_t dat){
 
 
 /*=============================================================================
+*  函数名 Send_Autocharge_speed
+*  作   者：hrx
+*  创建时间：2022年4月11日 
+*  修改时间：
+*  输   入：
+*  输   出：
+*  说   明：发送自动充电速度
+*/ 
+void Send_Autocharge_speed(uint8_t index, uint8_t paddr, uint16_t linear, uint16_t angular)
+{
+	uint8_t *buf;
+	uint8_t sramx = 0;					//默认为内部sram
+  buf = mymalloc(sramx, 20);	//申请20字节
+	
+	buf[0] = 0x55;
+	buf[1] = 0xAA;
+	buf[2] = index;
+	buf[3] = 0x13;
+	buf[4] = 0x01;	//本机ID
+	buf[5] = paddr;	//目的ID
+	buf[6] = 0x04;	//自动充电速度
+	buf[7] = 0x08;	//数据包个数
+
+	buf[8] = linear>>8;
+	buf[9] = linear;
+	buf[10] = angular>>8;
+	buf[11] = angular;
+	buf[12] = Robot_Sys.AutoCharge_task_flag;
+	buf[13] = 0;
+	buf[14] = 0;
+	buf[15] = 0;
+
+	buf[16] = CRC8_Table(buf, 16);
+	buf[17] = 0x0D;
+	buf[18] = 0x0A;
+	
+	USARTx_SendMultibyte(USART_PC, buf, SEND_PC_LEN);
+	myfree(sramx, buf);
+} 
+
+
+/*=============================================================================
 *  函数名 ：Send_HeadAngle_reply
 *  作   者：hrx
 *  创建时间：2022年4月11日 
@@ -766,10 +815,10 @@ void Send_Autocharge_reply(uint8_t index, uint8_t paddr, uint8_t dat){
 *  输   出：
 *  说   明：发送设置头部角度命令应答
 */ 
-void Send_HeadAngle_reply(uint8_t index, uint8_t paddr, uint16_t set_level, uint16_t set_pitch){
-
+void Send_HeadAngle_reply(uint8_t index, uint8_t paddr, uint16_t set_level, uint16_t set_pitch)
+{
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
+	uint8_t sramx = 0;					//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
@@ -808,10 +857,10 @@ void Send_HeadAngle_reply(uint8_t index, uint8_t paddr, uint16_t set_level, uint
 *  输   出：
 *  说   明：发送头部控制命令应答
 */ 
-void Send_HeadCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
-
+void Send_HeadCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd)
+{
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
+	uint8_t sramx = 0;					//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
@@ -850,10 +899,10 @@ void Send_HeadCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
 *  输   出：
 *  说   明：发送设置升降高度命令应答
 */ 
-void Send_SetLift_reply(uint8_t index, uint8_t paddr, uint16_t heitht){
-
+void Send_SetLift_reply(uint8_t index, uint8_t paddr, uint16_t heitht)
+{
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
+	uint8_t sramx = 0;					//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
@@ -892,10 +941,10 @@ void Send_SetLift_reply(uint8_t index, uint8_t paddr, uint16_t heitht){
 *  输   出：
 *  说   明：发送升降控制命令应答
 */ 
-void Send_LiftCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
-
+void Send_LiftCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd)
+{
 	uint8_t *buf;
-	uint8_t sramx=0;						//默认为内部sram
+	uint8_t sramx = 0;					//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请20字节
 	
 	buf[0] = 0x55;
@@ -934,8 +983,8 @@ void Send_LiftCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
 *  输   出：
 *  说   明：发送升降控制命令应答
 */ 
-void Send_ultra_en_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
-
+void Send_ultra_en_reply(uint8_t index, uint8_t paddr, uint8_t cmd)
+{
 	uint8_t *buf;
 	uint8_t sramx=0;						//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请20字节
@@ -977,7 +1026,6 @@ void Send_ultra_en_reply(uint8_t index, uint8_t paddr, uint8_t cmd){
 */ 
 void Send_angle_offset_reply(uint8_t index, uint8_t paddr, int8_t level_offset, int8_t pitch_offset)
 {
-
 	uint8_t *buf;
 	uint8_t sramx=0;						//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请20字节

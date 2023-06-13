@@ -488,12 +488,15 @@ void Err_Handle_task(void *p_arg)
 			UsartToPC.Comm_TimeOut = 1000;
 			UsartToPC.Disconnect_flag = 1;
 		}
+		
+//		#ifdef DMRV_TASK_OS
 		/* 和驱动器通信0.5S没在收到命令则停止 */
 		if(UsartToDrv.Comm_TimeOut >= 1000)			
 		{
 			UsartToDrv.Comm_TimeOut = 1000;
 			UsartToDrv.Disconnect_flag = 1;
 		}
+//		#endif
 		
 		if(Robot_Sys.Speed_Timeout_cnt >= 5000 || Robot_Sys.Odom_Timeout_cnt >= 5000)
 		{
@@ -513,7 +516,7 @@ void Err_Handle_task(void *p_arg)
 			{
 				if(Moto.en_sta == 0)
 				{
-					Send_mdrv_en_set(1,1);
+					Send_mdrv_en_set(1, 1);
 				}
 				else
 				{
@@ -546,6 +549,7 @@ void Err_Handle_task(void *p_arg)
 			}
 		}
 		
+//		#ifdef DMRV_TASK_OS
 		if(drv_flag == 0)
 		{
 			if(UsartToDrv.Disconnect_flag == 1)
@@ -566,6 +570,7 @@ void Err_Handle_task(void *p_arg)
 			}
 			if(UsartToDrv.Disconnect_flag == 0) drv_flag = 0;
 		}
+//		#endif
 		
 		if(Moto.over_cur_flag == true)		// 过流处理
 		{
@@ -918,7 +923,7 @@ void Cammand_task(void *p_arg)
 *  输   入：
 *           
 *  输   出：
-*  说   明：电机驱动器下发命令
+*  说   明：电机驱动器下发命令（现在没有用到）
 */
 void Send_Mdrv_task(void *p_arg)
 {
@@ -943,7 +948,6 @@ void Send_Mdrv_task(void *p_arg)
 			Moto.set_left_pwm = 0;
 			Moto.set_right_pwm = 0;
 		}
-			
 		Send_wr_all_mdrv_cmd(addr1, addr2, Moto.set_lear, Moto.set_angle, Moto.set_left_pwm, Moto.set_right_pwm);
 		OSTimeDlyHMSM(0, 0, 0, 25, OS_OPT_TIME_HMSM_STRICT, &err); // 延时25ms
 	}
@@ -973,14 +977,14 @@ void Mdrv_task(void *p_arg)
 }
 
 /*=============================================================================
-*  函数名 ：Mdrv_task
+*  函数名 ：Move_Speed_task
 *  作   者：hrx
 *  创建时间：2022年4月11日 
 *  修改时间：
 *  输   入：
 *           
 *  输   出：
-*  说   明：电机驱动器命令解析
+*  说   明：电机驱动器命令解析（现在没有用到）
 */
 void Move_Speed_task(void *p_arg)
 {
@@ -1007,7 +1011,7 @@ void Move_Speed_task(void *p_arg)
 *  输   出：
 *  说   明：电源管理任务
 */
-void Pmu_task(void *p_arg)    //电源管理函数
+void Pmu_task(void *p_arg)
 {
 	OS_ERR err;
 	uint8_t i;
@@ -1019,14 +1023,13 @@ void Pmu_task(void *p_arg)    //电源管理函数
 	{
 	  Read_PMUData();
 		Moto.over_cur_flag = Get_Drv_OverCur_Flag(Pms.Moto_Cur, Pms.Bat_Current);
-		
 		/* 60分钟把电量写一次 */
 		min_cnt ++;
 		if(min_cnt > 600)
 		{
 			min_cnt = 0;
-			AT24CXX_WriteOneByte(4,(Pms.Capacity_mah>>8) & 0x00ff);	// 当前容量
-			AT24CXX_WriteOneByte(5,Pms.Capacity_mah & 0x00ff);
+			AT24CXX_WriteOneByte(4, (Pms.Capacity_mah>>8) & 0x00ff);	// 当前容量
+			AT24CXX_WriteOneByte(5, Pms.Capacity_mah & 0x00ff);
 		}
 		
 //		if(last_lever_offset != Head_Status.Level_Offset)
@@ -1433,7 +1436,6 @@ void LED_task(void *p_arg)
 //		memset(AutoCharge.CH1_IrDa_Dat, 0x00, 4);  
 //		memset(AutoCharge.CH3_IrDa_Dat, 0x00, 4);
 		OSTimeDlyHMSM(0, 0, 0, 500, OS_OPT_TIME_HMSM_STRICT, &err); //延时500ms
-
 	}
 }
 

@@ -261,9 +261,9 @@ void USART3_IRQHandler(void)
 						UsartToPC.Rx_Sta = 0;
 						UsartToPC.Usart_Rx_OK = true;         						// 接收完成
 						
-//						USARTx_SendMultibyte(USART1,UsartToPC.Rx_Buf, 19);
+//						USARTx_SendMultibyte(USART1, UsartToPC.Rx_Buf, 19);
 						#ifdef SYSTEM_SUPPORT_OS	 	
-						OSSemPost(&UsartRxFromPC_SEM,OS_OPT_POST_1,&err);	// 发送信号量 
+						OSSemPost(&UsartRxFromPC_SEM, OS_OPT_POST_1, &err);	// 发送信号量 
 						#endif
 					}
 					else 
@@ -276,7 +276,6 @@ void USART3_IRQHandler(void)
 			}
 		} 
 	}
-
 	#ifdef SYSTEM_SUPPORT_OS	 
 	OSIntExit();  											 
   #endif

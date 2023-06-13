@@ -34,7 +34,7 @@ void RS485_Cfg_Init(uint32_t lBaudrate)
 	
 	RCC_AHB1PeriphClockCmd(RS485_TX_EN_PORT_CLK, ENABLE); 
 
-  GPIO_InitStructure.GPIO_Pin 	=  RS485_TX_EN_PIN;
+  GPIO_InitStructure.GPIO_Pin 	= RS485_TX_EN_PIN;
   GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_OUT;		    			// 输出
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;        			// 推挽输出
 	GPIO_InitStructure.GPIO_PuPd 	= GPIO_PuPd_NOPULL;						// 不上拉 ,也不下拉

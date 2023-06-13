@@ -86,8 +86,8 @@ void Moto_mdrv_analysis(void)
 						#ifndef ROBOT_YZ01
 						if(UsartToPC.Disconnect_flag == 0 && Robot_Sys.Speed_Timeout_cnt < 2000)
 							Send_Speed_reply(1, 0xff, Moto.lear, Moto.angle);
-            #endif
-					 break;
+            #endif 
+						break;
 					
 					case MDRV_READ:
 						addr1 = (uint16_t)UsartToDrv.Rx_Buf[2]<<8 | UsartToDrv.Rx_Buf[3];
@@ -348,6 +348,7 @@ void Send_speed_set(int16_t set_lear, int16_t set_angle)
 	crc16_data = ModBusCRC16(buf, 6);
 	buf[6] = crc16_data >> 8;
 	buf[7] = crc16_data;
+	
 	RS485_SendMultibyte(USART_RS485, buf, 8);
 	myfree(sramx, buf);				//释放内存
 }
@@ -439,7 +440,7 @@ void Send_write_mdrv_cmd(uint16_t addr1, uint16_t addr2, int16_t dat1, int16_t d
   uint16_t crc16_data;
 	uint8_t *buf;
 	uint8_t sramx = 0;					//默认为内部sram
-  buf = mymalloc(sramx, 20); //申请2K字节
+  buf = mymalloc(sramx, 20); 	//申请2K字节
 	
 	buf[0] = 0x01;
 	buf[1] = 0x44;
