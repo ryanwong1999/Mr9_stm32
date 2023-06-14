@@ -65,6 +65,7 @@ void AnalysisCMD(void)
 	int16_t rx_lear;
 	int16_t chg_dis;
 	int16_t chg_angle;
+	int16_t autoCharge_flag;
 	
 	if(UsartToPC.Usart_Rx_OK == true)
 	{
@@ -76,7 +77,7 @@ void AnalysisCMD(void)
 			
 		if(Pdev_tmp == DEV_ID){
 			cmd_tmp = UsartToPC.Rx_Buf[CMD_REG];
-			printf("cmd_tmp: %d\r\n",cmd_tmp);
+//			printf("cmd_tmp: %d\r\n",cmd_tmp);
 			switch(cmd_tmp)
 			{
 				/* 查询ODOM */
@@ -193,7 +194,7 @@ void AnalysisCMD(void)
 					Robot_Sys.mSysPower.charger = Pms.Bat_Sta | AutoCharge.chg_fail;
 				  Robot_Sys.mSysPower.power = Pms.Capacity;
 					Send_PowerDataUpdata(gPscCnt++, Sdev_tmp, Robot_Sys.mSysPower);
-					printf("CMD_QUERY_POWER-------\r\n");
+//					printf("CMD_QUERY_POWER-------\r\n");
 					break;
 				
 				/* 障碍状态 */
@@ -203,19 +204,30 @@ void AnalysisCMD(void)
 					break;
 				
 				/* 自动充电 */
-				case CMD_AUTOCHARGE:		
-					if((Pms.Bat_Sta & 0x01) == 0)
-					{				
-						charge_tmp = UsartToPC.Rx_Buf[8];
-						if(Robot_Sys.Last_Task != CHG_TASK)
+				case CMD_AUTOCHARGE:
+//					printf("CMD_AUTOCHARGE");
+					autoCharge_flag = UsartToPC.Rx_Buf[8];
+//					printf("autoCharge_flag: %d\r\n", autoCharge_flag);
+					if(autoCharge_flag == 0)
+					{
+						Robot_Sys.AutoCharge_task_flag = false;
+					}
+					else if(autoCharge_flag == 1)
+					{
+						if((Pms.Bat_Sta & 0x01) == 0)
 						{
-							Robot_Sys.Last_Task = CHG_TASK;
-							Robot_Sys.mBeepStatus.BeepMode = 0x01;
-							AutoCharge.AutoChg_Cmd = true;
-							Robot_Sys.AutoCharge_task_flag = false;
-							Robot_Sys.Remote_flag = true;
+							charge_tmp = UsartToPC.Rx_Buf[8];
+//							if(Robot_Sys.Last_Task != CHG_TASK)
+//							{
+								Robot_Sys.Last_Task = CHG_TASK;
+								Robot_Sys.mBeepStatus.BeepMode = 0x01;
+								AutoCharge.AutoChg_Cmd = true;
+								Robot_Sys.AutoCharge_task_flag = false;
+								Robot_Sys.Remote_flag = true;
+//							}
 						}
 					}
+//					printf("autoCharge_flag: %d, Last_Task:%d\r\n", autoCharge_flag, Robot_Sys.Last_Task);
 					#ifndef ROBOT_YZ01	
 					Send_Autocharge_reply(gUpdateCnt, Sdev_tmp, charge_tmp);
 					#endif
@@ -428,7 +440,8 @@ void Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool 
 	uint8_t *buf;
 	uint8_t sramx = 0;					//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请20字节
-	
+
+//	printf("Robot_Sys.Mergency_Stop_flag:%d\r\n", Robot_Sys.Mergency_Stop_flag);
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
 	buf[2] = index;
@@ -779,6 +792,8 @@ void Send_Autocharge_speed(uint8_t index, uint8_t paddr, uint16_t linear, uint16
 	uint8_t sramx = 0;					//默认为内部sram
   buf = mymalloc(sramx, 20);	//申请20字节
 	
+//	printf("linear:%d, angular:%d \r\n", linear, angular);
+	
 	buf[0] = 0x55;
 	buf[1] = 0xAA;
 	buf[2] = index;
@@ -793,7 +808,7 @@ void Send_Autocharge_speed(uint8_t index, uint8_t paddr, uint16_t linear, uint16
 	buf[10] = angular>>8;
 	buf[11] = angular;
 	buf[12] = Robot_Sys.AutoCharge_task_flag;
-	buf[13] = 0;
+	buf[13] = Robot_Sys.Mergency_Stop_flag;
 	buf[14] = 0;
 	buf[15] = 0;
 

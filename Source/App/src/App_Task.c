@@ -476,7 +476,7 @@ void Err_Handle_task(void *p_arg)
 	p_arg = p_arg;
 	while(1)
 	{
-		 IWDG_Feed();		// 喂狗
+		IWDG_Feed();		// 喂狗
 		
 //		printf("Disconnect_flag : %d , %d,  %d\r\n", UsartToPC.Disconnect_flag, UsartToDrv.Disconnect_flag, Robot_Sys.Comm_break_flag);
 //    printf("timeout:  %d, %d\r\n", Robot_Sys.Speed_Timeout_cnt, Robot_Sys.Odom_Timeout_cnt);
@@ -489,15 +489,13 @@ void Err_Handle_task(void *p_arg)
 			UsartToPC.Disconnect_flag = 1;
 		}
 		
-//		#ifdef DMRV_TASK_OS
+		#ifdef DMRV_TASK_OS
 		/* 和驱动器通信0.5S没在收到命令则停止 */
 		if(UsartToDrv.Comm_TimeOut >= 1000)			
 		{
 			UsartToDrv.Comm_TimeOut = 1000;
 			UsartToDrv.Disconnect_flag = 1;
 		}
-//		#endif
-		
 		if(Robot_Sys.Speed_Timeout_cnt >= 5000 || Robot_Sys.Odom_Timeout_cnt >= 5000)
 		{
 			Robot_Sys.Speed_Timeout_cnt = 5000;
@@ -508,6 +506,7 @@ void Err_Handle_task(void *p_arg)
 		{
 			Robot_Sys.Comm_break_flag = 0;
 		}
+		#endif
 		/* 无法通讯不让车走 */
 		if(UsartToPC.Disconnect_flag == 1 || Robot_Sys.Comm_break_flag == 1)		
 		{
@@ -549,7 +548,7 @@ void Err_Handle_task(void *p_arg)
 			}
 		}
 		
-//		#ifdef DMRV_TASK_OS
+		#ifdef DMRV_TASK_OS
 		if(drv_flag == 0)
 		{
 			if(UsartToDrv.Disconnect_flag == 1)
@@ -570,7 +569,7 @@ void Err_Handle_task(void *p_arg)
 			}
 			if(UsartToDrv.Disconnect_flag == 0) drv_flag = 0;
 		}
-//		#endif
+		#endif
 		
 		if(Moto.over_cur_flag == true)		// 过流处理
 		{
@@ -1113,34 +1112,34 @@ void Ultrasonic_task(void *p_arg)
 	OS_ERR err;
 	static uint16_t charge_overtime = 0;
 	static uint8_t chg_cnt = 0;
-	static uint8_t cnt = 0;
-	static uint8_t reset_cnt = 0;
+//	static uint8_t cnt = 0;
+//	static uint8_t reset_cnt = 0;
 	static uint8_t chg_oc_cnt = 0;
 	p_arg = p_arg;
 	
 	while(1)
 	{
-		/* 判断急停按下给急停标志位 */
-		if(STOP_KEY_READ == 1)
-		{
-			cnt ++;
-			reset_cnt = 0;
-			if(cnt > 2)
-			{
-				cnt = 0;
-				Robot_Sys.Mergency_Stop_flag = true;
-			}
-		}
-		else
-		{
-			cnt = 0;
-			reset_cnt ++;
-			if(reset_cnt > 5)
-			{
-				reset_cnt = 0;
-				Robot_Sys.Mergency_Stop_flag = false;
-			}
-		}
+//		/* 判断急停按下给急停标志位 */
+//		if(STOP_KEY_READ == 1)
+//		{
+//			cnt ++;
+//			reset_cnt = 0;
+//			if(cnt > 2)
+//			{
+//				cnt = 0;
+//				Robot_Sys.Mergency_Stop_flag = true;
+//			}
+//		}
+//		else
+//		{
+//			cnt = 0;
+//			reset_cnt ++;
+//			if(reset_cnt > 5)
+//			{
+//				reset_cnt = 0;
+//				Robot_Sys.Mergency_Stop_flag = false;
+//			}
+//		}
 		Robot_Sys.Crash_Flag = Get_Crash_Status();
     Ultra_OverTime_Process();
     Ultra_Process();
@@ -1225,9 +1224,34 @@ void Ultrasonic_task(void *p_arg)
 void LiftMoto_task(void *p_arg)
 {
 	OS_ERR err;
+	static uint8_t cnt = 0;
+	static uint8_t reset_cnt = 0;
 	p_arg = p_arg;
+	
 	while(1)
 	{
+		/* 判断急停按下给急停标志位 */
+		if(STOP_KEY_READ == 1)
+		{
+			cnt ++;
+			reset_cnt = 0;
+			if(cnt > 2)
+			{
+				cnt = 0;
+				Robot_Sys.Mergency_Stop_flag = true;
+			}
+		}
+		else
+		{
+			cnt = 0;
+			reset_cnt ++;
+			if(reset_cnt > 5)
+			{
+				reset_cnt = 0;
+				Robot_Sys.Mergency_Stop_flag = false;
+			}
+		}
+		
 		LiftMoto_Process();
 		#ifdef LiftMoto_1
 		if(Lift_Moto.Cmd == LIFT_STOP && Lift_Moto.Set_Height == 0xffff)
