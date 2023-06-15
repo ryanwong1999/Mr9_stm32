@@ -237,7 +237,7 @@ void AutoCharge_move(uint8_t Move_sta1)
 				sta_last = Move_sta1;
 				Moto.cmd_addr1 = 0x2610;
 				Moto.cmd_addr2 = 0x3610;
-				AutoCharge.set_lear = -60;
+				AutoCharge.set_lear = -60;	// 60
 				AutoCharge.set_angle = 0;
 			}		
 			break;
@@ -307,7 +307,7 @@ void AutoCharge_move(uint8_t Move_sta1)
 			break;
 	
 		case CHG_MOVE_BACKWARD:
-			Moto.set_left_pwm = 90 ;
+			Moto.set_left_pwm = 90;
 			Moto.set_right_pwm = 90;
 			break;
 		
