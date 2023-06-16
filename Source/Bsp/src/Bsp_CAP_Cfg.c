@@ -181,12 +181,13 @@ static int read_encoder(void)
 			encoderNum = encoderOld;
 			TIM_SetCounter(TIM8, encoderOld);
 		}
+		/* 700mm行程升降杆有时候上升的时候脉冲会回跳 */
 		else if(Lift_Moto.Height < Lift_Moto.Set_Height)
 		{
 			if(encoderNum - encoderOld < 0)
 			{
-				printf("Lift_Moto.Height: %d Lift_Moto.Set_Height: %d\r\n",Lift_Moto.Height, Lift_Moto.Set_Height);
-				printf("encoderNum: %d encoderOld: %d\r\n",encoderNum, encoderOld);
+//				printf("Lift_Moto.Height: %d Lift_Moto.Set_Height: %d\r\n",Lift_Moto.Height, Lift_Moto.Set_Height);
+//				printf("encoderNum: %d encoderOld: %d\r\n",encoderNum, encoderOld);
 				encoderNum = encoderOld + 3;
 				TIM_SetCounter(TIM8, encoderOld + 3);
 			}
@@ -196,12 +197,10 @@ static int read_encoder(void)
 		else 
 			encoderOld = encoderNum;
 		
-
-		
 		if(encoderNum < CNT_INIT) 
 			TIM_SetCounter(TIM8, CNT_INIT);		/* CNT设初值 */	
 	}
-	printf("encoderNum: %d\r\n", encoderNum);
+//	printf("encoderNum: %d\r\n", encoderNum);
 	return encoderNum;
 }
 
