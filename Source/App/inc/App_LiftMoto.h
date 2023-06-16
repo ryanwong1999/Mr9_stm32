@@ -29,6 +29,7 @@ extern "C" {
 
 #define MAX_HEIGHT    144	 		// 最高高度
 #define MAX_HEIGHT_2  80	 		// 最高高度
+#define MAX_HEIGHT_3  70	 		// 最高高度
 #define MAX_LIFT_TIM  10200   // 升到最高高度所需时间
 
 /*

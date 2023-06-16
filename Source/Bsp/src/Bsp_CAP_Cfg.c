@@ -14,12 +14,6 @@
 #include <stdlib.h>
 #include "includes.h"
 
-#define ENCODER_RESOLUTION 		1		/* 编码器一圈的物理脉冲数 */
-#define ENCODER_MULTIPLE 			4		/* 编码器倍频，通过定时器的编码器模式设置 */
-#define MOTOR_REDUCTION_RATIO 1 	/* 电机的减速比 */
-/* 电机转一圈总的脉冲数(定时器能读到的脉冲数) = 编码器物理脉冲数*编码器倍频*电机减速比 */
-#define TOTAL_RESOLUTION ( ENCODER_RESOLUTION*ENCODER_MULTIPLE*MOTOR_REDUCTION_RATIO ) 
-
 #define TIM_PERIOD 						65535
 
 #define ENCODER_TIM_PSC  			0				/* 计数器分频 */
@@ -62,49 +56,49 @@ void TIM_ICP_Cfg_Init(uint16_t iArr, uint16_t iPsc)
 	                                                                // 设定定时器频率为=TIMxCLK/(TIM_Prescaler+1)=100KHz
 	TIM_TimeBaseStructure.TIM_ClockDivision=TIM_CKD_DIV1;		        // 对外部时钟进行采样的时钟分频,这里没有用到 */
 	TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up;	      // 计数方式
-	TIM_TimeBaseInit( CAP_TIM, &TIM_TimeBaseStructure);	            // 初始化定时器TIMx, x[1,8]	
+	TIM_TimeBaseInit(CAP_TIM, &TIM_TimeBaseStructure);	            // 初始化定时器TIMx, x[1,8]	
 	/* 初始化TIM5输入捕获参数 */
 	ICP_ICInitStructure.TIM_Channel 		= TIM_Channel_1;            // CC1S=01 	选择输入端 IC1映射到TI1上
 	ICP_ICInitStructure.TIM_ICPolarity 	= TIM_ICPolarity_Rising;	  // 上升沿捕获
 	ICP_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; // 映射到TI1上
 	ICP_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	          // 配置输入分频,不分频 
 	ICP_ICInitStructure.TIM_ICFilter 		= 0x00;                     // IC1F=0000 配置输入滤波器 不滤波
-	TIM_ICInit( CAP_TIM, &ICP_ICInitStructure);
+	TIM_ICInit(CAP_TIM, &ICP_ICInitStructure);
 	
 	ICP_ICInitStructure.TIM_Channel 		= TIM_Channel_2;            // CC1S=01 	选择输入端 IC1映射到TI1上
 	ICP_ICInitStructure.TIM_ICPolarity 	= TIM_ICPolarity_Rising;	  // 上升沿捕获
 	ICP_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; // 映射到TI1上
 	ICP_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	          // 配置输入分频,不分频 
 	ICP_ICInitStructure.TIM_ICFilter 		= 0x00;                     // IC1F=0000 配置输入滤波器 不滤波
-	TIM_ICInit( CAP_TIM, &ICP_ICInitStructure);	
+	TIM_ICInit(CAP_TIM, &ICP_ICInitStructure);	
 	/* 初始化TIM5输入捕获参数 */
 	ICP_ICInitStructure.TIM_Channel 		= TIM_Channel_3;            // CC1S=01 	选择输入端 IC1映射到TI1上
 	ICP_ICInitStructure.TIM_ICPolarity 	= TIM_ICPolarity_Rising;	  // 上升沿捕获
 	ICP_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; // 映射到TI1上
 	ICP_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	          // 配置输入分频,不分频 
 	ICP_ICInitStructure.TIM_ICFilter 		= 0x00;                     // IC1F=0000 配置输入滤波器 不滤波
-	TIM_ICInit( CAP_TIM, &ICP_ICInitStructure);
+	TIM_ICInit(CAP_TIM, &ICP_ICInitStructure);
 	
 	ICP_ICInitStructure.TIM_Channel 		= TIM_Channel_4;            // CC1S=01 	选择输入端 IC1映射到TI1上
 	ICP_ICInitStructure.TIM_ICPolarity 	= TIM_ICPolarity_Rising;	  // 上升沿捕获
 	ICP_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; // 映射到TI1上
 	ICP_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	          // 配置输入分频,不分频 
 	ICP_ICInitStructure.TIM_ICFilter 		= 0x00;                     // IC1F=0000 配置输入滤波器 不滤波
-	TIM_ICInit( CAP_TIM, &ICP_ICInitStructure);	 
+	TIM_ICInit(CAP_TIM, &ICP_ICInitStructure);	 
 	
 	TIM_ITConfig(CAP_TIM, TIM_IT_CC1, ENABLE);											// 允许更新中断 ,允许CC1IE捕获中断	
 	TIM_ITConfig(CAP_TIM, TIM_IT_CC2, ENABLE);											// 允许更新中断 ,允许CC1IE捕获中断	
 	TIM_ITConfig(CAP_TIM, TIM_IT_CC3, ENABLE);											// 允许更新中断 ,允许CC1IE捕获中断	
 	TIM_ITConfig(CAP_TIM, TIM_IT_CC4, ENABLE);											// 允许更新中断 ,允许CC1IE捕获中断	
 	
-	TIM_Cmd(CAP_TIM,DISABLE ); 	                           					// 禁止定时器5
+	TIM_Cmd(CAP_TIM, DISABLE); 	                           					// 禁止定时器5
 	/* NVIC 配置, 统一放置于main.c 统一处理 */
 }
 
 void TIM8_Configuration(void)
 {
     GPIO_InitTypeDef GPIO_InitStruct;
-    TIM_TimeBaseInitTypeDef  TIM_TimeBaseStruct;
+    TIM_TimeBaseInitTypeDef TIM_TimeBaseStruct;
     TIM_ICInitTypeDef TIM_ICInitStruct;
 
     /* GPIO初始化 */
@@ -147,48 +141,67 @@ int hight = 0, hight_read = 0, hight_mm = 0, reset_cnt = 0;
 static int read_encoder(void)
 {
 	encoderNum = TIM_GetCounter(TIM8);	
+	/* 不继续升降了 */
 	if(encoderNum == encoderOld)
 	{
 		if(Lift_Moto.Set_Height == 0)
 		{
 			reset_cnt++;
-			if(reset_cnt >= 50)
+			if(reset_cnt >= 100)
 			{
 				encoderNum = CNT_INIT;
 				encoderOld = CNT_INIT;
-				TIM_SetCounter(TIM8, CNT_INIT);		/*CNT设初值*/	
+				TIM_SetCounter(TIM8, CNT_INIT);		/* CNT设初值 */	
 				reset_cnt = 0;
 			}
 		}		
-		if(Lift_Moto.Set_Height == MAX_HEIGHT_2)
+		if(Lift_Moto.Set_Height == MAX_HEIGHT_3)
 		{
 			reset_cnt++;
-			if(reset_cnt >= 50)
+			if(reset_cnt >= 100)
 			{
-				encoderNum = 4750;
-				encoderOld = 4750;
-				TIM_SetCounter(TIM8, 4750);		/*CNT设初值*/	
+//				encoderNum = 4750;
+//				encoderOld = 4750;
+//				TIM_SetCounter(TIM8, 4750);		/* CNT设初值 */	
+				encoderNum = 4260;
+				encoderOld = 4260;
+				TIM_SetCounter(TIM8, 4260);		/* CNT设初值 */	
 				Lift_Moto.Lift_OK_flag = true;
 				reset_cnt = 0;
 			}
 		}
 	}
+	/* 还在继续升降 */
 	else
 	{
 		reset_cnt = 0;
-	
+		/* 脉冲有大跳动 */
 		if(abs(encoderNum - encoderOld) > 20) 
 		{
 			encoderNum = encoderOld;
 			TIM_SetCounter(TIM8, encoderOld);
 		}
+		else if(Lift_Moto.Height < Lift_Moto.Set_Height)
+		{
+			if(encoderNum - encoderOld < 0)
+			{
+				printf("Lift_Moto.Height: %d Lift_Moto.Set_Height: %d\r\n",Lift_Moto.Height, Lift_Moto.Set_Height);
+				printf("encoderNum: %d encoderOld: %d\r\n",encoderNum, encoderOld);
+				encoderNum = encoderOld + 3;
+				TIM_SetCounter(TIM8, encoderOld + 3);
+			}
+			else
+				encoderOld = encoderNum;
+		}
 		else 
 			encoderOld = encoderNum;
 		
+
+		
 		if(encoderNum < CNT_INIT) 
-			TIM_SetCounter(TIM8, CNT_INIT);		/*CNT设初值*/	
+			TIM_SetCounter(TIM8, CNT_INIT);		/* CNT设初值 */	
 	}
-//	printf("encoderNum: %d\r\n", encoderNum);
+	printf("encoderNum: %d\r\n", encoderNum);
 	return encoderNum;
 }
 
@@ -197,9 +210,10 @@ int GetLiftHeight(void)
 {
 	/*读取编码器的值，正负代表旋转方向*/
 	hight_read = read_encoder();
-	hight = (hight_read - 1000) * 0.0213;		// (80/3750) = 0.0213
+//	hight = (hight_read - 1000) * 0.0213;		/* (80/3750) = 0.0213 */
+	hight = (hight_read - 1000) * 0.0215;		/* (70/3260) = 0.0218 */
 	hight_mm = ((hight_read - 1000) * 0.0213) * 10;
-//	printf("hight: %d       hight: %d\r\n", hight, hight_mm);
+	printf("hight: %d       hight_mm: %d\r\n", hight, hight_mm);
 	return hight;
 }
 

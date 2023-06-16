@@ -314,7 +314,7 @@ void LiftMoto_GoTO_SetHeiht(uint16_t *_set_height)
 	if(*_set_height == MAX_HEIGHT_2)
 	{
 		/* иоочн╩ */
-		if(Lift_Moto.Height >= 79) Lift_Moto.Lift_OK_flag = true;
+		if(Lift_Moto.Height >= 69) Lift_Moto.Lift_OK_flag = true;
 		else Lift_Moto.Cmd = LIFT_UP;
 	}
 	else if(*_set_height == 0)
@@ -379,7 +379,8 @@ void LiftMoto_Process(void)
 	LiftMoto_Set(Lift_Moto.Cmd);
 	#elif LiftMoto_2
 	Lift_Moto.Height = GetLiftHeight();
-//	printf("Lift_Moto.Lift_OK_flag: %d\r\n",Lift_Moto.Lift_OK_flag);
+//	printf("Lift_Moto.Lift_OK_flag: %d\r\n", Lift_Moto.Lift_OK_flag);
+//	printf("Lift_Moto.Set_Height: %d\r\n", Lift_Moto.Set_Height);
 	if(Lift_Moto.Set_Height != 0xffff)
 	{
 		LiftMoto_GoTO_SetHeiht(&Lift_Moto.Set_Height);

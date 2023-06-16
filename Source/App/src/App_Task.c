@@ -1263,7 +1263,7 @@ void LiftMoto_task(void *p_arg)
 		}
 		OSTimeDlyHMSM(0, 0, 0, 10, OS_OPT_TIME_HMSM_STRICT, &err); 	// —” ±10ms
 		#elif LiftMoto_2
-		OSTimeDlyHMSM(0, 0, 0, 100, OS_OPT_TIME_HMSM_STRICT, &err);	// —” ±100ms
+		OSTimeDlyHMSM(0, 0, 0, 10, OS_OPT_TIME_HMSM_STRICT, &err);	// —” ±100ms
 		#endif
 	}
 }

@@ -44,18 +44,21 @@ void Moto_Sample_Delay10us(void)
 *  输   出：
 *  说   明：定时器捕获中断函数
 */
-void TIM8_CC_IRQHandler(void) {
-////		position = TIM_GetCounter(TIM8);
-//  if (TIM_GetITStatus(TIM8, TIM_IT_CC1) != RESET) {
-//    position++;
-//		printf("position: %d,\r\n",position);
-//    TIM_ClearITPendingBit(TIM8, TIM_IT_CC1);
+void TIM8_CC_IRQHandler(void) 
+{
+//	position = TIM_GetCounter(TIM8);
+  if(TIM_GetITStatus(TIM8, TIM_IT_Update) != RESET) 
+	{
+    position++;
+		printf("position: %d\r\n", position);
+    TIM_ClearITPendingBit(TIM8, TIM_IT_Update);
+  }
+//	if(TIM_GetITStatus(TIM8, TIM_IT_CC2) != RESET) 
+//	{
+//    int position = TIM_GetCounter(TIM8);
+//		printf("position: %d\r\n", position);
+//    TIM_ClearITPendingBit(TIM8, TIM_IT_CC2);
 //  }
-////	if (TIM_GetITStatus(TIM8, TIM_IT_CC2) != RESET) {
-////    int position = TIM_GetCounter(TIM8);
-////		printf("position: %d,\r\n",position);
-////    TIM_ClearITPendingBit(TIM8, TIM_IT_CC2);
-////  }
 }
 
 //void TIM8_CC_IRQHandler(void)
