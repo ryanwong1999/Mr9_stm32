@@ -111,7 +111,7 @@ void AnalysisCMD(void)
 					{
 						Robot_Sys.AutoCharge_task_flag = false;
 						AutoCharge.AutoChg_Cmd = false;
-						Robot_Sys.Remote_flag = true;
+						Robot_Sys.Remote_flag = true;		//工控机给速度标志位
 						Robot_Sys.Set_PWM_Task_Flag = false;
 						Robot_Sys.Last_Task = REMOTE_TASK;
 						AutoCharge.chg_flag = 0;

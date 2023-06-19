@@ -129,7 +129,7 @@ void AutoCharge_Processing(void)
 				AutoCharge.Last_Position = POSITION_NULL;          
 				AutoCharge.Move_Sta = CHG_MOVE_ZEROLEFT;
 				if(AutoCharge.OverTime > 60000)
-				{ 				
+				{
 					AutoCharge.Chg_Sta |= 0x40;			// 0100 0000 				
 					AutoCharge.NotFind_Flag = true;	// 找不到充电桩
 				}
@@ -159,7 +159,7 @@ void AutoCharge_Processing(void)
 				}
 				/* 两边都为0 */
 				else
-				{		
+				{
 					AutoCharge.Last_Position = AutoCharge.Last_Position;
 					AutoCharge.Move_Sta = CHG_MOVE_ZEROLEFT;
 				}		
@@ -183,7 +183,7 @@ void AutoCharge_Processing(void)
 				Position_Cnt++;
 				if(Position_Cnt > 200)
 				{
-					Position_Cnt = 0; 
+					Position_Cnt = 0;
 					AutoCharge.Position = POSITION_NULL;
 					AutoCharge.Last_Position = POSITION_NULL;
 				}
@@ -191,7 +191,7 @@ void AutoCharge_Processing(void)
 			else
 			{
 				Position_Cnt = 0;
-			}	
+			}
 		}
 //		printf("CH1_DAT1=%02X CH1_DAT2=%02X CH1_DAT3=%02X  CH1_DAT4=%02X \r\n",AutoCharge.CH1_IrDa_Dat[0],  
 //		AutoCharge.CH1_IrDa_Dat[1],AutoCharge.CH1_IrDa_Dat[2],AutoCharge.CH1_IrDa_Dat[3] );

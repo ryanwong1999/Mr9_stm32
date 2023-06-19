@@ -665,7 +665,8 @@ void Chg_task(void *p_arg)    // 充电处理函数
 	p_arg = p_arg;
 	while(1)
 	{
-		if((cha_sta & 0x10) == 0){
+		if((cha_sta & 0x10) == 0)
+		{
 			/* 输入电压大于26V */ 
 			if(ADC_Filter_Value[2] >= 2600 && AutoCharge.ReChg_flag == 0)
 			{
