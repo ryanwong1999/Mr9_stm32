@@ -546,7 +546,9 @@ void Err_Handle_task(void *p_arg)
 					Send_speed_set(Moto.set_lear, Moto.set_angle);
 				}
 			}
+			EN_MDRV_DISABLE;
 		}
+		else EN_MDRV_ENABLE;
 		
 		#ifdef DMRV_TASK_OS
 		if(drv_flag == 0)

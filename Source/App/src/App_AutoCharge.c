@@ -252,7 +252,7 @@ void AutoCharge_move(uint8_t Move_sta1)
 				AutoCharge.set_lear = -30;     // 60,230
 				AutoCharge.set_angle = -110;
 				#else						
-				AutoCharge.set_lear = -40;     // 60,230
+				AutoCharge.set_lear = -40;     // 60,230  40,246
 				AutoCharge.set_angle = -246;
 				#endif
 			}
@@ -268,8 +268,8 @@ void AutoCharge_move(uint8_t Move_sta1)
 				AutoCharge.set_lear = -30;
 				AutoCharge.set_angle = 110;
 				#else
-				AutoCharge.set_lear = -40;
-				AutoCharge.set_angle = 246;
+				AutoCharge.set_lear = -35;
+				AutoCharge.set_angle = 215;
 				#endif
 			}
 		 break;
@@ -391,7 +391,8 @@ void Chg_Position_Judge(void)
 				AutoCharge.Position = POSITION_MID;
 			}
 		}
-	}else if((AutoCharge.CH1_IrDa_Dat[0] == TXDAT_LEFT) && (AutoCharge.CH3_IrDa_Dat[0] == TXDAT_LEFT))		// ×ó¡¢×ó
+	}
+	else if((AutoCharge.CH1_IrDa_Dat[0] == TXDAT_LEFT) && (AutoCharge.CH3_IrDa_Dat[0] == TXDAT_LEFT))		// ×ó¡¢×ó
 	{
 		if(AutoCharge.Position == POSITION_IR)
 		{
@@ -409,7 +410,8 @@ void Chg_Position_Judge(void)
 				AutoCharge.Position = POSITION_LEFT;
 			}
 		}		
-	}else if((AutoCharge.CH1_IrDa_Dat[2] == TXDAT_RIGHT) && (AutoCharge.CH3_IrDa_Dat[2] == TXDAT_RIGHT))	//ÓÒ¡¢ÓÒ
+	}
+	else if((AutoCharge.CH1_IrDa_Dat[2] == TXDAT_RIGHT) && (AutoCharge.CH3_IrDa_Dat[2] == TXDAT_RIGHT))	//ÓÒ¡¢ÓÒ
 	{
 		if(AutoCharge.Position == POSITION_IR)
 		{
