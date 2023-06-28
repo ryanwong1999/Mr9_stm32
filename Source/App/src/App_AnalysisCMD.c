@@ -679,7 +679,7 @@ void Send_Obstacle_Sta(uint8_t index, uint8_t paddr, uint8_t obs_sta, uint8_t cr
 	buf[9] = crach_sta;	//下右
 	buf[10] = zf_flag;				
 	buf[11] = (Moto_Current_Send >> 8) & 0x00ff;		//把驱动器电流发上去
-	buf[12] = Moto_Current_Send  & 0x00ff;	
+	buf[12] = Moto_Current_Send & 0x00ff;
 	buf[13] = Robot_Sys.Stop_flag;
 	buf[14] = (Pms.Bat_Voltage >> 8) & 0x00ff;  		//把电池电压发上去
 	buf[15] = Pms.Bat_Voltage & 0x00ff;	

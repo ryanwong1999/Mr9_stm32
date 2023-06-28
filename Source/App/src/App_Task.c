@@ -773,7 +773,9 @@ void Chg_task(void *p_arg)    // 充电处理函数
 				}
 			}
 		}
-		OSTimeDlyHMSM(0, 0, 0, 100, OS_OPT_TIME_HMSM_STRICT, &err); // 延时300ms
+		/* 防撞条标志位 */
+		Robot_Sys.Crash_Flag = Get_Crash_Status();
+		OSTimeDlyHMSM(0, 0, 0, 100, OS_OPT_TIME_HMSM_STRICT, &err); // 延时100ms
 	}
 }
 
@@ -1185,11 +1187,12 @@ void Ultrasonic_task(void *p_arg)
 				AutoCharge.chg_flag = 0;
 			}
 		}
-//		else if(AutoCharge.Time_out > 65000 && AutoCharge.NotFind_Flag != true && Robot_Sys.Last_Task == CHG_TASK){
+//		else if(AutoCharge.Time_out > 65000 && AutoCharge.NotFind_Flag != true && Robot_Sys.Last_Task == CHG_TASK)
+//		{
 //		 	AutoCharge.StartUp_Flag = 1;
 //			AutoCharge.Chg_Sta = 0;
 //			charge_overtime = 0;
-//			 AutoCharge.Time_out = 0;
+//			AutoCharge.Time_out = 0;
 //			AutoCharge.chg_flag = 0;
 //		}
 		else
@@ -1198,13 +1201,15 @@ void Ultrasonic_task(void *p_arg)
 			chg_cnt = 0;
 			chg_oc_cnt = 0;
 		}
-						
-//		if(UsartToPC.Comm_TimeOut >= 500){    // 0.5S没在收到命令则停止
+		
+//		/* 0.5S没在收到命令则停止 */
+//		if(UsartToPC.Comm_TimeOut >= 500)
+//		{
 //		  UsartToPC.Comm_TimeOut = 500;
 //		  UsartToPC.Disconnect_flag = 1;
 //		}
-//		
-//		if(UsartToDrv.Comm_TimeOut >= 1000){
+//		if(UsartToDrv.Comm_TimeOut >= 1000)
+//		{
 //		  UsartToDrv.Comm_TimeOut = 1000;
 //			UsartToDrv.Disconnect_flag = 1;
 //		}
