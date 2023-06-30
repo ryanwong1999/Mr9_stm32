@@ -1453,28 +1453,53 @@ void LED_task(void *p_arg)
 		else LAMP_BEEP_OFF;
 		#elif ROBOT_MR9
 		/* 车灯控制 */
-		if(Robot_Sys.CarLight_flag == 1) LAMP_WHITE_ON;
-		else if(Robot_Sys.CarLight_flag == 0) LAMP_WHITE_OFF;
+		if(Robot_Sys.CarLight_flag == 1)				//前白灯开 后白灯关
+		{
+			LAMP_WHITE_ON;
+			LAMP_WHITE_B_OFF;
+		}
+		else if(Robot_Sys.CarLight_flag == 2) 	//后白灯开 前白灯关
+		{
+			LAMP_WHITE_B_ON;
+			LAMP_WHITE_OFF;
+		}
+		else if(Robot_Sys.CarLight_flag == 3) 	//前后白灯开
+		{
+			LAMP_WHITE_ON;
+			LAMP_WHITE_B_ON;
+		}
+		else if(Robot_Sys.CarLight_flag == 0) 	//前后白灯关
+		{
+			LAMP_WHITE_OFF;
+			LAMP_WHITE_B_OFF;
+		}
 		
-		if(Robot_Sys.TurnLight_flag == 1)
+		if(Robot_Sys.TurnLight_flag == 1)				//左转向灯开 右转向灯关
 		{
 			LAMP_LEFT_ON;
 			LAMP_RIGHT_OFF;
 		}
-		else if(Robot_Sys.TurnLight_flag == 2) 
+		else if(Robot_Sys.TurnLight_flag == 2) 	//右转向灯开 左转向灯关
 		{
 			LAMP_LEFT_OFF;
 			LAMP_RIGHT_ON;
 		}
-		else if(Robot_Sys.TurnLight_flag == 3) 
+		else if(Robot_Sys.TurnLight_flag == 3) 	//左右转向灯开
 		{
 			LAMP_LEFT_ON;
 			LAMP_RIGHT_ON;
 		}
-		else if(Robot_Sys.TurnLight_flag == 0) 
+		else if(Robot_Sys.TurnLight_flag == 0) 	//左右转向灯关
 		{
 			LAMP_LEFT_OFF;
 			LAMP_RIGHT_OFF;
+		}
+		
+		/* 异常情况 */
+		if(UsartToPC.Disconnect_flag == 1)			//和工控机断开连接
+		{
+			LAMP_LEFT_ON;
+			LAMP_RIGHT_ON;
 		}
 		#endif
 
