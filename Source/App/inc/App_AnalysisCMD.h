@@ -161,7 +161,7 @@ void Send_HeadCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd);
 void Send_HeadAngle_reply(uint8_t index, uint8_t paddr, uint16_t set_level, uint16_t set_pitch);
 void Send_SetLift_reply(uint8_t index, uint8_t paddr, uint16_t heitht);
 void Send_LiftCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd);
-void Send_ultra_en_reply(uint8_t index, uint8_t paddr, uint8_t cmd);
+void Send_ultra_en_reply(uint8_t index, uint8_t paddr, uint8_t ultra_cmd, uint8_t light_cmd, uint8_t turn_cmd);
 void Send_angle_offset_reply(uint8_t index, uint8_t paddr, int8_t level_offset, int8_t pitch_offset);
 void Send_Autocharge_speed(uint8_t index, uint8_t paddr, uint16_t linear, uint16_t angular);
 

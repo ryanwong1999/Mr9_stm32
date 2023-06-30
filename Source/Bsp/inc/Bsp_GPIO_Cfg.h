@@ -57,9 +57,9 @@ extern "C" {
 #define LAMP_GREEN_PIN	        GPIO_Pin_11
 #define LAMP_YELLOW_PIN	      	GPIO_Pin_12
 #define LAMP_BEEP_PIN          	GPIO_Pin_13
-#define LAMP_WHITE_PIN					GPIO_Pin_10
+#define LAMP_WHITE_PIN					GPIO_Pin_13
 #define LAMP_LEFT_PIN						GPIO_Pin_12
-#define LAMP_RIGHT_PIN					GPIO_Pin_13
+#define LAMP_RIGHT_PIN					GPIO_Pin_11
 
 #define LAMP_RED_TOGGLE      		digitalToggle(LAMP_PORT, LAMP_RED_PIN)
 #define LAMP_RED_ON			    		GPIO_SetBits(LAMP_PORT, LAMP_RED_PIN)

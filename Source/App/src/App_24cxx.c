@@ -14,7 +14,7 @@
 #include "includes.h" 				 
 
 
-#define AT24CXX_FIRST_STA  0x57
+#define AT24CXX_FIRST_STA  0x52
 #define FIRST_STA_ADDR     0xff
 
 //初始化IIC接口
@@ -173,7 +173,7 @@ uint8_t AT24xx_Check(void)
 			
 		//头部水平俯仰设置偏移量
 		Head_Status.Level_Offset = -10;
-		Head_Status.Pitch_Offset = 60;
+		Head_Status.Pitch_Offset = 70;
 		AT24CXX_WriteOneByte(6,Head_Status.Level_Offset);   		//当前容量
 		AT24CXX_WriteOneByte(7,Head_Status.Pitch_Offset);
 	

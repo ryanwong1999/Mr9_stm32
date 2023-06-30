@@ -1453,10 +1453,29 @@ void LED_task(void *p_arg)
 		else LAMP_BEEP_OFF;
 		#elif ROBOT_MR9
 		/* ³µµÆ¿ØÖÆ */
-		if(Robot_Sys.CarLight_flag == 1) 
-			LAMP_WHITE_ON;
-		else if(Robot_Sys.CarLight_flag == 0) 
-			LAMP_WHITE_OFF;
+		if(Robot_Sys.CarLight_flag == 1) LAMP_WHITE_ON;
+		else if(Robot_Sys.CarLight_flag == 0) LAMP_WHITE_OFF;
+		
+		if(Robot_Sys.TurnLight_flag == 1)
+		{
+			LAMP_LEFT_ON;
+			LAMP_RIGHT_OFF;
+		}
+		else if(Robot_Sys.TurnLight_flag == 2) 
+		{
+			LAMP_LEFT_OFF;
+			LAMP_RIGHT_ON;
+		}
+		else if(Robot_Sys.TurnLight_flag == 3) 
+		{
+			LAMP_LEFT_ON;
+			LAMP_RIGHT_ON;
+		}
+		else if(Robot_Sys.TurnLight_flag == 0) 
+		{
+			LAMP_LEFT_OFF;
+			LAMP_RIGHT_OFF;
+		}
 		#endif
 
 //		printf("CH1_DAT1=%02X CH1_DAT2=%02X CH1_DAT3=%02X  CH1_DAT4=%02X \r\n", AutoCharge.CH1_IrDa_Dat[0],  

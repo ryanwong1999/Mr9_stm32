@@ -341,8 +341,10 @@ void AnalysisCMD(void)
 					/* 红外使能标志位 */
 					Robot_Sys.IR_Front_Disable_Flag = UsartToPC.Rx_Buf[9];
 					Robot_Sys.IR_Bottom_Disable_Flag = UsartToPC.Rx_Buf[10];
-				  Send_ultra_en_reply(gUpdateCnt++, Sdev_tmp, Robot_Sys.Ultra_Disable_Flag);
 					Robot_Sys.CarLight_flag = UsartToPC.Rx_Buf[11];
+					Robot_Sys.TurnLight_flag = UsartToPC.Rx_Buf[12];
+				  Send_ultra_en_reply(gUpdateCnt++, Sdev_tmp, Robot_Sys.Ultra_Disable_Flag, Robot_Sys.CarLight_flag, Robot_Sys.CarLight_flag);
+//					printf("设置传感器使能: %d , %d \r\n", Robot_Sys.CarLight_flag, UsartToPC.Rx_Buf[0]);
 					break;
 				
 				/* 升降控制命令 */
@@ -356,7 +358,9 @@ void AnalysisCMD(void)
 					{
 						Robot_Sys.Remote_flag = false;
 						Robot_Sys.Last_Task = AGV_TASK;
-					}else{
+					}
+					else
+					{
 					}
 					#ifndef ROBOT_YZ01	
 					Send_LiftCtrl_reply(gUpdateCnt++, Sdev_tmp, Lift_Moto.Cmd);
@@ -998,7 +1002,7 @@ void Send_LiftCtrl_reply(uint8_t index, uint8_t paddr, uint8_t cmd)
 *  输   出：
 *  说   明：发送升降控制命令应答
 */ 
-void Send_ultra_en_reply(uint8_t index, uint8_t paddr, uint8_t cmd)
+void Send_ultra_en_reply(uint8_t index, uint8_t paddr, uint8_t ultra_cmd, uint8_t light_cmd, uint8_t turn_cmd)
 {
 	uint8_t *buf;
 	uint8_t sramx=0;						//默认为内部sram
@@ -1013,9 +1017,9 @@ void Send_ultra_en_reply(uint8_t index, uint8_t paddr, uint8_t cmd)
 	buf[6] = 0x77;	//头部角度设置
 	buf[7] = 0x08;	//数据包个数
 
-	buf[8] = cmd;
-	buf[9] = 0;
-	buf[10] = 0;
+	buf[8] = ultra_cmd;
+	buf[9] = light_cmd;
+	buf[10] = turn_cmd;
 	buf[11] = 0;
 	buf[12] = 0;
 	buf[13] = 0;
