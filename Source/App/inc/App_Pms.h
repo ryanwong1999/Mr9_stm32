@@ -21,7 +21,7 @@
 //#define PB24V   		1 
 
 #ifdef  FELI8S	
-#define FULL_CAP		14000   // LiFe 8S4P 24V 14.4Ah
+#define FULL_CAP		28000   // LiFe 8S4P 24V 14.4Ah
 #define EMPTY_VOL 	21600   // LiFe 8S4P 24V 14.4Ah
 #define FULL_VOL 		28000   // LiFe 8S4P 24V 14.4Ah 
 #elif  FELI5S

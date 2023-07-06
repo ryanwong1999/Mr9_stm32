@@ -147,12 +147,12 @@ uint8_t Get_Batt_Capacity(int16_t _bat_cur, uint16_t _bat_vol)
 		
 		#ifdef FELI8S
 		/* 根据电压校准电池，放电电流小于2A */
-		if(batt_cap > 20 && vol_tmp <= 25040 && cur_tmp >= -2000)
+		if(batt_cap > 20 && vol_tmp <= 25500 && cur_tmp >= -2000)
 		{
 			Pms.Capacity_mah = 2400;
 			batt_cap = 20;
 		}
-		if(batt_cap > 5 && vol_tmp <= 22400 && cur_tmp >= -2000)
+		if(batt_cap > 5 && vol_tmp <= 24000 && cur_tmp >= -2000)
 		{
 			Pms.Capacity_mah = 600;
 			batt_cap = 5;

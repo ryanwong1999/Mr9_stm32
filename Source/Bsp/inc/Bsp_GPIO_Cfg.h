@@ -53,13 +53,16 @@ extern "C" {
 
 #define LAMP_PORT_CLK          	RCC_AHB1Periph_GPIOD
 #define LAMP_PORT              	GPIOD
+
 #define LAMP_RED_PIN	         	GPIO_Pin_10
 #define LAMP_GREEN_PIN	        GPIO_Pin_11
 #define LAMP_YELLOW_PIN	      	GPIO_Pin_12
 #define LAMP_BEEP_PIN          	GPIO_Pin_13
-#define LAMP_WHITE_PIN					GPIO_Pin_10
-#define LAMP_LEFT_PIN						GPIO_Pin_12
-#define LAMP_RIGHT_PIN					GPIO_Pin_13
+
+#define LAMP_WHITE_PIN					GPIO_Pin_13
+#define LAMP_WHITE_B_PIN				GPIO_Pin_12
+#define LAMP_LEFT_PIN						GPIO_Pin_11
+#define LAMP_RIGHT_PIN					GPIO_Pin_10
 
 #define LAMP_RED_TOGGLE      		digitalToggle(LAMP_PORT, LAMP_RED_PIN)
 #define LAMP_RED_ON			    		GPIO_SetBits(LAMP_PORT, LAMP_RED_PIN)
@@ -78,6 +81,9 @@ extern "C" {
 
 #define LAMP_WHITE_ON			    	GPIO_SetBits(LAMP_PORT, LAMP_WHITE_PIN)
 #define LAMP_WHITE_OFF			  	GPIO_ResetBits(LAMP_PORT, LAMP_WHITE_PIN)
+
+#define LAMP_WHITE_B_ON			    GPIO_SetBits(LAMP_PORT, LAMP_WHITE_B_PIN)
+#define LAMP_WHITE_B_OFF			  GPIO_ResetBits(LAMP_PORT, LAMP_WHITE_B_PIN)
 
 #define LAMP_LEFT_ON			    	GPIO_SetBits(LAMP_PORT, LAMP_LEFT_PIN)
 #define LAMP_LEFT_OFF			  		GPIO_ResetBits(LAMP_PORT, LAMP_LEFT_PIN)

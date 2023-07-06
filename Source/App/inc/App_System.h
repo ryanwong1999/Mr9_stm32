@@ -65,6 +65,7 @@ typedef struct
 	uint8_t StopDisable_flag;				//解除停止
 	uint8_t Stop_flag;							//停止
 	uint8_t CarLight_flag;					//车灯开关标志位
+	uint8_t TurnLight_flag;					//转向灯开关标志位
 	
 	bool Set_PWM_Task_Flag;
   bool Move_Speed_Task_flag;	
