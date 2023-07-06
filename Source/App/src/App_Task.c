@@ -1388,12 +1388,15 @@ void LED_task(void *p_arg)
 			LED_RED_OFF;
 			LED_GREEN_OFF;
 			pc_power_cnt ++;
-			if(pc_power_cnt > 20)
+			if(pc_power_cnt > 100)
 			{
 				pc_power_cnt = 0;
 				PC_Power_Cfg_Init(PC_STARTUP_ON);
+				BEEP_ON;
+				printf("PC_STARTUP_ON!\r\n");
 				delay_ms(300);
 				PC_Power_Cfg_Init(PC_STARTUP_OFF);
+				BEEP_OFF;
 			}
 		}
 		/* 工控机断开连接不亮灯 */
