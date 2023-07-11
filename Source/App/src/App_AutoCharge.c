@@ -194,10 +194,10 @@ void AutoCharge_Processing(void)
 			}
 		}
 //		printf("CH1_DAT1=%02X CH1_DAT2=%02X CH1_DAT3=%02X  CH1_DAT4=%02X \r\n",AutoCharge.CH1_IrDa_Dat[0],  
-//		AutoCharge.CH1_IrDa_Dat[1],AutoCharge.CH1_IrDa_Dat[2],AutoCharge.CH1_IrDa_Dat[3] );
+//		AutoCharge.CH1_IrDa_Dat[1],AutoCharge.CH1_IrDa_Dat[2],AutoCharge.CH1_IrDa_Dat[3]);
 
 //		printf("CH3_DAT1=%02X CH3_DAT2=%02X CH3_DAT3=%02X CH3_DAT4=%02X \r\n",AutoCharge.CH3_IrDa_Dat[0],   
-//		AutoCharge.CH3_IrDa_Dat[1],AutoCharge.CH3_IrDa_Dat[2],AutoCharge.CH3_IrDa_Dat[3] );
+//		AutoCharge.CH3_IrDa_Dat[1],AutoCharge.CH3_IrDa_Dat[2],AutoCharge.CH3_IrDa_Dat[3]);
 //		printf("Move_Sta = %d,%d\r\n",AutoCharge.Position,AutoCharge.Move_Sta);
 //		printf("\r\n");
 		memset(AutoCharge.CH1_IrDa_Dat, 0x00, 4);  
@@ -332,15 +332,15 @@ void Charge_IRCode_Process(uint8_t _move_sta)
 {
 	switch(_move_sta)
 	{
-		case CHG_MOVE_FORWARD :
+		case CHG_MOVE_FORWARD:
 			chg_move_forward_Process();
 			break;
 		
-		case CHG_MOVE_RIGHT :
+		case CHG_MOVE_RIGHT:
 			chg_move_right_process();
 			break;
 		
-		case CHG_MOVE_LEFT :
+		case CHG_MOVE_LEFT:
 			chg_move_left_process();
 			break;
 		
@@ -348,11 +348,11 @@ void Charge_IRCode_Process(uint8_t _move_sta)
 			chg_move_zeroright_process();		// 原地右转
 			break;
 		
-		case CHG_MOVE_ZEROLEFT :
+		case CHG_MOVE_ZEROLEFT:
 			chg_move_zeroleft_process();		// 原地左转
 			break;
 		
-		default :
+		default:
 			break;
 	}
 }
@@ -469,7 +469,7 @@ void Chg_Last_Position_Judge(void)
 	{ 			
 		AutoCharge.Last_Position = POSITION_RIGHT;
 	}
-	else if((AutoCharge.CH_IrDate[4] != 0 ) && (AutoCharge.CH_IrDate[6] != 0))
+	else if((AutoCharge.CH_IrDate[4] != 0) && (AutoCharge.CH_IrDate[6] != 0))
 	{
 		AutoCharge.Last_Position = POSITION_MID;		
 	}

@@ -314,7 +314,7 @@ void LiftMoto_GoTO_SetHeiht(uint16_t *_set_height)
 	if(*_set_height == MAX_HEIGHT_2)
 	{
 		/* иоочн╩ */
-		if(Lift_Moto.Height >= 69) Lift_Moto.Lift_OK_flag = true;
+		if(Lift_Moto.Height >= MAX_HEIGHT_2 - 1) Lift_Moto.Lift_OK_flag = true;
 		else Lift_Moto.Cmd = LIFT_UP;
 	}
 	else if(*_set_height == 0)
