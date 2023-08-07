@@ -813,7 +813,7 @@ void Send_Autocharge_speed(uint8_t index, uint8_t paddr, uint16_t linear, uint16
 	buf[11] = angular;
 	buf[12] = Robot_Sys.AutoCharge_task_flag;
 	buf[13] = Robot_Sys.Mergency_Stop_flag;
-	buf[14] = 0;
+	buf[14] = AutoCharge.ReChg_flag;
 	buf[15] = 0;
 
 	buf[16] = CRC8_Table(buf, 16);
