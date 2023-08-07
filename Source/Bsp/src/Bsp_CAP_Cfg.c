@@ -14,12 +14,6 @@
 #include <stdlib.h>
 #include "includes.h"
 
-#define ENCODER_RESOLUTION 		1		/* ±àÂëÆ÷Ò»È¦µÄÎïÀíÂö³åÊı */
-#define ENCODER_MULTIPLE 			4		/* ±àÂëÆ÷±¶Æµ£¬Í¨¹ı¶¨Ê±Æ÷µÄ±àÂëÆ÷Ä£Ê½ÉèÖÃ */
-#define MOTOR_REDUCTION_RATIO 1 	/* µç»úµÄ¼õËÙ±È */
-/* µç»ú×ªÒ»È¦×ÜµÄÂö³åÊı(¶¨Ê±Æ÷ÄÜ¶Áµ½µÄÂö³åÊı) = ±àÂëÆ÷ÎïÀíÂö³åÊı*±àÂëÆ÷±¶Æµ*µç»ú¼õËÙ±È */
-#define TOTAL_RESOLUTION ( ENCODER_RESOLUTION*ENCODER_MULTIPLE*MOTOR_REDUCTION_RATIO ) 
-
 #define TIM_PERIOD 						65535
 
 #define ENCODER_TIM_PSC  			0				/* ¼ÆÊıÆ÷·ÖÆµ */
@@ -32,7 +26,7 @@
 *  ´´½¨Ê±¼ä£º2022Äê3ÔÂ5ÈÕ 
 *  ĞŞ¸ÄÊ±¼ä£º
 *  Êä   Èë£ºiArr  -> ×°ÔØÖµ
-*           iPsc  ->·ÖÆµÏµÊıº
+*           iPsc  ->·ÖÆµÏµÊı?
 *  Êä   ³ö£º
 *  Ëµ   Ã÷£º¶¨Ê±Æ÷²¶»ñ³õÊ¼»¯ÅäÖÃ
 */
@@ -62,49 +56,49 @@ void TIM_ICP_Cfg_Init(uint16_t iArr, uint16_t iPsc)
 	                                                                // Éè¶¨¶¨Ê±Æ÷ÆµÂÊÎª=TIMxCLK/(TIM_Prescaler+1)=100KHz
 	TIM_TimeBaseStructure.TIM_ClockDivision=TIM_CKD_DIV1;		        // ¶ÔÍâ²¿Ê±ÖÓ½øĞĞ²ÉÑùµÄÊ±ÖÓ·ÖÆµ,ÕâÀïÃ»ÓĞÓÃµ½ */
 	TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up;	      // ¼ÆÊı·½Ê½
-	TIM_TimeBaseInit( CAP_TIM, &TIM_TimeBaseStructure);	            // ³õÊ¼»¯¶¨Ê±Æ÷TIMx, x[1,8]	
+	TIM_TimeBaseInit(CAP_TIM, &TIM_TimeBaseStructure);	            // ³õÊ¼»¯¶¨Ê±Æ÷TIMx, x[1,8]	
 	/* ³õÊ¼»¯TIM5ÊäÈë²¶»ñ²ÎÊı */
 	ICP_ICInitStructure.TIM_Channel 		= TIM_Channel_1;            // CC1S=01 	Ñ¡ÔñÊäÈë¶Ë IC1Ó³Éäµ½TI1ÉÏ
 	ICP_ICInitStructure.TIM_ICPolarity 	= TIM_ICPolarity_Rising;	  // ÉÏÉıÑØ²¶»ñ
 	ICP_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; // Ó³Éäµ½TI1ÉÏ
 	ICP_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	          // ÅäÖÃÊäÈë·ÖÆµ,²»·ÖÆµ 
 	ICP_ICInitStructure.TIM_ICFilter 		= 0x00;                     // IC1F=0000 ÅäÖÃÊäÈëÂË²¨Æ÷ ²»ÂË²¨
-	TIM_ICInit( CAP_TIM, &ICP_ICInitStructure);
+	TIM_ICInit(CAP_TIM, &ICP_ICInitStructure);
 	
 	ICP_ICInitStructure.TIM_Channel 		= TIM_Channel_2;            // CC1S=01 	Ñ¡ÔñÊäÈë¶Ë IC1Ó³Éäµ½TI1ÉÏ
 	ICP_ICInitStructure.TIM_ICPolarity 	= TIM_ICPolarity_Rising;	  // ÉÏÉıÑØ²¶»ñ
 	ICP_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; // Ó³Éäµ½TI1ÉÏ
 	ICP_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	          // ÅäÖÃÊäÈë·ÖÆµ,²»·ÖÆµ 
 	ICP_ICInitStructure.TIM_ICFilter 		= 0x00;                     // IC1F=0000 ÅäÖÃÊäÈëÂË²¨Æ÷ ²»ÂË²¨
-	TIM_ICInit( CAP_TIM, &ICP_ICInitStructure);	
+	TIM_ICInit(CAP_TIM, &ICP_ICInitStructure);	
 	/* ³õÊ¼»¯TIM5ÊäÈë²¶»ñ²ÎÊı */
 	ICP_ICInitStructure.TIM_Channel 		= TIM_Channel_3;            // CC1S=01 	Ñ¡ÔñÊäÈë¶Ë IC1Ó³Éäµ½TI1ÉÏ
 	ICP_ICInitStructure.TIM_ICPolarity 	= TIM_ICPolarity_Rising;	  // ÉÏÉıÑØ²¶»ñ
 	ICP_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; // Ó³Éäµ½TI1ÉÏ
 	ICP_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	          // ÅäÖÃÊäÈë·ÖÆµ,²»·ÖÆµ 
 	ICP_ICInitStructure.TIM_ICFilter 		= 0x00;                     // IC1F=0000 ÅäÖÃÊäÈëÂË²¨Æ÷ ²»ÂË²¨
-	TIM_ICInit( CAP_TIM, &ICP_ICInitStructure);
+	TIM_ICInit(CAP_TIM, &ICP_ICInitStructure);
 	
 	ICP_ICInitStructure.TIM_Channel 		= TIM_Channel_4;            // CC1S=01 	Ñ¡ÔñÊäÈë¶Ë IC1Ó³Éäµ½TI1ÉÏ
 	ICP_ICInitStructure.TIM_ICPolarity 	= TIM_ICPolarity_Rising;	  // ÉÏÉıÑØ²¶»ñ
 	ICP_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; // Ó³Éäµ½TI1ÉÏ
 	ICP_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	          // ÅäÖÃÊäÈë·ÖÆµ,²»·ÖÆµ 
 	ICP_ICInitStructure.TIM_ICFilter 		= 0x00;                     // IC1F=0000 ÅäÖÃÊäÈëÂË²¨Æ÷ ²»ÂË²¨
-	TIM_ICInit( CAP_TIM, &ICP_ICInitStructure);	 
+	TIM_ICInit(CAP_TIM, &ICP_ICInitStructure);	 
 	
 	TIM_ITConfig(CAP_TIM, TIM_IT_CC1, ENABLE);											// ÔÊĞí¸üĞÂÖĞ¶Ï ,ÔÊĞíCC1IE²¶»ñÖĞ¶Ï	
 	TIM_ITConfig(CAP_TIM, TIM_IT_CC2, ENABLE);											// ÔÊĞí¸üĞÂÖĞ¶Ï ,ÔÊĞíCC1IE²¶»ñÖĞ¶Ï	
 	TIM_ITConfig(CAP_TIM, TIM_IT_CC3, ENABLE);											// ÔÊĞí¸üĞÂÖĞ¶Ï ,ÔÊĞíCC1IE²¶»ñÖĞ¶Ï	
 	TIM_ITConfig(CAP_TIM, TIM_IT_CC4, ENABLE);											// ÔÊĞí¸üĞÂÖĞ¶Ï ,ÔÊĞíCC1IE²¶»ñÖĞ¶Ï	
 	
-	TIM_Cmd(CAP_TIM,DISABLE ); 	                           					// ½ûÖ¹¶¨Ê±Æ÷5
+	TIM_Cmd(CAP_TIM, DISABLE); 	                           					// ½ûÖ¹¶¨Ê±Æ÷5
 	/* NVIC ÅäÖÃ, Í³Ò»·ÅÖÃÓÚmain.c Í³Ò»´¦Àí */
 }
 
 void TIM8_Configuration(void)
 {
     GPIO_InitTypeDef GPIO_InitStruct;
-    TIM_TimeBaseInitTypeDef  TIM_TimeBaseStruct;
+    TIM_TimeBaseInitTypeDef TIM_TimeBaseStruct;
     TIM_ICInitTypeDef TIM_ICInitStruct;
 
     /* GPIO³õÊ¼»¯ */
@@ -147,46 +141,64 @@ int hight = 0, hight_read = 0, hight_mm = 0, reset_cnt = 0;
 static int read_encoder(void)
 {
 	encoderNum = TIM_GetCounter(TIM8);	
+	/* ²»¼ÌĞøÉı½µÁË */
 	if(encoderNum == encoderOld)
 	{
 		if(Lift_Moto.Set_Height == 0)
 		{
 			reset_cnt++;
-			if(reset_cnt >= 50)
+			if(reset_cnt >= 100)
 			{
 				encoderNum = CNT_INIT;
 				encoderOld = CNT_INIT;
-				TIM_SetCounter(TIM8, CNT_INIT);		/*CNTÉè³õÖµ*/	
+				TIM_SetCounter(TIM8, CNT_INIT);		/* CNTÉè³õÖµ */	
 				reset_cnt = 0;
 			}
 		}		
-		if(Lift_Moto.Set_Height == MAX_HEIGHT_2)
+		if(Lift_Moto.Set_Height == MAX_HEIGHT_3)
 		{
 			reset_cnt++;
-			if(reset_cnt >= 50)
+			if(reset_cnt >= 100)
 			{
-				encoderNum = 4750;
-				encoderOld = 4750;
-				TIM_SetCounter(TIM8, 4750);		/*CNTÉè³õÖµ*/	
+//				encoderNum = 4750;
+//				encoderOld = 4750;
+//				TIM_SetCounter(TIM8, 4750);		/* CNTÉè³õÖµ */	
+				encoderNum = 4260;
+				encoderOld = 4260;
+				TIM_SetCounter(TIM8, 4260);		/* CNTÉè³õÖµ */	
 				Lift_Moto.Lift_OK_flag = true;
 				reset_cnt = 0;
 			}
 		}
 	}
+	/* »¹ÔÚ¼ÌĞøÉı½µ */
 	else
 	{
 		reset_cnt = 0;
-	
+		/* Âö³åÓĞ´óÌø¶¯ */
 		if(abs(encoderNum - encoderOld) > 20) 
 		{
 			encoderNum = encoderOld;
 			TIM_SetCounter(TIM8, encoderOld);
 		}
+		/* 700mmĞĞ³ÌÉı½µ¸ËÓĞÊ±ºòÉÏÉıµÄÊ±ºòÂö³å»á»ØÌø */
+		else if(Lift_Moto.Height < Lift_Moto.Set_Height)
+		{
+			if(encoderNum - encoderOld < 0)
+			{
+//				printf("Lift_Moto.Height: %d Lift_Moto.Set_Height: %d\r\n",Lift_Moto.Height, Lift_Moto.Set_Height);
+//				printf("encoderNum: %d encoderOld: %d\r\n",encoderNum, encoderOld);
+				encoderNum = encoderOld + 3;
+				TIM_SetCounter(TIM8, encoderOld + 3);
+			}
+			else
+				encoderOld = encoderNum;
+		}
 		else 
 			encoderOld = encoderNum;
 		
 		if(encoderNum < CNT_INIT) 
-			TIM_SetCounter(TIM8, CNT_INIT);		/*CNTÉè³õÖµ*/	
+			TIM_SetCounter(TIM8, CNT_INIT);		/* CNTÉè³õÖµ */	
 	}
 //	printf("encoderNum: %d\r\n", encoderNum);
 	return encoderNum;
@@ -197,10 +209,9 @@ int GetLiftHeight(void)
 {
 	/*¶ÁÈ¡±àÂëÆ÷µÄÖµ£¬Õı¸º´ú±íĞı×ª·½Ïò*/
 	hight_read = read_encoder();
-	hight = (hight_read - 1000) * 0.0213;		// (80/3750) = 0.0213
+//	hight = (hight_read - 1000) * 0.0213;		/* (80/3750) = 0.0213 */
+	hight = (hight_read - 1000) * 0.0215;		/* (70/3260) = 0.0218 */
 	hight_mm = ((hight_read - 1000) * 0.0213) * 10;
-//	printf("hight: %d       hight: %d\r\n", hight, hight_mm);
+//	printf("hight: %d       hight_mm: %d\r\n", hight, hight_mm);
 	return hight;
 }
-
-
