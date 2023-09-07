@@ -413,7 +413,7 @@ void Send_OdomUpdata(uint8_t index, uint8_t addr, Odom_Data_type odom_dat)
 	
 	buf[8] = (odom_dat.Left_Value >> 8) & 0x00ff;
 	buf[9] = odom_dat.Left_Value & 0x00ff; 
-	buf[10] = (odom_dat.Right_Value>>8) & 0x00ff; 
+	buf[10] = (odom_dat.Right_Value >> 8) & 0x00ff; 
 	buf[11] = odom_dat.Right_Value & 0x00ff; 
 	buf[12]	= ultra[0];
 	buf[13]	= ultra[1];
@@ -455,10 +455,10 @@ void Send_Head_Pose(uint8_t index, uint8_t addr, HeadPose_Type mHead_Pose, bool 
 	buf[6] = 0x10;
 	buf[7] = 0x08;
 	
-	buf[8] = (mHead_Pose.Level>>8)&0x00FF;
-	buf[9] = (mHead_Pose.Level)&0x00FF;
-	buf[10] = (mHead_Pose.Pitch>>8)&0x00FF;
-	buf[11] = (mHead_Pose.Pitch)&0x00FF;
+	buf[8] = (mHead_Pose.Level >> 8) & 0x00FF;
+	buf[9] = (mHead_Pose.Level) & 0x00FF;
+	buf[10] = (mHead_Pose.Pitch >> 8) & 0x00FF;
+	buf[11] = (mHead_Pose.Pitch) & 0x00FF;
 	buf[12] = 0x00;
 	buf[13] = Robot_Sys.Mergency_Stop_flag;
 	buf[14] = (uint8_t)stop_key;
@@ -497,8 +497,8 @@ void Send_LiftMoto_Mess(uint8_t index, uint8_t addr,LiftMoto_Type *_liftmoto)
 	buf[6] = 0x61;
 	buf[7] = 0x08;
 	
-	buf[8] = (_liftmoto->Height>>8)&0x00FF;
-	buf[9] = _liftmoto->Height&0x00FF;
+	buf[8] = (_liftmoto->Height >> 8) & 0x00FF;
+	buf[9] = _liftmoto->Height & 0x00FF;
 	buf[10] = _liftmoto->Limit_Switch_Flag | _liftmoto->OverCurrent_Flag;
 	buf[11] = _liftmoto->Lift_OK_flag;
 	buf[12] = _liftmoto->OverCurrent_Flag;
@@ -721,9 +721,9 @@ void Send_Speed_reply(uint8_t index, uint8_t paddr, uint16_t linear, uint16_t an
 	buf[6] = 0x15;	//功能码
 	buf[7] = 0x08;	//数据包个数
 
-	buf[8] = linear>>8;
+	buf[8] = linear >> 8;
 	buf[9] = linear;
-	buf[10] = angular>>8;
+	buf[10] = angular >> 8;
 	buf[11] = angular;
 	buf[12] = AutoCharge.NotFind_Flag;
 	buf[13] = 0;
@@ -813,7 +813,7 @@ void Send_Autocharge_speed(uint8_t index, uint8_t paddr, uint16_t linear, uint16
 	buf[11] = angular;
 	buf[12] = Robot_Sys.AutoCharge_task_flag;
 	buf[13] = Robot_Sys.Mergency_Stop_flag;
-	buf[14] = 0;
+	buf[14] = AutoCharge.ReChg_flag;
 	buf[15] = 0;
 
 	buf[16] = CRC8_Table(buf, 16);
@@ -849,9 +849,9 @@ void Send_HeadAngle_reply(uint8_t index, uint8_t paddr, uint16_t set_level, uint
 	buf[6] = 0x11;	//头部角度设置
 	buf[7] = 0x08;	//数据包个数
 
-	buf[8] = set_level>>8;
+	buf[8] = set_level >> 8;
 	buf[9] = set_level;
-	buf[10] = set_pitch>>8;
+	buf[10] = set_pitch >> 8;
 	buf[11] = set_pitch;
 	buf[12] = 0;
 	buf[13] = 0;
@@ -933,7 +933,7 @@ void Send_SetLift_reply(uint8_t index, uint8_t paddr, uint16_t heitht)
 	buf[6] = 0x71;	//头部角度设置
 	buf[7] = 0x08;	//数据包个数
 
-	buf[8] = heitht>>8;
+	buf[8] = heitht >> 8;
 	buf[9] = heitht;
 	buf[10] = 0;
 	buf[11] = 0;

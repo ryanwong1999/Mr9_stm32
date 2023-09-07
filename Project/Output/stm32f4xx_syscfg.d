@@ -2,7 +2,7 @@
 .\output\stm32f4xx_syscfg.o: ..\FWLIB\inc\stm32f4xx_syscfg.h
 .\output\stm32f4xx_syscfg.o: ..\Source\User\stm32f4xx.h
 .\output\stm32f4xx_syscfg.o: ..\CORE\core_cm4.h
-.\output\stm32f4xx_syscfg.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\stm32f4xx_syscfg.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\output\stm32f4xx_syscfg.o: ..\CORE\core_cmInstr.h
 .\output\stm32f4xx_syscfg.o: ..\CORE\core_cmFunc.h
 .\output\stm32f4xx_syscfg.o: ..\CORE\core_cm4_simd.h

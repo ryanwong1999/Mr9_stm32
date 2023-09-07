@@ -1,11 +1,11 @@
 .\output\main.o: ..\Source\User\main.c
 .\output\main.o: ..\UCOSIII\uCOS_CONFIG\includes.h
-.\output\main.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
-.\output\main.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\string.h
-.\output\main.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\ctype.h
-.\output\main.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\output\main.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdarg.h
-.\output\main.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\math.h
+.\output\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\output\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
+.\output\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\output\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\output\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\output\main.o: ..\UCOSIII\uCOSIII_Core\os.h
 .\output\main.o: ..\UCOSIII\uCOS_CONFIG\os_cfg.h
 .\output\main.o: ..\UCOSIII\uC_CPU\cpu.h
@@ -27,7 +27,7 @@
 .\output\main.o: ..\FWLIB\inc\stm32f4xx_adc.h
 .\output\main.o: ..\Source\User\stm32f4xx.h
 .\output\main.o: ..\CORE\core_cm4.h
-.\output\main.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\output\main.o: ..\CORE\core_cmInstr.h
 .\output\main.o: ..\CORE\core_cmFunc.h
 .\output\main.o: ..\CORE\core_cm4_simd.h
@@ -67,7 +67,7 @@
 .\output\main.o: ..\Source\Bsp\inc\Bsp_CAP_Cfg.h
 .\output\main.o: ..\Source\Bsp\inc\Bsp_PWM_Cfg.h
 .\output\main.o: ..\Source\Bsp\inc\Bsp_TIM_Cfg.h
-.\output\main.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\output\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\output\main.o: ..\Source\Bsp\inc\Bsp_USART_Cfg.h
 .\output\main.o: ..\Source\Bsp\inc\Bsp_RS485_Cfg.h
 .\output\main.o: ..\Source\Bsp\inc\Bsp_IIC.h

@@ -2,7 +2,7 @@
 .\output\malloc.o: ..\Source\SYSTEM\malloc.h
 .\output\malloc.o: ..\Source\User\stm32f4xx.h
 .\output\malloc.o: ..\CORE\core_cm4.h
-.\output\malloc.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\malloc.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\output\malloc.o: ..\CORE\core_cmInstr.h
 .\output\malloc.o: ..\CORE\core_cmFunc.h
 .\output\malloc.o: ..\CORE\core_cm4_simd.h

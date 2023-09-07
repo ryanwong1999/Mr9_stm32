@@ -59,6 +59,7 @@ int main(void)
 			if(ADC_Filter_Value[3] >= 1950)		// -937.5
 			{
 				PC_Power_Cfg_Init(PC_STARTUP_ON);
+				printf("PC_STARTUP_ON!\r\n");
 				BEEP_ON;
 				delay_ms(300);
 				PC_Power_Cfg_Init(PC_STARTUP_OFF);
@@ -87,7 +88,7 @@ int main(void)
 		Robot_Sys.mBeepStatus.BeepMode = 3;		// ¶ÁÈ¡Ê§°Ü·äÃùÆ÷Ïì
 	}
   Pms.Capacity = Pms.Capacity_mah/(Pms.Capacity_Set/100);
-	printf("Capacity_Set: %d, Capacity_mah = %d,Capacity: %d\r\n", Pms.Capacity_Set, Pms.Capacity_mah, Pms.Capacity);
+	printf("Capacity_Set: %d, Capacity_mah = %d, Capacity: %d\r\n", Pms.Capacity_Set, Pms.Capacity_mah, Pms.Capacity);
 	printf("Level_Offset: %d, Pitch_Offset: %d\r\n", Head_Status.Level_Offset, Head_Status.Pitch_Offset);
 	printf("Ultra_Disable_Flag: %d, IR_Bottom_Disable_Flag: %d\r\n", Robot_Sys.Ultra_Disable_Flag, Robot_Sys.IR_Bottom_Disable_Flag);
 

@@ -14,7 +14,7 @@
 #include "includes.h" 				 
 
 
-#define AT24CXX_FIRST_STA  0x52
+#define AT24CXX_FIRST_STA  0x5a
 #define FIRST_STA_ADDR     0xff
 
 //初始化IIC接口

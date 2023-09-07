@@ -3,7 +3,7 @@
 .\output\bsp_iic.o: ..\Source\SYSTEM\sys.h
 .\output\bsp_iic.o: ..\Source\User\stm32f4xx.h
 .\output\bsp_iic.o: ..\CORE\core_cm4.h
-.\output\bsp_iic.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\bsp_iic.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\output\bsp_iic.o: ..\CORE\core_cmInstr.h
 .\output\bsp_iic.o: ..\CORE\core_cmFunc.h
 .\output\bsp_iic.o: ..\CORE\core_cm4_simd.h
@@ -38,4 +38,4 @@
 .\output\bsp_iic.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
 .\output\bsp_iic.o: ..\Source\SYSTEM\delay.h
 .\output\bsp_iic.o: ..\Source\SYSTEM\usart.h
-.\output\bsp_iic.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\bsp_iic.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

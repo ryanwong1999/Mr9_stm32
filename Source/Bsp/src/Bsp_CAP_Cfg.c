@@ -39,7 +39,7 @@ void TIM_ICP_Cfg_Init(uint16_t iArr, uint16_t iPsc)
 	RCC_AHB1PeriphClockCmd(CAP_PORT_CLK, ENABLE); 	        				// 使能PORT时钟	
 	RCC_APB2PeriphClockCmd(CAP_TIM_CLK, ENABLE);										// TIM时钟使能    
 	
-	GPIO_InitStructure.GPIO_Pin 	= CAP_LEFT_PIN| CAP_RIGHT_PIN | CAP2_LEFT_PIN | CAP2_RIGHT_PIN;	// GPIO
+	GPIO_InitStructure.GPIO_Pin 	= CAP_LEFT_PIN | CAP_RIGHT_PIN | CAP2_LEFT_PIN | CAP2_RIGHT_PIN;	// GPIO
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_AF;            				// 复用功能
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	    				// 速度100MHz
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;          				// 推挽复用输出
@@ -51,11 +51,10 @@ void TIM_ICP_Cfg_Init(uint16_t iArr, uint16_t iPsc)
 	GPIO_PinAFConfig(CAP_PORT, GPIO_PinSource8, GPIO_AF_TIM8);  		// PB0复用位定时器3
 	GPIO_PinAFConfig(CAP_PORT, GPIO_PinSource9, GPIO_AF_TIM8);  		// PB0复用位定时器3
 	
-	TIM_TimeBaseStructure.TIM_Period = iArr-1; 	
-	TIM_TimeBaseStructure.TIM_Prescaler = iPsc-1;		                // 高级控制定时器时钟源TIMxCLK = HCLK=180MHz 
-	                                                                // 设定定时器频率为=TIMxCLK/(TIM_Prescaler+1)=100KHz
-	TIM_TimeBaseStructure.TIM_ClockDivision=TIM_CKD_DIV1;		        // 对外部时钟进行采样的时钟分频,这里没有用到 */
-	TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up;	      // 计数方式
+	TIM_TimeBaseStructure.TIM_Period 				= iArr-1; 	
+	TIM_TimeBaseStructure.TIM_Prescaler 		= iPsc-1;		            // 高级控制定时器时钟源TIMxCLK = HCLK=180MHz  // 设定定时器频率为=TIMxCLK/(TIM_Prescaler+1)=100KHz
+	TIM_TimeBaseStructure.TIM_ClockDivision	= TIM_CKD_DIV1;		      // 对外部时钟进行采样的时钟分频,这里没有用到 */
+	TIM_TimeBaseStructure.TIM_CounterMode		= TIM_CounterMode_Up;	  // 计数方式
 	TIM_TimeBaseInit(CAP_TIM, &TIM_TimeBaseStructure);	            // 初始化定时器TIMx, x[1,8]	
 	/* 初始化TIM5输入捕获参数 */
 	ICP_ICInitStructure.TIM_Channel 		= TIM_Channel_1;            // CC1S=01 	选择输入端 IC1映射到TI1上
@@ -136,7 +135,7 @@ void TIM8_Configuration(void)
 
 int encoderNum = CNT_INIT;
 int encoderOld = CNT_INIT;
-int hight = 0, hight_read = 0, hight_mm = 0, reset_cnt = 0;
+int hight = 0, hight_read = 0, hight_mm = 0, reset_up = 0, reset_down = 0;
 /* 读取定时器计数值 */
 static int read_encoder(void)
 {
@@ -146,35 +145,43 @@ static int read_encoder(void)
 	{
 		if(Lift_Moto.Set_Height == 0)
 		{
-			reset_cnt++;
-			if(reset_cnt >= 100)
+			reset_up = 0;
+			reset_down++;
+			if(reset_down >= 800)
 			{
-				encoderNum = CNT_INIT;
+				reset_down = CNT_INIT;
 				encoderOld = CNT_INIT;
 				TIM_SetCounter(TIM8, CNT_INIT);		/* CNT设初值 */	
-				reset_cnt = 0;
+				reset_down = 0;
 			}
 		}		
-		if(Lift_Moto.Set_Height == MAX_HEIGHT_3)
+		else if(Lift_Moto.Set_Height == MAX_HEIGHT_3)
 		{
-			reset_cnt++;
-			if(reset_cnt >= 100)
+			reset_down = 0;
+			reset_up++;
+			if(reset_up >= 800)
 			{
-//				encoderNum = 4750;
-//				encoderOld = 4750;
-//				TIM_SetCounter(TIM8, 4750);		/* CNT设初值 */	
-				encoderNum = 4260;
-				encoderOld = 4260;
-				TIM_SetCounter(TIM8, 4260);		/* CNT设初值 */	
+				encoderNum = 4750;
+				encoderOld = 4750;
+				TIM_SetCounter(TIM8, 4750);		/* CNT设初值 */	
+//				encoderNum = 4260;
+//				encoderOld = 4260;
+//				TIM_SetCounter(TIM8, 4260);		/* CNT设初值 */	
 				Lift_Moto.Lift_OK_flag = true;
-				reset_cnt = 0;
+				reset_up = 0;
 			}
+		}
+		else
+		{
+			reset_up = 0;
+			reset_down = 0;
 		}
 	}
 	/* 还在继续升降 */
 	else
 	{
-		reset_cnt = 0;
+		reset_up = 0;
+		reset_down = 0;
 		/* 脉冲有大跳动 */
 		if(abs(encoderNum - encoderOld) > 20) 
 		{
@@ -209,10 +216,14 @@ int GetLiftHeight(void)
 {
 	/*读取编码器的值，正负代表旋转方向*/
 	hight_read = read_encoder();
-//	hight = (hight_read - 1000) * 0.0213;		/* (80/3750) = 0.0213 */
-	hight = (hight_read - 1000) * 0.0215;		/* (70/3260) = 0.0218 */
+	hight = (hight_read - 1000) * 0.0213;		/* (80/3750) = 0.0213 */
 	hight_mm = ((hight_read - 1000) * 0.0213) * 10;
+//	hight = (hight_read - 1000) * 0.0215;		/* (70/3260) = 0.0218 */
+//	hight_mm = ((hight_read - 1000) * 0.0215) * 10;
 //	printf("hight: %d       hight_mm: %d\r\n", hight, hight_mm);
+	
+	if(hight >= MAX_HEIGHT_3) hight = MAX_HEIGHT_3;
+	if(hight <= 0) hight = 0;
 	return hight;
 }
 

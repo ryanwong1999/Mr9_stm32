@@ -14,12 +14,12 @@
 .\output\os_cpu_c.o: ..\UCOSIII\uCOSIII_Core\os_type.h
 .\output\os_cpu_c.o: ..\UCOSIII\uCOSIII_Ports\os_cpu.h
 .\output\os_cpu_c.o: ..\UCOSIII\uCOS_CONFIG\includes.h
-.\output\os_cpu_c.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
-.\output\os_cpu_c.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\string.h
-.\output\os_cpu_c.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\ctype.h
-.\output\os_cpu_c.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\output\os_cpu_c.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdarg.h
-.\output\os_cpu_c.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\math.h
+.\output\os_cpu_c.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\os_cpu_c.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\output\os_cpu_c.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
+.\output\os_cpu_c.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\output\os_cpu_c.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\output\os_cpu_c.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\output\os_cpu_c.o: ..\UCOSIII\uC_LIB\lib_math.h
 .\output\os_cpu_c.o: ..\UCOSIII\uCOS_CONFIG\app_cfg.h
 .\output\os_cpu_c.o: ..\UCOSIII\UCOS_BSP\bsp.h
@@ -27,7 +27,7 @@
 .\output\os_cpu_c.o: ..\FWLIB\inc\stm32f4xx_adc.h
 .\output\os_cpu_c.o: ..\Source\User\stm32f4xx.h
 .\output\os_cpu_c.o: ..\CORE\core_cm4.h
-.\output\os_cpu_c.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\os_cpu_c.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\output\os_cpu_c.o: ..\CORE\core_cmInstr.h
 .\output\os_cpu_c.o: ..\CORE\core_cmFunc.h
 .\output\os_cpu_c.o: ..\CORE\core_cm4_simd.h
@@ -67,7 +67,7 @@
 .\output\os_cpu_c.o: ..\Source\Bsp\inc\Bsp_CAP_Cfg.h
 .\output\os_cpu_c.o: ..\Source\Bsp\inc\Bsp_PWM_Cfg.h
 .\output\os_cpu_c.o: ..\Source\Bsp\inc\Bsp_TIM_Cfg.h
-.\output\os_cpu_c.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\output\os_cpu_c.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\output\os_cpu_c.o: ..\Source\Bsp\inc\Bsp_USART_Cfg.h
 .\output\os_cpu_c.o: ..\Source\Bsp\inc\Bsp_RS485_Cfg.h
 .\output\os_cpu_c.o: ..\Source\Bsp\inc\Bsp_IIC.h

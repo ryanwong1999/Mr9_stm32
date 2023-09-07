@@ -1,10 +1,10 @@
 .\output\inet.o: ..\Source\Bsp\src\inet.c
-.\output\inet.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
-.\output\inet.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\string.h
+.\output\inet.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\inet.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\output\inet.o: ..\Source\Bsp\inc\inet.h
 .\output\inet.o: ..\Source\User\stm32f4xx.h
 .\output\inet.o: ..\CORE\core_cm4.h
-.\output\inet.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\inet.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\output\inet.o: ..\CORE\core_cmInstr.h
 .\output\inet.o: ..\CORE\core_cmFunc.h
 .\output\inet.o: ..\CORE\core_cm4_simd.h
