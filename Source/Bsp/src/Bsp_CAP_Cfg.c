@@ -135,7 +135,7 @@ void TIM8_Configuration(void)
 
 int encoderNum = CNT_INIT;
 int encoderOld = CNT_INIT;
-int hight = 0, hight_read = 0, hight_mm = 0, reset_cnt = 0;
+int hight = 0, hight_read = 0, hight_mm = 0, reset_up = 0, reset_down = 0;
 /* 读取定时器计数值 */
 static int read_encoder(void)
 {
@@ -145,19 +145,21 @@ static int read_encoder(void)
 	{
 		if(Lift_Moto.Set_Height == 0)
 		{
-			reset_cnt++;
-			if(reset_cnt >= 800)
+			reset_up = 0;
+			reset_down++;
+			if(reset_down >= 800)
 			{
-				encoderNum = CNT_INIT;
+				reset_down = CNT_INIT;
 				encoderOld = CNT_INIT;
 				TIM_SetCounter(TIM8, CNT_INIT);		/* CNT设初值 */	
-				reset_cnt = 0;
+				reset_down = 0;
 			}
 		}		
-		if(Lift_Moto.Set_Height == MAX_HEIGHT_2)
+		else if(Lift_Moto.Set_Height == MAX_HEIGHT_2)
 		{
-			reset_cnt++;
-			if(reset_cnt >= 800)
+			reset_down = 0;
+			reset_up++;
+			if(reset_up >= 800)
 			{
 				encoderNum = 4750;
 				encoderOld = 4750;
@@ -166,14 +168,20 @@ static int read_encoder(void)
 //				encoderOld = 4260;
 //				TIM_SetCounter(TIM8, 4260);		/* CNT设初值 */	
 				Lift_Moto.Lift_OK_flag = true;
-				reset_cnt = 0;
+				reset_up = 0;
 			}
+		}
+		else
+		{
+			reset_up = 0;
+			reset_down = 0;
 		}
 	}
 	/* 还在继续升降 */
 	else
 	{
-		reset_cnt = 0;
+		reset_up = 0;
+		reset_down = 0;
 		/* 脉冲有大跳动 */
 		if(abs(encoderNum - encoderOld) > 20) 
 		{
@@ -213,6 +221,9 @@ int GetLiftHeight(void)
 //	hight = (hight_read - 1000) * 0.0215;		/* (70/3260) = 0.0218 */
 //	hight_mm = ((hight_read - 1000) * 0.0215) * 10;
 //	printf("hight: %d       hight_mm: %d\r\n", hight, hight_mm);
+	
+	if(hight >= MAX_HEIGHT_2) hight = MAX_HEIGHT_2;
+	if(hight <= 0) hight = 0;
 	return hight;
 }
 

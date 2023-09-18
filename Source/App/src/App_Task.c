@@ -688,7 +688,7 @@ void Chg_task(void *p_arg)    // 充电处理函数
 					AutoCharge.rechg_cnt = 0;
 					EN_CHG_ENABLE;     // 充电使能
 					check_cnt = 0;
-					Pms.Bat_Sta |= 0x01;   // chargine
+					//Pms.Bat_Sta |= 0x01;   // chargine
 					Robot_Sys.AutoCharge_task_flag = false;
 					AutoCharge.AutoChg_Cmd = false;
 				}
