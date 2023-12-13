@@ -3,7 +3,7 @@
 .\output\delay.o: ..\Source\SYSTEM\sys.h
 .\output\delay.o: ..\Source\User\stm32f4xx.h
 .\output\delay.o: ..\CORE\core_cm4.h
-.\output\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\delay.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
 .\output\delay.o: ..\CORE\core_cmInstr.h
 .\output\delay.o: ..\CORE\core_cmFunc.h
 .\output\delay.o: ..\CORE\core_cm4_simd.h
@@ -37,12 +37,12 @@
 .\output\delay.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
 .\output\delay.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
 .\output\delay.o: ..\UCOSIII\uCOS_CONFIG\includes.h
-.\output\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\output\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\output\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
-.\output\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\output\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-.\output\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\output\delay.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\delay.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\string.h
+.\output\delay.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\ctype.h
+.\output\delay.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\output\delay.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\output\delay.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\math.h
 .\output\delay.o: ..\UCOSIII\uCOSIII_Core\os.h
 .\output\delay.o: ..\UCOSIII\uCOS_CONFIG\os_cfg.h
 .\output\delay.o: ..\UCOSIII\uC_CPU\cpu.h
@@ -67,7 +67,7 @@
 .\output\delay.o: ..\Source\Bsp\inc\Bsp_CAP_Cfg.h
 .\output\delay.o: ..\Source\Bsp\inc\Bsp_PWM_Cfg.h
 .\output\delay.o: ..\Source\Bsp\inc\Bsp_TIM_Cfg.h
-.\output\delay.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\output\delay.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\output\delay.o: ..\Source\Bsp\inc\Bsp_USART_Cfg.h
 .\output\delay.o: ..\Source\Bsp\inc\Bsp_RS485_Cfg.h
 .\output\delay.o: ..\Source\Bsp\inc\Bsp_IIC.h

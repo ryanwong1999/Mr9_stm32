@@ -1,9 +1,9 @@
 .\output\bsp_adc_cfg.o: ..\Source\Bsp\src\Bsp_ADC_Cfg.c
-.\output\bsp_adc_cfg.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\bsp_adc_cfg.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
 .\output\bsp_adc_cfg.o: ..\Source\Bsp\inc\Bsp_ADC_Cfg.h
 .\output\bsp_adc_cfg.o: ..\Source\User\stm32f4xx.h
 .\output\bsp_adc_cfg.o: ..\CORE\core_cm4.h
-.\output\bsp_adc_cfg.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\bsp_adc_cfg.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
 .\output\bsp_adc_cfg.o: ..\CORE\core_cmInstr.h
 .\output\bsp_adc_cfg.o: ..\CORE\core_cmFunc.h
 .\output\bsp_adc_cfg.o: ..\CORE\core_cm4_simd.h
@@ -37,11 +37,11 @@
 .\output\bsp_adc_cfg.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
 .\output\bsp_adc_cfg.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
 .\output\bsp_adc_cfg.o: ..\UCOSIII\uCOS_CONFIG\includes.h
-.\output\bsp_adc_cfg.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\output\bsp_adc_cfg.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
-.\output\bsp_adc_cfg.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\output\bsp_adc_cfg.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-.\output\bsp_adc_cfg.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\output\bsp_adc_cfg.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\string.h
+.\output\bsp_adc_cfg.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\ctype.h
+.\output\bsp_adc_cfg.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\output\bsp_adc_cfg.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\output\bsp_adc_cfg.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\math.h
 .\output\bsp_adc_cfg.o: ..\UCOSIII\uCOSIII_Core\os.h
 .\output\bsp_adc_cfg.o: ..\UCOSIII\uCOS_CONFIG\os_cfg.h
 .\output\bsp_adc_cfg.o: ..\UCOSIII\uC_CPU\cpu.h
@@ -67,7 +67,7 @@
 .\output\bsp_adc_cfg.o: ..\Source\Bsp\inc\Bsp_CAP_Cfg.h
 .\output\bsp_adc_cfg.o: ..\Source\Bsp\inc\Bsp_PWM_Cfg.h
 .\output\bsp_adc_cfg.o: ..\Source\Bsp\inc\Bsp_TIM_Cfg.h
-.\output\bsp_adc_cfg.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\output\bsp_adc_cfg.o: C:\AAAAAAAAPP\Keil5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\output\bsp_adc_cfg.o: ..\Source\Bsp\inc\Bsp_USART_Cfg.h
 .\output\bsp_adc_cfg.o: ..\Source\Bsp\inc\Bsp_RS485_Cfg.h
 .\output\bsp_adc_cfg.o: ..\Source\Bsp\inc\Bsp_IIC.h

@@ -200,7 +200,7 @@ uint8_t Get_OverCurFlag(uint8_t _cmd, uint16_t _cur)
 			}
 			else
 			{
-			overcur_cnt = 0;
+				overcur_cnt = 0;
 			}
 			break;
 			
@@ -244,6 +244,7 @@ uint8_t Get_OverCurFlag(uint8_t _cmd, uint16_t _cur)
 */
 uint16_t Get_LiftMoto_Height(void)
 {
+//	printf("Lift_Moto.Lift_Tim: %d\r\n", Lift_Moto.Lift_Tim);
 	return (Lift_Moto.Lift_Tim * MAX_HEIGHT)/MAX_LIFT_TIM;
 }
 
@@ -311,10 +312,10 @@ void LiftMoto_GoTO_SetHeiht(uint16_t *_set_height)
 		}
 	}	
 	#elif LiftMoto_2
-	if(*_set_height == MAX_HEIGHT_3)
+	if(*_set_height == MAX_HEIGHT)
 	{
 		/* 上限位 */
-		if(Lift_Moto.Height >= MAX_HEIGHT_3 - 1) 
+		if(Lift_Moto.Height >= MAX_HEIGHT - 1) 
 			Lift_Moto.Lift_OK_flag = true;
 		else 
 			Lift_Moto.Cmd = LIFT_UP;
@@ -382,7 +383,10 @@ void LiftMoto_Process(void)
 	}
 	LiftMoto_Set(Lift_Moto.Cmd);
 	#elif LiftMoto_2
-	Lift_Moto.Height = GetLiftHeight();
+	uint16_t a = GetLiftHeight();					//捕获升降杆脉冲
+	uint16_t b = Get_LiftMoto_Height();		//通过时间计算高度
+	Lift_Moto.Height = ((a == 0 || a >= MAX_HEIGHT - 1) ? b : a);
+//	printf("Lift_Moto.Height: %d\r\n", Lift_Moto.Height);
 //	printf("Lift_Moto.Lift_OK_flag: %d\r\n", Lift_Moto.Lift_OK_flag);
 //	printf("Lift_Moto.Set_Height: %d\r\n", Lift_Moto.Set_Height);
 	if(Lift_Moto.Set_Height != 0xffff)
