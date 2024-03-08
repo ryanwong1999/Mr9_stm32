@@ -99,10 +99,10 @@ void TIM2_IRQHandler(void)
 			switch(Robot_Sys.mBeepStatus.BeepMode)
 			{
 				case 0x01:
-					BEEP_ON;
+					BEEP_ENABLE;
 					if(Robot_Sys.mBeepStatus.BeepTime++ > 100)
 					{				
-						BEEP_OFF;
+						BEEP_DISABLE;
 						Robot_Sys.mBeepStatus.BeepMode = 0;
 						Robot_Sys.mBeepStatus.BeepTime = 0;
 					}
@@ -129,6 +129,16 @@ void TIM2_IRQHandler(void)
 				case 0x03:
 					BEEP_ON;
 					if(Robot_Sys.mBeepStatus.BeepTime++ > 400)
+					{				
+						BEEP_OFF;
+						Robot_Sys.mBeepStatus.BeepMode = 0;
+						Robot_Sys.mBeepStatus.BeepTime = 0;
+					}
+					break;
+					
+				case 0x04:
+					BEEP_ON;
+					if(Robot_Sys.mBeepStatus.BeepTime++ > 20)
 					{				
 						BEEP_OFF;
 						Robot_Sys.mBeepStatus.BeepMode = 0;

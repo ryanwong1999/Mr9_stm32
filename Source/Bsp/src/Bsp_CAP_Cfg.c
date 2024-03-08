@@ -155,7 +155,7 @@ static int read_encoder(void)
 				reset_down = 0;
 			}
 		}		
-		else if(Lift_Moto.Set_Height == MAX_HEIGHT_2)
+		else if(Lift_Moto.Set_Height == MAX_HEIGHT)
 		{
 			reset_down = 0;
 			reset_up++;
@@ -167,7 +167,8 @@ static int read_encoder(void)
 //				encoderNum = 4260;
 //				encoderOld = 4260;
 //				TIM_SetCounter(TIM8, 4260);		/* CNTÉè³õÖµ */	
-				Lift_Moto.Lift_OK_flag = true;
+				
+//				Lift_Moto.Lift_OK_flag = true;
 				reset_up = 0;
 			}
 		}
@@ -222,7 +223,7 @@ int GetLiftHeight(void)
 //	hight_mm = ((hight_read - 1000) * 0.0215) * 10;
 //	printf("hight: %d       hight_mm: %d\r\n", hight, hight_mm);
 	
-	if(hight >= MAX_HEIGHT_2) hight = MAX_HEIGHT_2;
+	if(hight >= MAX_HEIGHT) hight = MAX_HEIGHT;
 	if(hight <= 0) hight = 0;
 	return hight;
 }

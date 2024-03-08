@@ -53,7 +53,7 @@ u8 AT24CXX_ReadOneByte(u16 ReadAddr)
 //在AT24CXX指定地址写入一个数据
 //WriteAddr  :写入数据的目的地址    
 //DataToWrite:要写入的数据
-void AT24CXX_WriteOneByte(u16 WriteAddr,u8 DataToWrite)
+void AT24CXX_WriteOneByte(u16 WriteAddr, u8 DataToWrite)
 {				   	  	    																 
   IIC_Start();  
 	if(EE_TYPE>AT24C16)
@@ -77,7 +77,7 @@ void AT24CXX_WriteOneByte(u16 WriteAddr,u8 DataToWrite)
 //WriteAddr  :开始写入的地址  
 //DataToWrite:数据数组首地址
 //Len        :要写入数据的长度2,4
-void AT24CXX_WriteLenByte(u16 WriteAddr,u32 DataToWrite,u8 Len)
+void AT24CXX_WriteLenByte(u16 WriteAddr, u32 DataToWrite, u8 Len)
 {  	
 	u8 t;
 	for(t=0;t<Len;t++)
@@ -91,11 +91,11 @@ void AT24CXX_WriteLenByte(u16 WriteAddr,u32 DataToWrite,u8 Len)
 //ReadAddr   :开始读出的地址 
 //返回值     :数据
 //Len        :要读出数据的长度2,4
-u32 AT24CXX_ReadLenByte(u16 ReadAddr,u8 Len)
+u32 AT24CXX_ReadLenByte(u16 ReadAddr, u8 Len)
 {  	
 	u8 t;
 	u32 temp=0;
-	for(t=0;t<Len;t++)
+	for(t=0; t<Len; t++)
 	{
 		temp<<=8;
 		temp+=AT24CXX_ReadOneByte(ReadAddr+Len-t-1); 	 				   
@@ -108,7 +108,7 @@ u32 AT24CXX_ReadLenByte(u16 ReadAddr,u8 Len)
 //ReadAddr :开始读出的地址 对24c02为0~255
 //pBuffer  :数据数组首地址
 //NumToRead:要读出数据的个数
-void AT24CXX_Read(u16 ReadAddr,u8 *pBuffer,u16 NumToRead)
+void AT24CXX_Read(u16 ReadAddr,u8 *pBuffer, u16 NumToRead)
 {
 	while(NumToRead)
 	{
@@ -122,11 +122,11 @@ void AT24CXX_Read(u16 ReadAddr,u8 *pBuffer,u16 NumToRead)
 //WriteAddr :开始写入的地址 对24c02为0~255
 //pBuffer   :数据数组首地址
 //NumToWrite:要写入数据的个数
-void AT24CXX_Write(u16 WriteAddr,u8 *pBuffer,u16 NumToWrite)
+void AT24CXX_Write(u16 WriteAddr,u8 *pBuffer, u16 NumToWrite)
 {
 	while(NumToWrite--)
 	{
-		AT24CXX_WriteOneByte(WriteAddr,*pBuffer);
+		AT24CXX_WriteOneByte(WriteAddr, *pBuffer);
 		WriteAddr++;
 		pBuffer++;
 	}
@@ -157,7 +157,7 @@ uint8_t AT24xx_Check(void)
 		Pms.Capacity_Set = FULL_CAP;
 		Capacity_Init();
 		
-		Pms.Capacity_mah =  Pms.Capacity * (Pms.Capacity_Set/100); 
+		Pms.Capacity_mah = Pms.Capacity * (Pms.Capacity_Set/100); 
 		
 		Robot_Sys.Ultra_Disable_Flag = 0;
 		Robot_Sys.IR_Bottom_Disable_Flag = 0;
@@ -166,26 +166,26 @@ uint8_t AT24xx_Check(void)
 		printf("Firse Write AT24xx !\r\n");
 		
 		AT24CXX_WriteOneByte(2,(Pms.Capacity_Set>>8) & 0x00ff);	//设置容量
-		AT24CXX_WriteOneByte(3,Pms.Capacity_Set& 0x00ff);
+		AT24CXX_WriteOneByte(3, Pms.Capacity_Set& 0x00ff);
 		
 		AT24CXX_WriteOneByte(4,(Pms.Capacity_mah>>8) & 0x00ff);	//当前容量
-		AT24CXX_WriteOneByte(5,Pms.Capacity_mah& 0x00ff);
+		AT24CXX_WriteOneByte(5, Pms.Capacity_mah& 0x00ff);
 			
 		//头部水平俯仰设置偏移量
-		Head_Status.Level_Offset = -10;
-		Head_Status.Pitch_Offset = 70;
-		AT24CXX_WriteOneByte(6,Head_Status.Level_Offset);   		//当前容量
-		AT24CXX_WriteOneByte(7,Head_Status.Pitch_Offset);
+		Head_Status.Level_Offset = 0;
+		Head_Status.Pitch_Offset = 0;
+		AT24CXX_WriteOneByte(6, Head_Status.Level_Offset);   		//当前容量
+		AT24CXX_WriteOneByte(7, Head_Status.Pitch_Offset);
 	
-		AT24CXX_WriteOneByte(8,Robot_Sys.Ultra_Disable_Flag);   //当前容量
-		AT24CXX_WriteOneByte(9,Robot_Sys.IR_Bottom_Disable_Flag);
-		AT24CXX_WriteOneByte(10,Robot_Sys.IR_Front_Disable_Flag);
+		AT24CXX_WriteOneByte(8, Robot_Sys.Ultra_Disable_Flag);   //当前容量
+		AT24CXX_WriteOneByte(9, Robot_Sys.IR_Bottom_Disable_Flag);
+		AT24CXX_WriteOneByte(10, Robot_Sys.IR_Front_Disable_Flag);
 		
-		AT24CXX_WriteOneByte(FIRST_STA_ADDR,AT24CXX_FIRST_STA);
+		AT24CXX_WriteOneByte(FIRST_STA_ADDR, AT24CXX_FIRST_STA);
 	  temp=AT24CXX_ReadOneByte(FIRST_STA_ADDR);	 
 	
     delay_ms(2);
-    printf("write first sta : %02x\r\n",temp);		
+    printf("write first sta : %02x\r\n", temp);		
 		if(temp == AT24CXX_FIRST_STA)
 		{
 			Robot_Sys.mBeepStatus.BeepMode = 2;

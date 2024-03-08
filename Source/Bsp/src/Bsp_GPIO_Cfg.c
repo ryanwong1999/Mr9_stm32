@@ -29,7 +29,7 @@ void LED_GPIO_Cfg_Init(void)
 	/* 定义一个GPIO_InitTypeDef类型的结构体 */
 	GPIO_InitTypeDef GPIO_InitStructure;
 	/* 开启LED相关的GPIO外设时钟 */
-	RCC_AHB1PeriphClockCmd (LEDG_PORT_CLK, ENABLE); 	
+	RCC_AHB1PeriphClockCmd(LEDG_PORT_CLK, ENABLE); 	
 	/* 选择要控制的GPIO引脚 */															   
 	GPIO_InitStructure.GPIO_Pin 	= LED_GREEN_PIN;
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_OUT;   		/* 设置引脚模式为输出模式 */
@@ -38,7 +38,7 @@ void LED_GPIO_Cfg_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;		/* 设置引脚速率为2MHz */  
 	GPIO_Init(LEDG_PORT, &GPIO_InitStructure);			    /* 调用库函数，使用上面配置的GPIO_InitStructure初始化GPIO */
 
-	RCC_AHB1PeriphClockCmd (LEDR_PORT_CLK , ENABLE); 	
+	RCC_AHB1PeriphClockCmd(LEDR_PORT_CLK , ENABLE); 	
 
 	/* 选择要控制的GPIO引脚 */															   
 	GPIO_InitStructure.GPIO_Pin 	= LED_RED_PIN;
@@ -49,7 +49,7 @@ void LED_GPIO_Cfg_Init(void)
 	GPIO_Init(LEDR_PORT, &GPIO_InitStructure);					/* 调用库函数，使用上面配置的GPIO_InitStructure初始化GPIO */
 
 
-	RCC_AHB1PeriphClockCmd (LED_TEST_PORT_CLK, ENABLE); 	
+	RCC_AHB1PeriphClockCmd(LED_TEST_PORT_CLK, ENABLE); 	
 
 	GPIO_InitStructure.GPIO_Pin 	= LED_TEST_PIN;
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_OUT;   		/* 设置引脚模式为输出模式 */
@@ -79,7 +79,7 @@ void Lamp_GPIO_Cfg_Init(void)
 	/* 定义一个GPIO_InitTypeDef类型的结构体 */
 	GPIO_InitTypeDef GPIO_InitStructure;
 	/* 开启LED相关的GPIO外设时钟 */
-	RCC_AHB1PeriphClockCmd (LAMP_PORT_CLK, ENABLE); 	
+	RCC_AHB1PeriphClockCmd(LAMP_PORT_CLK, ENABLE); 	
 	/* 选择要控制的GPIO引脚 */															   
 	GPIO_InitStructure.GPIO_Pin 	= LAMP_RED_PIN | LAMP_GREEN_PIN |LAMP_YELLOW_PIN | LAMP_BEEP_PIN;
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_OUT;   		/* 设置引脚模式为输出模式 */
@@ -88,7 +88,7 @@ void Lamp_GPIO_Cfg_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;		/* 设置引脚速率为2MHz */  
 	GPIO_Init(LAMP_PORT, &GPIO_InitStructure);			    /* 调用库函数，使用上面配置的GPIO_InitStructure初始化GPIO */
 
-	RCC_AHB1PeriphClockCmd (LEDR_PORT_CLK, ENABLE); 	
+	RCC_AHB1PeriphClockCmd(LEDR_PORT_CLK, ENABLE); 	
 
 	LAMP_RED_OFF;
 	LAMP_GREEN_OFF;
@@ -115,13 +115,13 @@ void BEEP_GPIO_Cfg_Init(void)
   RCC_AHB1PeriphClockCmd(BEEP_PORT_CLK, ENABLE); 
 
   GPIO_InitStructure.GPIO_Pin 	=  BEEP_PIN;
-  GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_OUT;			// 输出
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;			// 推挽输出
-	GPIO_InitStructure.GPIO_PuPd 	= GPIO_PuPd_NOPULL;		// 不上拉 ,也不下拉
+  GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_OUT;		// 输出
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;		// 推挽输出
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	 
+	GPIO_InitStructure.GPIO_PuPd 	= GPIO_PuPd_DOWN;		// 不上拉 ,也不下拉
   GPIO_Init(BEEP_PORT, &GPIO_InitStructure);	
 	
-	BEEP_DISABLE ;
+	BEEP_DISABLE;
 }
 
 
@@ -140,7 +140,7 @@ void PowerSys_Gpio_Cfg_Init(void)
 	/* 定义一个GPIO_InitTypeDef类型的结构体 */
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
-	RCC_AHB1PeriphClockCmd (EN_CHG_PORT_CLK, ENABLE);   /* 开启相关的GPIO外设时钟 */	
+	RCC_AHB1PeriphClockCmd(EN_CHG_PORT_CLK, ENABLE);   /* 开启相关的GPIO外设时钟 */	
 															 
 	GPIO_InitStructure.GPIO_Pin 	= EN_CHG_PIN;        	/* 充电使能口 */
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_OUT;   		/* 设置引脚模式为输出模式 */
@@ -149,7 +149,7 @@ void PowerSys_Gpio_Cfg_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;		/* 设置引脚速率为2MHz */  
 	GPIO_Init(EN_CHG_PORT, &GPIO_InitStructure);			  /* 调用库函数，使用上面配置的GPIO_InitStructure初始化GPIO */
  
-	RCC_AHB1PeriphClockCmd (EN_OUT_PORT_CLK, ENABLE);   /* 开启相关的GPIO外设时钟 */	
+	RCC_AHB1PeriphClockCmd(EN_OUT_PORT_CLK, ENABLE);   /* 开启相关的GPIO外设时钟 */	
 													 
 	GPIO_InitStructure.GPIO_Pin 	= EN_OUT_PIN;         /* 系统供电使能 */
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_OUT;   		/* 设置引脚模式为输出模式 */
@@ -158,7 +158,7 @@ void PowerSys_Gpio_Cfg_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;		/* 设置引脚速率为2MHz */  
 	GPIO_Init(EN_OUT_PORT, &GPIO_InitStructure);			  /* 调用库函数，使用上面配置的GPIO_InitStructure初始化GPIO */
 
-	RCC_AHB1PeriphClockCmd (EN24_PORT_CLK, ENABLE);     /* 开启相关的GPIO外设时钟 */	
+	RCC_AHB1PeriphClockCmd(EN24_PORT_CLK, ENABLE);     /* 开启相关的GPIO外设时钟 */	
 													 
 	GPIO_InitStructure.GPIO_Pin 	= EN24_PIN;           /* 24V输出使能 */
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_OUT;   		/* 设置引脚模式为输出模式 */
@@ -167,7 +167,7 @@ void PowerSys_Gpio_Cfg_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz; 		/* 设置引脚速率为2MHz */  
 	GPIO_Init(EN24_PORT, &GPIO_InitStructure);			  	/* 调用库函数，使用上面配置的GPIO_InitStructure初始化GPIO */
 	
-	RCC_AHB1PeriphClockCmd (EN_MDRV_PORT_CLK, ENABLE);  /* 开启相关的GPIO外设时钟 */
+	RCC_AHB1PeriphClockCmd(EN_MDRV_PORT_CLK, ENABLE);  /* 开启相关的GPIO外设时钟 */
 						 
 	GPIO_InitStructure.GPIO_Pin 	= EN_MDRV_PIN;        /* 电机驱动供电输出使能 */
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_OUT;   		/* 设置引脚模式为输出模式 */
@@ -176,7 +176,7 @@ void PowerSys_Gpio_Cfg_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz; 		/* 设置引脚速率为2MHz */  
 	GPIO_Init(EN_MDRV_PORT, &GPIO_InitStructure);			  /* 调用库函数，使用上面配置的GPIO_InitStructure初始化GPIO */
 
-	RCC_AHB1PeriphClockCmd (POWERKEY_PORT_CLK, ENABLE); /* 开启相关的GPIO外设时钟 */	
+	RCC_AHB1PeriphClockCmd(POWERKEY_PORT_CLK, ENABLE); /* 开启相关的GPIO外设时钟 */	
 														 
 	GPIO_InitStructure.GPIO_Pin 	= POWERKEY_PIN;       /* 开关机按键输入口 */
 	GPIO_InitStructure.GPIO_Mode	= GPIO_Mode_IN;   		/* 设置引脚模式为输出模式 */
@@ -184,7 +184,7 @@ void PowerSys_Gpio_Cfg_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz; 	/* 设置引脚速率为2MHz */  
 	GPIO_Init(POWERKEY_PORT, &GPIO_InitStructure);			/* 调用库函数，使用上面配置的GPIO_InitStructure初始化GPIO */
 			
-	RCC_AHB1PeriphClockCmd (EN_DC12V_PORT_CLK, ENABLE); /* 开启相关的GPIO外设时钟 */	
+	RCC_AHB1PeriphClockCmd(EN_DC12V_PORT_CLK, ENABLE); /* 开启相关的GPIO外设时钟 */	
 															 
 	GPIO_InitStructure.GPIO_Pin 	= EN_DC12V_PIN;       /* 12V输出使能 */
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_OUT;   		/* 设置引脚模式为输出模式 */
@@ -193,7 +193,7 @@ void PowerSys_Gpio_Cfg_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz; 		/* 设置引脚速率为2MHz */
 	GPIO_Init(EN_DC12V_PORT, &GPIO_InitStructure);			/* 调用库函数，使用上面配置的GPIO_InitStructure初始化GPIO */
 
-	RCC_AHB1PeriphClockCmd (PC_EN_PORT_CLK, ENABLE);    /* 开启相关的GPIO外设时钟 */
+	RCC_AHB1PeriphClockCmd(PC_EN_PORT_CLK, ENABLE);    /* 开启相关的GPIO外设时钟 */
 															 
 	GPIO_InitStructure.GPIO_Pin 	= PC_EN_PIN;          /* PC机供电使能 */
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_OUT;   		/* 设置引脚模式为输出模式 */
@@ -242,7 +242,7 @@ void PC_Power_Cfg_Init(uint8_t on_off)
 	/* 定义一个GPIO_InitTypeDef类型的结构体 */
 	GPIO_InitTypeDef GPIO_InitStructure;
 	/* 开启LED相关的GPIO外设时钟 */
-	RCC_AHB1PeriphClockCmd (PC_STARTUP_CLK, ENABLE); 	
+	RCC_AHB1PeriphClockCmd(PC_STARTUP_CLK, ENABLE); 	
 	/* 选择要控制的GPIO引脚 */															   
 	switch(on_off)
 	{
@@ -287,7 +287,7 @@ void Ultrasonic_Exti_Init(void)
 	
   RCC_AHB1PeriphClockCmd(ULTRA1_PORT_CLK, ENABLE); 
 
-  GPIO_InitStructure.GPIO_Pin 	=  TRIG1_PIN;
+  GPIO_InitStructure.GPIO_Pin 	= TRIG1_PIN;
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_OUT;		    // 输出
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;        // 推挽输出
 	GPIO_InitStructure.GPIO_PuPd 	= GPIO_PuPd_NOPULL;     // 不上拉 ,也不下拉

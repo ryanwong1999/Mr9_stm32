@@ -30,8 +30,8 @@ typedef struct
 
 typedef struct
 {
-	uint32_t charger;      //充电
-	uint32_t power;        //电量
+	uint32_t charger;		//充电
+	uint32_t power;			//电量
 }Power_Type;
 	 
 typedef struct

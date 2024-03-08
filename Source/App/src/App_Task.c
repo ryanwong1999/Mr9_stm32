@@ -157,10 +157,10 @@ void start_task(void *p_arg)
 * 参  数: 无
 *	返  回: 无
 */				
-	OSSemCreate((OS_SEM*)&UsartRxFromPC_SEM, (CPU_CHAR*)"FromPC_SEM", (OS_SEM_CTR)0, (OS_ERR*)&err);							
-	OSSemCreate((OS_SEM*)&UsartEnviron_SEM, (CPU_CHAR*)"UsartEnviron_SEM", (OS_SEM_CTR)0, (OS_ERR*)&err);	
- 	OSSemCreate((OS_SEM*)&UsartToTest_SEM, (CPU_CHAR*)"UsartToTest_SEM", (OS_SEM_CTR)0, (OS_ERR*)&err);	
- 	OSSemCreate((OS_SEM*)&UsartToDrv_SEM, (CPU_CHAR*)"UsartToDrv_SEM", (OS_SEM_CTR)0, (OS_ERR*)&err);		
+	OSSemCreate((OS_SEM*)&UsartRxFromPC_SEM, 	(CPU_CHAR*)"FromPC_SEM", 				(OS_SEM_CTR)0,	(OS_ERR*)&err);							
+	OSSemCreate((OS_SEM*)&UsartEnviron_SEM, 	(CPU_CHAR*)"UsartEnviron_SEM", 	(OS_SEM_CTR)0,	(OS_ERR*)&err);	
+ 	OSSemCreate((OS_SEM*)&UsartToTest_SEM, 		(CPU_CHAR*)"UsartToTest_SEM", 	(OS_SEM_CTR)0, 	(OS_ERR*)&err);	
+ 	OSSemCreate((OS_SEM*)&UsartToDrv_SEM, 		(CPU_CHAR*)"UsartToDrv_SEM", 		(OS_SEM_CTR)0, 	(OS_ERR*)&err);		
 							
 /*******************************************************************************
 *	函数名: OSSemCreate

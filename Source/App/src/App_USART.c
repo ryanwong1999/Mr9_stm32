@@ -151,9 +151,11 @@ void USART2_IRQHandler(void)				// 串口1中断服务程序
 		dat =USART_ReceiveData(USART2);												// (USART1->DR);	// 读取接收到的数据
 //		USARTx_SendOneByte(USART1, dat);
 		
-		if(UsartToVoice.Usart_Rx_OK == false){
+		if(UsartToVoice.Usart_Rx_OK == false)
+		{
 			UsartToVoice.Rx_Buf[UsartToVoice.Rx_Len++] = dat;
-			if(UsartToVoice.Rx_Len >= 7){
+			if(UsartToVoice.Rx_Len >= 7)
+			{
 				UsartToVoice.Usart_Rx_OK = true;
 				
 			#ifdef SYSTEM_SUPPORT_OS
@@ -198,7 +200,8 @@ void USART3_IRQHandler(void)
 		
 		dat = USART_ReceiveData(USART3);											// (USART1->DR);	// 读取接收到的数据
 //	  USARTx_SendOneByte(USART1, dat);
-		if(UsartToPC.Usart_Rx_OK == false){
+		if(UsartToPC.Usart_Rx_OK == false)
+		{
 			if((UsartToPC.Rx_Sta & 0x02) != 0x02)    						// 收到帧头
 			{
 				if((UsartToPC.Rx_Sta&0x01) != 0x01)
@@ -380,7 +383,7 @@ void UART5_IRQHandler(void)
 					if(UsartToEnviro.Rx_Len >= UsartToEnviro.Rx_Buf[2] + 5)
 					{
 						UsartToEnviro.Usart_Rx_OK = true;
-						#ifdef SYSTEM_SUPPORT_OS					
+						#ifdef SYSTEM_SUPPORT_OS
 						OSSemPost(&UsartEnviron_SEM, OS_OPT_POST_1, &err);	// 发送信号量 
 						#endif
 					}
@@ -389,7 +392,7 @@ void UART5_IRQHandler(void)
 		}
 	}
 	#ifdef SYSTEM_SUPPORT_OS	 	
-	OSIntExit();    
+	OSIntExit();
   #endif
 }
 

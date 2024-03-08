@@ -36,35 +36,23 @@ uint8_t gPscCnt = 0;
 */ 
 void AnalysisCMD(void)
 {
-	int level;
-	int pitch;
 	uint8_t i=0;
-	int16_t lear_tmp;
-	int16_t angular_tmp;
-	int16_t real_lear;
-	int16_t real_angle;
-	float pulse_width_r;
-	float pulse_width_l;
-	static float left_speed_tmp = 0;
-	static float right_speed_tmp = 0;
-	static uint16_t left_inc_pwm = 0;
-	static uint16_t right_inc_pwm = 0;
-	static uint16_t peroid_tmp = 0;
-	static uint8_t period_set_sta = 0;
+	int level, pitch;
+	int16_t lear_tmp, angular_tmp;
+	int16_t real_lear, real_angle;
+	float pulse_width_r, pulse_width_l;
+	static float left_speed_tmp=0, right_speed_tmp=0;
+	static uint16_t left_inc_pwm=0, right_inc_pwm=0;
+	static uint16_t peroid_tmp=0;
+	static uint8_t period_set_sta=0;
 	float period_inc_tmp;
-	uint16_t addr1;
-	uint16_t addr2;
-	uint8_t charge_tmp = 0;
+	uint16_t addr1, addr2;
 	uint8_t cmd_tmp;
 	uint8_t Sdev_tmp;  // 源地址
 	uint8_t Pdev_tmp;  // 目地址	
-	float l_speed;
-	float r_speed;
-	float angle_div;
-	int16_t rx_angle;
-	int16_t rx_lear;
-	int16_t chg_dis;
-	int16_t chg_angle;
+	float l_speed, r_speed, angle_div;
+	int16_t rx_angle, rx_lear;
+	int16_t chg_dis, chg_angle;
 	int16_t autoCharge_flag;
 	
 	if(UsartToPC.Usart_Rx_OK == true)
@@ -216,11 +204,10 @@ void AnalysisCMD(void)
 					{
 						if((Pms.Bat_Sta & 0x01) == 0)
 						{
-							charge_tmp = UsartToPC.Rx_Buf[8];
 //							if(Robot_Sys.Last_Task != CHG_TASK)
 //							{
 								Robot_Sys.Last_Task = CHG_TASK;
-								Robot_Sys.mBeepStatus.BeepMode = 0x01;
+								Robot_Sys.mBeepStatus.BeepMode = 0x04;
 								AutoCharge.AutoChg_Cmd = true;
 								Robot_Sys.AutoCharge_task_flag = false;
 								Robot_Sys.Remote_flag = true;
@@ -229,7 +216,7 @@ void AnalysisCMD(void)
 					}
 //					printf("autoCharge_flag: %d, Last_Task:%d\r\n", autoCharge_flag, Robot_Sys.Last_Task);
 					#ifndef ROBOT_YZ01	
-					Send_Autocharge_reply(gUpdateCnt, Sdev_tmp, charge_tmp);
+					Send_Autocharge_reply(gUpdateCnt, Sdev_tmp, autoCharge_flag);
 					#endif
 					break;
 								

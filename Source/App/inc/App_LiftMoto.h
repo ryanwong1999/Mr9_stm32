@@ -27,10 +27,8 @@ extern "C" {
 #define LIFT_STOP 		0	 
 */                                                                                                                            
 
-#define MAX_HEIGHT    144	 		// 最高高度
-#define MAX_HEIGHT_2  80	 		// 最高高度
-#define MAX_HEIGHT_3  70	 		// 最高高度
-#define MAX_LIFT_TIM  10200   // 升到最高高度所需时间
+#define MAX_HEIGHT    	80	 		// 最高高度	竹节式：144  80  70
+#define MAX_LIFT_TIM  	2000		// 竹节式：10200   // 升到最高高度所需时间
 
 /*
 #define MAX_HEIGHT    95  		// 中山第一台
